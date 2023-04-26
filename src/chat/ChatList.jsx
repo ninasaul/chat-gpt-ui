@@ -25,7 +25,6 @@ export function ChatList() {
       <ScrollView>
         {chat.length ? chat.map((item, index) => <ChatItem key={item.id} index={index} {...item} />) : null}
       </ScrollView>
-      <Button>Button</Button>
       <CreateNew />
     </div>
   )
