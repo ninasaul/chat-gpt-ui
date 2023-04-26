@@ -1,0 +1,31 @@
+:root {
+  --base-color: blue;
+  --theme-background: #eee;
+  --border-color: #eee;
+}
+.dark {
+  --theme-color: #eee;
+  --theme-background: #333;
+}
+.light {
+  --theme-color: #eee;
+  --theme-background: #333;
+}
+
+.flex {
+  display: flex;
+  &-c {
+    display: flex;
+    align-items: center;
+    &-c {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      &-sb {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+  }
+}

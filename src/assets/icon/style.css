@@ -1,0 +1,143 @@
+@font-face {
+  font-family: 'gptico';
+  src:
+    url('fonts/gptico.ttf?y8yfvi') format('truetype'),
+    url('fonts/gptico.woff?y8yfvi') format('woff'),
+    url('fonts/gptico.svg?y8yfvi#gptico') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="ico-"], [class*=" ico-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'gptico' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ico-column-close:before {
+  content: "\e925";
+}
+.ico-column-open:before {
+  content: "\e926";
+}
+.ico-user1:before {
+  content: "\e920";
+}
+.ico-mail:before {
+  content: "\e921";
+}
+.ico-organization:before {
+  content: "\e922";
+}
+.ico-stop:before {
+  content: "\e923";
+}
+.ico-user:before {
+  content: "\e924";
+}
+.ico-add:before {
+  content: "\e900";
+}
+.ico-back:before {
+  content: "\e901";
+}
+.ico-cancel:before {
+  content: "\e902";
+}
+.ico-clear:before {
+  content: "\e903";
+}
+.ico-close:before {
+  content: "\e904";
+}
+.ico-config:before {
+  content: "\e905";
+}
+.ico-copy-ok:before {
+  content: "\e906";
+}
+.ico-copy:before {
+  content: "\e907";
+}
+.ico-dark:before {
+  content: "\e908";
+}
+.ico-down:before {
+  content: "\e909";
+}
+.ico-download:before {
+  content: "\e90a";
+}
+.ico-editor:before {
+  content: "\e90b";
+}
+.ico-files:before {
+  content: "\e90c";
+}
+.ico-full-screen:before {
+  content: "\e90d";
+}
+.ico-history-1:before {
+  content: "\e90e";
+}
+.ico-history:before {
+  content: "\e90f";
+}
+.ico-key:before {
+  content: "\e910";
+}
+.ico-lang:before {
+  content: "\e911";
+}
+.ico-layout:before {
+  content: "\e912";
+}
+.ico-light:before {
+  content: "\e913";
+}
+.ico-link:before {
+  content: "\e914";
+}
+.ico-min-screen:before {
+  content: "\e915";
+}
+.ico-model:before {
+  content: "\e916";
+}
+.ico-more:before {
+  content: "\e917";
+}
+.ico-new:before {
+  content: "\e918";
+}
+.ico-paste:before {
+  content: "\e919";
+}
+.ico-rating:before {
+  content: "\e91a";
+}
+.ico-send:before {
+  content: "\e91b";
+}
+.ico-setting:before {
+  content: "\e91c";
+}
+.ico-share:before {
+  content: "\e91d";
+}
+.ico-theme:before {
+  content: "\e91e";
+}
+.ico-up:before {
+  content: "\e91f";
+}
