@@ -14,8 +14,7 @@ export function MessageHeader() {
         <div className='length'>{chat[currentChat].messages.length} messages</div>
       </div>
       <div className='flex-c z-chat-message__header__icon'>
-        <Icon type="share" />
-        <Icon type="close" />
+        <Icon type="download" />
       </div>
     </div>
   )
@@ -91,7 +90,7 @@ export function StopResponse() {
 
 export function Typing() {
   const { is } = useGlobal()
-  return is.typeing && <Loading text="Chat GPT is Typing"></Loading>
+  return is.typeing && <Loading />
 }
 
 export function Message() {

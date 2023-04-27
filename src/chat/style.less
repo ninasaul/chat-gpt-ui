@@ -32,6 +32,16 @@ body {
       padding: 10px;
       color: var(--text-color);
       border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: 0.5s;
+      border: 1px solid var(--border-color);
+      &:hover {
+        background-color: dark(var(--background-color-gray), 10%);
+      }
+      &.current {
+        border: 1px solid var(--primary);
+        background-color: var(--background-color);
+      }
     }
     .bar {
       color: var(--text-color-gray);
@@ -86,8 +96,12 @@ body {
     }
     &__header {
       padding: 0 var(--spacing);
-      a {
+      .icon {
         cursor: pointer;
+        transition: .5s;
+        &:hover {
+          opacity: 0.6;
+        }
       }
       .length {
         color: var(--text-color-gray);

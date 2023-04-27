@@ -13,7 +13,7 @@ export function ChatItem(props) {
   return (
     <div className={`z-chat-list__item ${currentChat === props.index ? 'current' : ''}`} onClick={() => setState({ currentChat: props.index })} >
       <div className='title'>{props.title}</div>
-      <div className='flex-c-sb bar'><div>{props.messages.length} sessions</div> {props.ct}</div>
+      <div className='flex-c-sb bar'><div>{props.messages.length} messages</div> {props.ct}</div>
     </div>
   )
 }
