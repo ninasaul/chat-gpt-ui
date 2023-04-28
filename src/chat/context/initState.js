@@ -56,7 +56,7 @@ export const initState = {
   },
   is: {
     typeing: false,
-    config: false,
+    config: true,
     fullScreen: true,
     sidebar: true,
     inputing: false,

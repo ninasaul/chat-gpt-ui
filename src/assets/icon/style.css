@@ -1,9 +1,9 @@
 @font-face {
   font-family: 'gptico';
   src:
-    url('fonts/gptico.ttf?y8yfvi') format('truetype'),
-    url('fonts/gptico.woff?y8yfvi') format('woff'),
-    url('fonts/gptico.svg?y8yfvi#gptico') format('svg');
+    url('fonts/gptico.ttf?n3ydmy') format('truetype'),
+    url('fonts/gptico.woff?n3ydmy') format('woff'),
+    url('fonts/gptico.svg?n3ydmy#gptico') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -24,120 +24,147 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.ico-column-close:before {
-  content: "\e925";
+.ico-eye-close:before {
+  content: "\e92c";
 }
-.ico-column-open:before {
-  content: "\e926";
+.ico-eye-open:before {
+  content: "\e92d";
 }
-.ico-user1:before {
-  content: "\e920";
+.ico-help:before {
+  content: "\e92e";
 }
-.ico-mail:before {
-  content: "\e921";
+.ico-refresh:before {
+  content: "\e92f";
 }
-.ico-organization:before {
-  content: "\e922";
-}
-.ico-stop:before {
-  content: "\e923";
-}
-.ico-user:before {
-  content: "\e924";
-}
-.ico-add:before {
+.ico-openai:before {
   content: "\e900";
 }
-.ico-back:before {
+.ico-add:before {
   content: "\e901";
 }
-.ico-cancel:before {
+.ico-back:before {
   content: "\e902";
 }
-.ico-clear:before {
+.ico-cancel:before {
   content: "\e903";
 }
-.ico-close:before {
+.ico-clear:before {
   content: "\e904";
 }
-.ico-config:before {
+.ico-close:before {
   content: "\e905";
 }
-.ico-copy-ok:before {
+.ico-column-close:before {
   content: "\e906";
 }
-.ico-copy:before {
+.ico-column-open:before {
   content: "\e907";
 }
-.ico-dark:before {
+.ico-config:before {
   content: "\e908";
 }
-.ico-down:before {
+.ico-copy-ok:before {
   content: "\e909";
 }
-.ico-download:before {
+.ico-copy:before {
   content: "\e90a";
 }
-.ico-editor:before {
+.ico-dark:before {
   content: "\e90b";
 }
-.ico-files:before {
+.ico-down:before {
   content: "\e90c";
 }
-.ico-full-screen:before {
+.ico-download:before {
   content: "\e90d";
 }
-.ico-history-1:before {
+.ico-editor:before {
   content: "\e90e";
 }
-.ico-history:before {
+.ico-export:before {
   content: "\e90f";
 }
-.ico-key:before {
+.ico-file:before {
   content: "\e910";
 }
-.ico-lang:before {
+.ico-files:before {
   content: "\e911";
 }
-.ico-layout:before {
+.ico-full-screen:before {
   content: "\e912";
 }
-.ico-light:before {
+.ico-history-1:before {
   content: "\e913";
 }
-.ico-link:before {
+.ico-history:before {
   content: "\e914";
 }
-.ico-min-screen:before {
+.ico-key:before {
   content: "\e915";
 }
-.ico-model:before {
+.ico-lang:before {
   content: "\e916";
 }
-.ico-more:before {
+.ico-layout:before {
   content: "\e917";
 }
-.ico-new:before {
+.ico-light:before {
   content: "\e918";
 }
-.ico-paste:before {
+.ico-link:before {
   content: "\e919";
 }
-.ico-rating:before {
+.ico-mail:before {
   content: "\e91a";
 }
-.ico-send:before {
+.ico-message:before {
   content: "\e91b";
 }
-.ico-setting:before {
+.ico-min-screen:before {
   content: "\e91c";
 }
-.ico-share:before {
+.ico-model:before {
   content: "\e91d";
 }
-.ico-theme:before {
+.ico-more:before {
   content: "\e91e";
 }
-.ico-up:before {
+.ico-new:before {
   content: "\e91f";
+}
+.ico-organization:before {
+  content: "\e920";
+}
+.ico-paste:before {
+  content: "\e921";
+}
+.ico-rating:before {
+  content: "\e922";
+}
+.ico-reload:before {
+  content: "\e923";
+}
+.ico-send:before {
+  content: "\e924";
+}
+.ico-setting:before {
+  content: "\e925";
+}
+.ico-share:before {
+  content: "\e926";
+}
+.ico-stop:before {
+  content: "\e927";
+}
+.ico-theme:before {
+  content: "\e928";
+}
+.ico-trash:before {
+  content: "\e929";
+}
+.ico-up:before {
+  content: "\e92a";
+}
+.ico-user:before {
+  content: "\e92b";
 }

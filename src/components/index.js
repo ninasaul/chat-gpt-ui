@@ -23,3 +23,4 @@ export { Theme } from "./Theme";
 export { Text } from "./Text";
 export { Tooltip } from "./Tooltip";
 export { Title } from "./Title";
+export { Range } from "./Range";

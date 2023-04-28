@@ -8,7 +8,7 @@ export function MessageHeader() {
   const columnIcon = is.sidebar ? 'column-close' : 'column-open'
   return (
     <div className='z-chat-message__header flex-c-sb'>
-      <Icon type={columnIcon} onClick={() => setIs({ sidebar: !is.sidebar })} />
+      <Button type="icon" icon={columnIcon}  onClick={() => setIs({ sidebar: !is.sidebar })} />
       <div className='flex-1 title'>
         {chat[currentChat].title}
         <div className='length'>{chat[currentChat].messages.length} messages</div>

@@ -1,4 +1,5 @@
 .z-input {
+  display: flex;
   &-content {
     font-size: var(--text-size-base);
     border: 1px solid var(--border-color);
@@ -9,6 +10,21 @@
     outline: none;
     &:focus {
       border: 1px solid var(--primary);
+    }
+  }
+  &-password {
+    .z-input-content {
+      padding-right: 30px;
+    }
+  }
+  &-inner {
+    position: relative;
+    .z-button-icon {
+      margin-left: -40px;
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
     }
   }
 }

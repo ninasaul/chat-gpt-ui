@@ -4,7 +4,6 @@ body {
 }
 .z-chat {
   font-size: var(--base-font-size);
-
   margin: 0 auto;
   border-radius: var(--border-radius);
   background-color: var(--background-color);
@@ -26,6 +25,10 @@ body {
     padding: 10px;
     border-radius: var(--border-radius) 0 0 var(--border-radius);
     width: 260px;
+    &__tool {
+      visibility: hidden;
+      transition: 0.3s;
+    }
     &__item {
       background-color: var(--background-color-gray);
       margin: 10px 0;
@@ -34,13 +37,14 @@ body {
       border-radius: var(--border-radius);
       cursor: pointer;
       transition: 0.5s;
-      border: 1px solid var(--border-color);
       &:hover {
-        background-color: dark(var(--background-color-gray), 10%);
+        background-color: var(--border-color);
+        .z-chat-list__tool {
+          visibility: initial;
+        }
       }
       &.current {
-        border: 1px solid var(--primary);
-        background-color: var(--background-color);
+        background-color: var(--border-color);
       }
     }
     .bar {
@@ -77,6 +81,7 @@ body {
     & > div {
       width: 100%;
     }
+
     &__text {
       margin: var(--spacing);
     }
@@ -98,7 +103,7 @@ body {
       padding: 0 var(--spacing);
       .icon {
         cursor: pointer;
-        transition: .5s;
+        transition: 0.5s;
         &:hover {
           opacity: 0.6;
         }

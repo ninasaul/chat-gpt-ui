@@ -86,11 +86,14 @@ export const isMobile = () => {
 };
 
 export const setClassName = (arg = {}) => {
-  const { base = "z", name, extra, className = "" } = arg;
+  const { base = "z", name, extra = [], className = "", single = [] } = arg;
   const baseName = `${base}-${name}`;
   const extraName = [];
   for (let i in extra) {
     extra[i] && extraName.push(`${baseName}-${extra[i]}`);
+  }
+  for (let i in single) {
+    single[i] && extraName.push(single[i]);
   }
   return `${baseName} ${extraName.join(" ")}${
     className ? ` ${className}` : ""

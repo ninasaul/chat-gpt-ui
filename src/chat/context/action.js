@@ -50,7 +50,7 @@ export default function action(state, dispatch) {
       const chatList = [
         ...chat,
         {
-          title: "New Chat",
+          title: "This is a New Conversations",
           id: randomNum(),
           messages: [],
           ct: Date.now(),
@@ -79,9 +79,24 @@ export default function action(state, dispatch) {
       const { general } = options;
       setState({ options: { ...options, general: { ...general, ...arg } } });
     },
+
+    clearItem(index) {
+      console.log(index);
+      const { chat } = state;
+      const list = [...chat];
+      list.splice(index, 1);
+      setState({
+        chat: list,
+      });
+    },
+
     setIs(arg) {
       const { is } = state;
       setState({ is: { ...is, ...arg } });
+    },
+
+    currentList() {
+      return state.chat[state.currentChat];
     },
 
     setState,

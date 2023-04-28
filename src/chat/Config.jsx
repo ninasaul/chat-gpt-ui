@@ -52,7 +52,7 @@ export function Config() {
         <Title type="h3">Global OpenAI Config</Title>
         <Panel className="panel">
           <Panel.Item title="ApiKey" desc="Select interface style" icon="key">
-            <Input value={apiKey} placeholder="ApiKey" />
+            <Input value={apiKey} placeholder="ApiKey" type="password" />
           </Panel.Item>
           <Panel.Item icon="model" title="Default language" desc="Select interface style">
             <Input placeholder="Choose Language" />
