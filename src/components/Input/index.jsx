@@ -2,6 +2,7 @@ import React, { forwardRef, useState } from 'react'
 import './style.less'
 import { setClassName } from '../utils'
 import { Button } from '../Button'
+import PropTypes from 'prop-types'
 
 export const Input = forwardRef((props, ref) => {
   const {
@@ -16,11 +17,14 @@ export const Input = forwardRef((props, ref) => {
     ...rest
   } = props;
 
-  const handleClearClick = () => {
-    onClear && onClear();
+  const handleClear = () => {
+    onClear && onClear({ target: { value: '' } });
   };
   const [icon, setIcon] = useState('eye-close');
 
+  function handleChange(event) {
+    onChange && onChange(event.target.value)
+  }
 
   return (
     <div className={setClassName({
@@ -37,15 +41,15 @@ export const Input = forwardRef((props, ref) => {
         extra: ['inner']
       })}>
         <input
-          {...rest}
           ref={ref}
           type={icon === 'eye-open' ? 'text' : type}
           value={value}
           className={setClassName({ name: 'input-content' })}
-          onChange={e => onChange && onChange(e)}
+          onChange={handleChange}
+          {...rest}
         />
-        {showClear && value && type !== 'password'(
-          <Button onClick={handleClearClick} icon="clear" type="icon" />
+        {showClear && value.length && type !== 'password'(
+          <Button onClick={handleClear} icon="clear" type="icon" />
         )}
         {type === 'password' && showPassword && (
           <Button onClick={() => setIcon(icon === 'eye-open' ? 'eye-close' : 'eye-open')} icon={icon} type="icon" />
@@ -61,3 +65,15 @@ Input.defaultProps = {
   showPassword: true,
 };
 
+
+Input.propTypes = {
+  type: PropTypes.string,
+  showPassword: PropTypes.bool,
+  showClear: PropTypes.bool,
+  className: PropTypes.string,
+  extra: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element
+  ]),
+  value: PropTypes.string
+}

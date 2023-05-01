@@ -8,9 +8,10 @@ body {
   border-radius: var(--border-radius);
   background-color: var(--background-color);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-
+  flex-wrap: nowrap;
   &.full {
     height: 100vh;
+    width: 100%;
   }
   &.normal {
     position: fixed;
@@ -22,12 +23,11 @@ body {
   }
   &-list {
     background: var(--background-color);
-    padding: 10px;
     border-radius: var(--border-radius) 0 0 var(--border-radius);
     width: 260px;
+    flex: 0 0 auto;
     &__tool {
       visibility: hidden;
-      transition: 0.3s;
     }
     &__item {
       background-color: var(--background-color-gray);
@@ -36,7 +36,7 @@ body {
       color: var(--text-color);
       border-radius: var(--border-radius);
       cursor: pointer;
-      transition: 0.5s;
+      transition: 0.2s;
       &:hover {
         background-color: var(--border-color);
         .z-chat-list__tool {
@@ -62,7 +62,7 @@ body {
     color: var(--text-color);
     padding: var(--spacing);
     border-radius: var(--border-radius) 0 0 var(--border-radius);
-
+    flex: 0 0 auto;
     &__tool {
       .icon {
         padding: var(--spacing);
@@ -78,12 +78,16 @@ body {
   &-message {
     background-color: var(--background-color-gray);
     border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    flex: 1 1 auto;
     & > div {
       width: 100%;
     }
-
-    &__text {
-      margin: var(--spacing);
+    &__inner {
+      background-color: var(--background-color);
+      border-radius: var(--border-radius);
+      font-size: var(--base-font-size);
+      padding: var(--spacing);
+      min-width: 220px;
     }
     &__tool {
       margin-bottom: var(--spacing);
@@ -128,17 +132,27 @@ body {
       }
     }
     &__content {
-      background-color: var(--background-color);
-      border-radius: var(--border-radius);
       margin-left: 10px;
-      padding: 10px;
-      font-size: var(--base-font-size);
+      margin-right: 38px;
+      display: flex;
+      justify-content: flex-start;
       .date {
         color: var(--text-color-gray);
       }
     }
     &__item {
       margin: 10px 0;
+      &.user {
+        flex-direction: row-reverse;
+        .z-avatar {
+          margin-left: var(--spacing);
+        }
+        .z-chat-message__content {
+          margin-left: 38px;
+          justify-content: flex-end;
+          margin-right: 0;
+        }
+      }
     }
     &__container {
       flex: 1;

@@ -1,37 +1,35 @@
-import React, { forwardRef, useRef, useState } from 'react'
+import React, { forwardRef, useState } from 'react'
 import './style.less'
 import { setClassName } from '../utils';
+import Proptypes from 'prop-types'
+import { Button } from '../Button';
 
 export const Textarea = forwardRef((props, ref) => {
   const {
-    value,
     onChange,
     placeholder,
     className,
     showClear,
-    onClear,
+    disable,
     children,
+    rows,
+    maxHeight,
+    value,
+    defaultValue,
+    onClear,
     ...rest
   } = props;
-  const textareaRef = useRef();
-  const handleClearClick = () => {
-    onClear && onClear();
-  };
 
-  const [rows, setRows] = useState(1);
+  const [height, setHeight] = useState('auto')
 
   function handleChange(event) {
-    const textareaLineHeight = 20;
-    const previousRows = textareaRef.current.rows;
-    event.target.rows = 1;
-    const currentRows = Math.ceil(event.target.scrollHeight / textareaLineHeight);
-    event.target.rows = currentRows;
-
-    if (currentRows !== previousRows) {
-      setRows(currentRows);
-    }
-
-    onChange && onChange(event);
+    setHeight('auto');
+    setHeight(`${event.target.scrollHeight}px`);
+    onChange && onChange(event.target.value);
+  }
+  function handleClear() {
+    onChange && onChange("");
+    onClear && onClear();
   }
 
   const classList = setClassName({
@@ -41,24 +39,42 @@ export const Textarea = forwardRef((props, ref) => {
 
   return (
     <div className={classList}>
-      <textarea
-        {...rest}
-        ref={textareaRef}
-        value={value}
-        rows={rows}
-        style={{ height: rows * 20 }}
-        onChange={handleChange}
-        placeholder={placeholder}
-      />
-      {showClear && value && (
-        <div onClick={handleClearClick} className="ico-clear" />
-      )}
-      {children}
+      <div className={
+        setClassName({
+          name: 'textarea-inner'
+        })
+      }>
+        <textarea
+          ref={ref}
+          rows={rows}
+          style={{ height }}
+          onChange={handleChange}
+          placeholder={placeholder}
+          value={value}
+          {...rest}
+        />
+      </div>
+      {showClear && <Button type="icon" onClick={handleClear} icon="cancel" />}
     </div>
   );
 });
 
 Textarea.defaultProps = {
   showClear: false,
+  disable: false,
+  defaultValue: '',
+  maxHeight: 200,
+  placeholder: '',
+  rows: '1',
 };
 
+Textarea.propTypes = {
+  showClear: Proptypes.bool,
+  onClear: Proptypes.func,
+  className: Proptypes.string,
+  onChange: Proptypes.func,
+  disable: Proptypes.bool,
+  placeholder: Proptypes.string,
+  maxHeight: Proptypes.number,
+  rows: Proptypes.string,
+}

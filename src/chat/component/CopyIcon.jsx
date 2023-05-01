@@ -24,5 +24,5 @@ export function CopyIcon(props) {
 }
 
 CopyIcon.defaultProps = {
-  text: 'copy value'
+  text: 'copy'
 }

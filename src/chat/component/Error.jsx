@@ -8,8 +8,8 @@ export function Error() {
     <div className='z-chat-error'>
       {chatError.code}<br />
       {chatError.message}<br />
-      {chatError.param}<br />
       {chatError.type}<br />
+      {chatError.param}<br />
     </div>
   )
 }

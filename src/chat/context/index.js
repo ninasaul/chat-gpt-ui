@@ -9,9 +9,11 @@ import action from "./action";
 import reducer from "./reducer";
 import { initState } from "./initState";
 
-export const ChatContext = createContext(initState);
+export const ChatContext = createContext({});
+
 export const ChatProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initState);
+  const init = JSON.parse(localStorage.getItem("SESSIONS")) || initState;
+  const [state, dispatch] = useReducer(reducer, init);
   const actionList = action(state, dispatch);
   const latestState = useRef(state);
 
@@ -29,7 +31,7 @@ export const ChatProvider = ({ children }) => {
   useEffect(() => {
     const stateToSave = latestState.current;
     localStorage.setItem("SESSIONS", JSON.stringify(stateToSave));
-  }, []);
+  }, [latestState.current]);
 
   return (
     <ChatContext.Provider value={{ ...state, ...actionList, dispatch }}>

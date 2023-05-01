@@ -2,7 +2,7 @@ import React from 'react'
 import { Avatar, Icon, Theme, Tooltip } from '../components'
 import { useGlobal } from './context'
 
-export function ChatBar() {
+export function ChatSideBar() {
   const { is, setState, setGeneral } = useGlobal()
   return (
     <div className='flex-c-sb flex-column z-chat-sider'>

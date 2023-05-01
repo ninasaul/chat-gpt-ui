@@ -1,11 +1,10 @@
 import React, { useMemo } from "react";
 import { Ui } from "../Ui";
-import "./style.less";
 import { setClassName } from "../utils";
-
+import PropTypes from 'prop-types'
+import "./style.less";
 export function Tooltip({ text, className, type, children, position }) {
   const memoizedChildren = useMemo(() => children, [children]);
-
   return (
     <Ui name="tooltip" className={className} extra={[type]}>
       {memoizedChildren}
@@ -20,4 +19,8 @@ export function Tooltip({ text, className, type, children, position }) {
 
 Tooltip.defaultProps = {
   position: 'top'
+}
+
+Tooltip.propTypes = {
+  position: PropTypes.string,
 }

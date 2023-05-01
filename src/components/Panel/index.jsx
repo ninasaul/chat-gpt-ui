@@ -2,7 +2,7 @@ import React from 'react'
 import { setClassName } from '../utils'
 import { Icon } from '../Icon'
 import './style.less'
-
+import PropTypes from 'prop-types'
 export function Item(props) {
   const { type, title, desc, children, extra, icon } = props
   const boxClass = setClassName({
@@ -34,7 +34,6 @@ export function Item(props) {
   )
 }
 
-
 export function Panel(props) {
   const { children, title, type, className } = props
   const styleClass = setClassName({
@@ -51,8 +50,15 @@ export function Panel(props) {
   )
 }
 
-Panel.Item = Item
-
 Item.defaultProps = {
   type: 'vertical'
 }
+
+Panel.propTypes = {
+  title: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element
+  ]),
+}
+
+Panel.Item = Item
