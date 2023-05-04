@@ -16,6 +16,7 @@ export const Textarea = forwardRef((props, ref) => {
     maxHeight,
     value,
     defaultValue,
+    transparent,
     onClear,
     ...rest
   } = props;
@@ -41,7 +42,7 @@ export const Textarea = forwardRef((props, ref) => {
           style={{ height }}
           onChange={handleChange}
           placeholder={placeholder}
-          className={styles.textarea}
+          className={classnames(styles.textarea, transparent && styles.transparent)}
           value={value}
           {...rest}
         />
@@ -58,10 +59,12 @@ Textarea.defaultProps = {
   maxHeight: 200,
   placeholder: '',
   rows: '1',
+  transparent: false,
 };
 
 Textarea.propTypes = {
   showClear: Proptypes.bool,
+  transparent: Proptypes.bool,
   onClear: Proptypes.func,
   className: Proptypes.string,
   onChange: Proptypes.func,
