@@ -1,19 +1,11 @@
-import React, { forwardRef, useContext } from 'react'
-import "./style.less"
-import { setClassName } from "../utils"
-import { UiContext } from "../context"
+import React, { forwardRef } from 'react'
+import styles from "./button.module.less"
+import { classnames } from "../utils"
 
 export const Button = forwardRef((props, ref) => {
-  const { baseClass } = useContext(UiContext)
   const { className, size, ghost, icon, type, children, ...rest } = props
-  const classStyle = setClassName({
-    base: baseClass,
-    name: 'button',
-    extra: [type, ghost && 'ghost', size],
-    className
-  })
   return (
-    <button className={classStyle} ref={ref} {...rest} >
+    <button className={classnames(styles.button, size && styles.size, icon && styles.icon, type && styles.type, ghost && styles.ghost)} ref={ref} {...rest} >
       {icon && <i className={`ico ico-${icon}`} />}
       {children}
     </button>
@@ -23,6 +15,5 @@ export const Button = forwardRef((props, ref) => {
 Button.defaultProps = {
   ghost: false,
   size: 'normal',
-  icon: null,
-  type: null
+  icon: ''
 }

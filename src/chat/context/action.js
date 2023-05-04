@@ -1,4 +1,4 @@
-import { fetchStream } from "./chat";
+import { fetchStream } from "../service";
 
 export default function action(state, dispatch) {
   const setState = (payload = {}) =>
@@ -34,7 +34,7 @@ export default function action(state, dispatch) {
               const { sentTime, id, ...rest } = item;
               return { ...rest };
             }),
-            options: options.model,
+            options: options.openai,
             signal: controller.signal,
             onMessage(content) {
               newChat.splice(currentChat, 1, {
@@ -60,7 +60,21 @@ export default function action(state, dispatch) {
                 is: { ...is, thinking: false },
               });
             },
+            onError(res) {
+              console.log(res);
+              const { error } = res || {};
+              if (error) {
+                newChat.splice(currentChat, 1, {
+                  ...chat[currentChat],
+                  error,
+                });
+                setState({
+                  chat: newChat,
+                });
+              }
+            },
           });
+          console.log(res);
         } catch (error) {
           console.log(error);
         }
@@ -79,21 +93,25 @@ export default function action(state, dispatch) {
       ];
       setState({ chat: chatList, currentChat: chatList.length - 1 });
     },
-    editChat(index,title) {
-      const chat = [...state.chat]
-      chat.splice(index,1,[...chat[index],title])
+    editChat(index, title) {
+      const chat = [...state.chat];
+      chat.splice(index, 1, [...chat[index], title]);
       setState({
-        chat
-      })
-    },
-    removeChat(index) {
-      const chat = [...state.chat]
-      chat.splice(index, 1);
-      const payload =  state.currentChat === index ? {chat,currentChat:index - 1} : {chat}
-      setState({
-        ...payload
+        chat,
       });
     },
+    removeChat(index) {
+      const chat = [...state.chat];
+      chat.splice(index, 1);
+      const payload =
+        state.currentChat === index
+          ? { chat, currentChat: index - 1 }
+          : { chat };
+      setState({
+        ...payload,
+      });
+    },
+
     setMessage(content) {
       const typeingMessage =
         content === ""
@@ -105,17 +123,22 @@ export default function action(state, dispatch) {
             };
       setState({ is: { ...state.is, typeing: true }, typeingMessage });
     },
-    setOptions() {
-      const { options } = state;
-      setState({ options: { ...options, ...arg } });
+
+    removeMessage(index) {
+      const messages = state.chat[state.currentChat].messages;
+      const chat = [...state.chat];
+      messages.splice(index, 1);
+      chat[state.currentChat].messages = messages;
+      setState({
+        chat,
+      });
     },
 
-    setModel() {},
-
-    setGeneral(arg = {}) {
-      const { options } = state;
-      const { general } = options;
-      setState({ options: { ...options, general: { ...general, ...arg } } });
+    setOptions({ type, data = {} }) {
+      console.log(type, data);
+      let options = { ...state.options };
+      options[type] = { ...options[type], ...data };
+      setState({ options });
     },
 
     setIs(arg) {
@@ -125,6 +148,12 @@ export default function action(state, dispatch) {
 
     currentList() {
       return state.chat[state.currentChat];
+    },
+
+    stopResonse() {
+      setState({
+        is: { ...state.is, thinking: false },
+      });
     },
   };
 }

@@ -1,4 +1,6 @@
 export const initState = {
+  conversation: [],
+  current: 0,
   chat: [
     {
       title: "Generate useLocalStorage",
@@ -50,16 +52,17 @@ export const initState = {
       language: "English",
       theme: "light",
       sendCommand: "Enter",
+      size: "normal",
     },
-    model: {
+    openai: {
       baseUrl: "",
       organizationId: "",
       temperature: 1,
       model: "gpt-3.5-turbo",
       apiKey: "",
       max_tokens: 2048,
-      stream: true,
       n: 1,
+      stream: true,
     },
   },
   is: {

@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { Tooltip, Icon } from '@/components'
+import styles from './style.module'
+import { classnames } from '../../components/utils';
 
 export function CopyIcon(props) {
-  const { text, value } = props
+  const { text, value, className } = props
   const [icon, setIcon] = useState('copy');
   function handleCopy() {
     const tempInput = document.createElement("input");
@@ -19,7 +21,7 @@ export function CopyIcon(props) {
   }
 
   return (
-    <Tooltip text={text} className="copytip"><Icon onClick={handleCopy} type={icon} /></Tooltip>
+    <Tooltip text={text} className={styles.copy}><Icon onClick={handleCopy} className={className} type={icon} /></Tooltip>
   )
 }
 

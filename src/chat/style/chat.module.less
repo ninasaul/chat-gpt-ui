@@ -1,0 +1,51 @@
+.chat {
+  font-size: var(--font-size-base);
+  margin: 0 auto;
+  border-radius: var(--border-radius);
+  background-color: var(--background-color);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  flex-wrap: nowrap;
+  display: flex;
+}
+.full {
+  height: 100vh;
+  width: 100%;
+}
+.normal {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%;-50%);
+  height: 90%;
+  width: 80%;
+}
+.container {
+  background: var(--background-color-gray);
+}
+
+@media screen and (max-width: 600px) {
+  .z-chat {
+    &-sider {
+      display: none;
+    }
+    &-list {
+      display: none;
+    }
+    &.full {
+      height: 100vh;
+      width: 100%;
+    }
+    &.normal {
+      position: inherit;
+      transform: translate(0, 0);
+      height: 100vh;
+      width: 100%;
+    }
+    &-message {
+      width: 100%;
+      &_item {
+        display: block;
+      }
+    }
+  }
+}

@@ -1,4 +1,20 @@
 import { createParser } from "eventsource-parser";
+import { setAbortController } from "./abortController.mjs";
+
+export async function* streamAsyncIterable(stream) {
+  const reader = stream.getReader();
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) {
+        return;
+      }
+      yield value;
+    }
+  } finally {
+    reader.releaseLock();
+  }
+}
 
 export const fetchBaseUrl = (baseUrl) =>
   baseUrl || "https://api.openai.com/v1/chat/completions";
@@ -17,14 +33,10 @@ export const throwError = async (response) => {
     let errorPayload = null;
     try {
       errorPayload = await response.json();
+      console.log(errorPayload);
     } catch (e) {
       // ignore
     }
-    throw new Error(
-      `${response.status} · ${response.statusText}${
-        errorPayload ? " · " + JSON.stringify(errorPayload) : ""
-      }`
-    );
   }
 };
 
@@ -46,7 +58,7 @@ export const fetchAction = async ({
   method = "POST",
   messages = [],
   options = {},
-  controller,
+  signal,
 }) => {
   const { baseUrl, ...rest } = options;
   const url = fetchBaseUrl(baseUrl);
@@ -56,34 +68,36 @@ export const fetchAction = async ({
     method,
     headers,
     body,
-    signal: controller.signal,
+    signal,
   });
-  await throwError(response);
   return response;
 };
 
-export async function fetchStream({
+export const fetchStream = async ({
   options,
   messages,
   onMessage,
   onEnd,
+  onError,
   onStar,
-}) {
+}) => {
   let answer = "";
-  const controller = new AbortController();
-  const res = await fetchAction({ options, messages, controller }).catch(
-    async (err) => {
-      // await onError(err);
-      console.log(err);
+  const { controller, signal } = setAbortController();
+  console.log(signal, controller);
+  const result = await fetchAction({ options, messages, signal }).catch(
+    (error) => {
+      onError && onError(error, controller);
     }
   );
-  if (!res) return;
-  if (!res.ok) {
-    console.log(err);
-    // await onError(resp);
+  if (!result) return;
+  if (!result.ok) {
+    const error = await result.json();
+    onError && onError(error);
     return;
   }
+
   const parser = createParser((event) => {
+    console.log(event.data);
     if (event.type === "event") {
       if (event.data === "[DONE]") {
         return;
@@ -95,35 +109,20 @@ export async function fetchStream({
         return;
       }
       if ("content" in data.choices[0].delta) {
-        console.log(data);
         answer += data.choices[0].delta.content;
-        onMessage(answer);
+        console.log(data);
+        onMessage && onMessage(answer, controller);
       }
     }
   });
   let hasStarted = false;
-  for await (const chunk of streamAsyncIterable(res.body)) {
+  for await (const chunk of streamAsyncIterable(result.body)) {
     const str = new TextDecoder().decode(chunk);
     parser.feed(str);
     if (!hasStarted) {
       hasStarted = true;
-      // await onStart(str);
+      onStar && onStar(str, controller);
     }
   }
   await onEnd();
-}
-
-export async function* streamAsyncIterable(stream) {
-  const reader = stream.getReader();
-  try {
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) {
-        return;
-      }
-      yield value;
-    }
-  } finally {
-    reader.releaseLock();
-  }
-}
+};

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './style.less';
-import { setClassName } from '../utils';
+import styles from './range.module.less';
+import { classnames } from '../utils';
 
 
 export const Range = React.forwardRef((props, ref) => {
@@ -15,19 +15,11 @@ export const Range = React.forwardRef((props, ref) => {
     setVal(value)
   }, [value])
   return (
-    <div className={setClassName({
-      name: 'range',
-      single: ['flex-c'],
-      className
-    })}>
+    <div className={classnames(styles.range)}>
       <div className='flex-1'>
         <input ref={ref} type="range" min={min} max={max}  {...rest} value={val} onChange={handleChange} />
       </div>
-      <div className={
-        setClassName({
-          name: 'range-value',
-        })
-      }> {val}</div>
+      <div className={styles.value}> {val}</div>
     </div>
   );
 })

@@ -89,13 +89,37 @@ export const setClassName = (arg = {}) => {
   const { base = "z", name, extra = [], className = "", single = [] } = arg;
   const baseName = `${base}-${name}`;
   const extraName = [];
-  for (let i in extra) {
-    extra[i] && extraName.push(`${baseName}-${extra[i]}`);
+  if (isArray(extra)) {
+    for (let i in extra) {
+      extra[i] && extraName.push(`${baseName}-${extra[i]}`);
+    }
   }
-  for (let i in single) {
-    single[i] && extraName.push(single[i]);
+  if (isArray(single)) {
+    for (let i in single) {
+      single[i] && extraName.push(single[i]);
+    }
   }
   return `${baseName} ${extraName.join(" ")}${
     className ? ` ${className}` : ""
   }`;
+};
+
+export const classnames = (...arg) => {
+  const base = "";
+  const [extra, ...rest] = arg;
+  const other = [...rest];
+  let className = [];
+  if (isArray(extra))
+    className = [...className, ...extra.map((item) => `${base}${item}`)];
+  if (isString(extra)) className.push(`${base}${extra}`);
+  for (let i in other) {
+    const node = other[i];
+    if (isArray(node)) {
+      className = [...className, ...node];
+    }
+    if (isString(node)) {
+      className.push(`${node}`);
+    }
+  }
+  return className.join(" ");
 };

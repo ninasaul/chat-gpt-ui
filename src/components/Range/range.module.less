@@ -1,13 +1,9 @@
-.z-range {
-  &-value {
-    margin-left: var(--spacing-min);
-  }
+.range {
   input[type="range"] {
     -webkit-appearance: none;
     width: 100%;
     margin: 0;
   }
-
   input[type="range"]:focus {
     outline: none;
   }
@@ -35,4 +31,7 @@
   input[type="range"]:focus::-webkit-slider-runnable-track {
     background: var(--background-color-gray);
   }
+}
+.value {
+  margin-left: var(--spacing-min);
 }

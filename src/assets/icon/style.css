@@ -1,9 +1,9 @@
 @font-face {
   font-family: 'gptico';
   src:
-    url('fonts/gptico.ttf?9n0me0') format('truetype'),
-    url('fonts/gptico.woff?9n0me0') format('woff'),
-    url('fonts/gptico.svg?9n0me0#gptico') format('svg');
+    url('fonts/gptico.ttf?dkjfd0') format('truetype'),
+    url('fonts/gptico.woff?dkjfd0') format('woff'),
+    url('fonts/gptico.svg?dkjfd0#gptico') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -24,6 +24,18 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.ico-lang:before {
+  content: "\e91b";
+}
+.ico-openai:before {
+  content: "\e936";
+}
+.ico-apps:before {
+  content: "\e937";
+}
+.ico-translation:before {
+  content: "\e938";
+}
 .ico-history-back:before {
   content: "\e900";
 }
@@ -104,9 +116,6 @@
 }
 .ico-key:before {
   content: "\e91a";
-}
-.ico-lang:before {
-  content: "\e91b";
 }
 .ico-layout:before {
   content: "\e91c";

@@ -4,6 +4,8 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const stylesHandler = MiniCssExtractPlugin.loader;
 
+const lessRegex = /\.less$/;
+const lessModuleRegex = /\.module\.less$/;
 module.exports = {
   entry: "./src/index.js",
   output: {
@@ -15,7 +17,7 @@ module.exports = {
   },
   devtool: "inline-source-map",
   resolve: {
-    extensions: [".js", ".jsx", ".css", ".less"],
+    extensions: [".js", ".jsx", ".css", ".less", ".mjs"],
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
@@ -23,18 +25,39 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(js|jsx)$/i,
         use: "babel-loader",
         exclude: /node_modules/,
       },
       {
-        test: /\.less$/i,
+        test: lessRegex,
+        exclude: lessModuleRegex,
         use: [stylesHandler, "css-loader", "postcss-loader", "less-loader"],
+      },
+      {
+        test: lessModuleRegex,
+        use: [
+          stylesHandler,
+          {
+            loader: "css-loader",
+            options: {
+              modules: {
+                localIdentHashFunction: "md4",
+                localIdentName: "[local]-[hash:5]",
+                // [name]_[local]_
+              },
+              importLoaders: 4,
+            },
+          },
+          "postcss-loader",
+          "less-loader",
+        ],
       },
       {
         test: /\.css$/i,
         use: [stylesHandler, "css-loader", "postcss-loader"],
       },
+
       {
         test: /\.png$/,
         use: [

@@ -1,6 +1,5 @@
-export const randomNum = () =>
-  Math.floor(Math.random() * 90000000000) + 10000000000;
-  
+export * from "./options";
+
 export function formatNumber(n) {
   return n < 10 ? `0${n}` : n;
 }
@@ -23,5 +22,7 @@ export function dateFormat(ms) {
   minute = formatNumber(minute);
   second = formatNumber(second);
 
-  return [[year, month, day].join("/"), [hour, minute, second].join(":")].join(" ");
+  return [[year, month, day].join("/"), [hour, minute, second].join(":")].join(
+    " "
+  );
 }

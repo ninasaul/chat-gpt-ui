@@ -1,19 +1,18 @@
 import React, { useMemo } from "react";
-import { Ui } from "../Ui";
-import { setClassName } from "../utils";
+import { classnames } from "../utils";
 import PropTypes from 'prop-types'
-import "./style.less";
-export function Tooltip({ text, className, type, children, position }) {
+import styles from "./tooltip.module.less";
+export function Tooltip({ text, className, children, position }) {
   const memoizedChildren = useMemo(() => children, [children]);
   return (
-    <Ui name="tooltip" className={className} extra={[type]}>
+    <div className={classnames(styles.tooltip, className)}>
       {memoizedChildren}
-      <div className={`${setClassName({ name: 'tooltip-container' })}${position}`}>
-        <div className={setClassName({ name: 'tooltip-inner' })}>
+      <div className={classnames(styles.container, styles[position])}>
+        <div className={styles.inner}>
           {text}
         </div>
       </div>
-    </Ui>
+    </div >
   );
 }
 

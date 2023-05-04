@@ -1,5 +1,6 @@
 import React, { useState, forwardRef } from 'react'
-import "./style.less"
+import styles from "./switch.module.less"
+import { classnames } from '../utils'
 
 export const Switch = forwardRef((props, ref) => {
   const { label, onChange, children, ...rest } = props
@@ -12,12 +13,12 @@ export const Switch = forwardRef((props, ref) => {
   }
 
   return (
-    <div className="switch">
-      <input {...rest} ref={ref} checked={checked} onChange={toggle} className='switch-input' type="checkbox" id={id} />
-      <label className='switch-label' htmlFor={id}>
-        <div className="toggle" />
-        {label && <div className='switch-text'>{label}</div>}
-        {children && <div className='switch-label__text'>{children}</div>}
+    <div className={classnames(styles.switch)}>
+      <input {...rest} ref={ref} checked={checked} onChange={toggle} className={styles.input} type="checkbox" id={id} />
+      <label className={styles.label} htmlFor={id}>
+        <div className={styles.toggle} />
+        {label && <div className={styles.text}>{label}</div>}
+        {children && <div className={styles.children}>{children}</div>}
       </label>
     </div>
   )

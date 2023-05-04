@@ -1,9 +1,10 @@
 import React from 'react'
-import "./style.less"
+import styles from "./tag.module.less"
+import { classnames } from '../utils'
 
 export function Tag({ children, ghost }) {
   return (
-    <div className={`tag ${ghost}`}>{children}</div>
+    <div className={classnames(styles.tag, ghost && styles.ghost)}>{children}</div>
   )
 }
 

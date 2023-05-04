@@ -1,14 +1,11 @@
 import React from 'react'
-import "./style.less"
-import { setClassName } from '../utils'
+import { classnames } from '../utils'
+import styles from "./text.module.less"
 
 export const Text = ({ children, type }) => {
-  const classStyle = setClassName({
-    name: 'text',
-    extra: [type]
-  })
+
   return (
-    <div className={classStyle}>{children}</div>
+    <div className={classnames(styles.text, sytles[type])}>{children}</div>
   )
 }
 

@@ -1,20 +1,17 @@
 import React from 'react'
-import { setClassName } from '../utils'
-import "./style.less"
+import { classnames } from '../utils'
+import styles from "./loading.module.less"
 
 export function Loading(props) {
   const { text, type, color } = props
-  const boxClass = setClassName({
-    name: 'loading',
-    extra: [type]
-  })
+
   return (
-    <div className={boxClass}>
-      <div className={setClassName({ name: 'loading-n' })}>
-        <div className={setClassName({ name: 'loading-bar' })}>
-          {[1, 2, 3, 4].map((item, index) => <div key={item} className={`line line-${index} ${type}`} style={{ backgroundColor: color }} />)}
+    <div className={styles.loading}>
+      <div className={styles.n}>
+        <div className={styles.bar}>
+          {[1, 2, 3, 4].map((item, index) => <div key={item} className={classnames(styles.line, `line-${index}`)} style={{ backgroundColor: color }} />)}
         </div>
-        {text && <div className="loading-text" v-if="text">{text}</div>}
+        {text && <div className={styles.text} v-if="text">{text}</div>}
       </div>
     </div>
   )

@@ -1,6 +1,6 @@
 import React, { forwardRef, useState } from 'react'
-import './style.less'
-import { setClassName } from '../utils'
+import styles from './input.module.less'
+import { classnames } from '../utils'
 import { Button } from '../Button'
 import PropTypes from 'prop-types'
 
@@ -13,7 +13,10 @@ export const Input = forwardRef((props, ref) => {
     onClear,
     type,
     extra,
+    size,
     showPassword,
+    autoComplete,
+    placeholder,
     ...rest
   } = props;
 
@@ -27,27 +30,19 @@ export const Input = forwardRef((props, ref) => {
   }
 
   return (
-    <div className={setClassName({
-      name: 'input',
-      className,
-      extra: [type]
-    })}>
-      {extra && <div className={setClassName({
-        name: 'input',
-        extra: ['extra']
-      })}>{extra}</div>}
-      <div className={setClassName({
-        name: 'input',
-        extra: ['inner']
-      })}>
+    <div className={styles.input}>
+      {extra && <div className={styles.extra}>{extra}</div>}
+      <div className={styles.inner}>
         <input
           ref={ref}
           type={icon === 'eye-open' ? 'text' : type}
-          value={value}
-          className={setClassName({ name: 'input-content' })}
+          autoComplete={autoComplete}
+          className={classnames(styles.content, styles[size])}
           onChange={handleChange}
-          {...rest}
+          placeholder={placeholder}
         />
+      </div>
+      <div className={styles.before}>
         {showClear && value.length && type !== 'password'(
           <Button onClick={handleClear} icon="clear" type="icon" />
         )}
@@ -55,14 +50,16 @@ export const Input = forwardRef((props, ref) => {
           <Button onClick={() => setIcon(icon === 'eye-open' ? 'eye-close' : 'eye-open')} icon={icon} type="icon" />
         )}
       </div>
-    </div>
+    </div >
   );
 });
 
 Input.defaultProps = {
   showClear: false,
   type: 'text',
+  size: 'default',
   showPassword: true,
+  autoComplete: false,
 };
 
 
@@ -71,9 +68,13 @@ Input.propTypes = {
   showPassword: PropTypes.bool,
   showClear: PropTypes.bool,
   className: PropTypes.string,
+  size: PropTypes.string,
   extra: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.element
   ]),
-  value: PropTypes.string
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ])
 }

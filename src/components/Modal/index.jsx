@@ -1,79 +1,81 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
-import Resizable from "./Resizable";
-import Draggable from "./Draggable";
-import './style.less'
+import { Draggable } from "./Draggable";
+import { classnames } from "../utils";
+import { Button } from "../Button";
+import styles from './modal.module.less'
 
 export const Modal = (props) => {
-  const { isOpen, onClose, children } = props
-  const [isMaximized, setIsMaximized] = useState(false);
+  const { visible, onClose, children, title, footer, className } = props
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [size, setSize] = useState({ width: 500, height: 300 });
+
+  const [hidden, setHidden] = useState(false);
+  useEffect(() => {
+    setHidden(visible)
+  }, [visible]);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
-        onClose();
+        onClose && onClose();
       }
     };
-
     window.addEventListener("keydown", handleKeyDown);
-
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [onClose]);
 
-  const handleResize = (_, { size: newSize }) => {
-    setSize(newSize);
+  const [x, setX] = useState(0);
+  const [y, setY] = useState(0);
+
+  const handleDrag = (newX, newY) => {
+    setX(newX);
+    setY(newY);
   };
 
-  const handleDrag = (_, { x, y }) => {
-    setPosition({ x, y });
-  };
-
-  const handleMaximizeClick = () => {
-    setIsMaximized(!isMaximized);
-  };
-
-  const content = (
-    <div className="modal-overlay">
-      <div className="modal">
-        <div className="modal-header">
-          <span>Modal Title</span>
-          <button onClick={onClose}>X</button>
-        </div>
-        <Resizable onResize={handleResize}>
-          <Draggable onDrag={handleDrag}>
-            <div
-              className="modal-content"
-              style={{
-                width: size.width,
-                height: size.height,
-                top: position.y,
-                left: position.x
-              }}
-            >
-              <p>Modal Content</p>
-              {children}
-            </div>
-          </Draggable>
-        </Resizable>
-        <div className="modal-footer">
-          <button onClick={handleMaximizeClick}>
-            {isMaximized ? "Restore" : "Maximize"}
-          </button>
-          <button onClick={onClose}>Close</button>
-        </div>
-      </div>
-    </div>
-  );
-
-  if (!isOpen) {
-    return null;
+  const handleClose = () => {
+    setHidden(false)
+    onClose && onClose()
   }
-
-  return ReactDOM.createPortal(content, document.body);
+  const container = (
+    <div className={styles.overlay}>
+      <Draggable x={x} y={y} onDrag={handleDrag}>
+        <div className={classnames(styles.modal, className)}>
+          <div className={styles.header}>
+            <div className={styles.title}>{title}</div>
+            <Button type="icon" icon="close" onClick={handleClose} />
+          </div>
+          <div
+            className={styles.container}
+            style={{
+              width: size.width,
+              height: size.height,
+              top: position.y,
+              left: position.x
+            }}
+          >
+            {children}
+          </div>
+          <div className={styles.footer}>
+            <div>
+              {
+                footer && <React.Fragment>
+                  <Button>取消</Button>
+                  <Button>确定</Button>
+                </React.Fragment>
+              }
+            </div>
+          </div>
+        </div>
+      </Draggable >
+    </div >
+  );
+  return hidden ? ReactDOM.createPortal(container, document.body) : null;
 };
 
 
+Modal.defaultProps = {
+  title: '',
+}

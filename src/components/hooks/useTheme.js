@@ -9,7 +9,7 @@ export function useTheme(initTheme) {
   }
 
   useEffect(() => {
-    const body = document.querySelector("body");
+    const body = document.querySelector("html");
     body.classList.remove("light", "dark");
     body.setAttribute("data-theme", theme);
     body.classList.add(theme);

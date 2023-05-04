@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import "./style.less"
+import styles from './tabs.module.less'
+import { classnames } from '../utils';
 
 function Panel({ children }) {
-  return <div className='tabs-panel'>{children}</div>
+  return <div className={styles.panel}>{children}</div>
 }
 
 function Tabs({ children, tabsChange }) {
@@ -21,19 +22,19 @@ function Tabs({ children, tabsChange }) {
   }
   const tabs = React.Children.toArray(children).filter(child => child.type === Panel);
   return (
-    <div className='tabs'>
-      <div className='flex-c tabs-header'>
+    <div className={styles.tabs}>
+      <div className={styles.headers}>
         {tabs.map((child, index) => (
           <div
             key={index}
             onClick={(e) => handleTabsChange(e, index)}
-            className={index === active ? 'item active' : 'item'}
+            className={classnames(styles.item, index === active ? 'active' : '')}
           >
             {child.props.title}
           </div>
         ))}
       </div>
-      <div className='tabs-container'>
+      <div className={styles.container}>
         {tabs[active]}
       </div>
     </div >

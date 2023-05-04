@@ -1,33 +1,26 @@
 import React from 'react'
-import { setClassName } from '../utils'
+import { classnames } from '../utils'
 import { Icon } from '../Icon'
-import './style.less'
+import { Title } from '../Title'
+import styles from './panel.module'
+
 import PropTypes from 'prop-types'
 export function Item(props) {
-  const { type, title, desc, children, extra, icon } = props
-  const boxClass = setClassName({
-    name: 'panel-item',
-    extra: [type],
-    className: 'flex-c-sb'
-  })
-  const headerClass = setClassName({
-    name: 'panel-item_header',
-    extra: [type],
-    className: 'flex-c'
-  })
+  const { type, title, desc, children, extra, icon, className } = props
+
   return (
-    <div className={boxClass}>
-      <div className={headerClass}>
-        <div className='flex-c'>
-          {icon && <Icon type={icon} />}
-          <div className='flex-1'>
-            <div className='title'>{title}</div>
-            <div className='desc'>{desc}</div>
+    <div className={classnames(styles.item, type && styles[type], className)}>
+      <div className={styles.headers}>
+        <div className={styles.container}>
+          {icon && <Icon className={styles.icon} type={icon} />}
+          <div className={styles.line}>
+            <div className={styles.item_title}>{title}</div>
+            <div className={styles.item_desc}>{desc}</div>
           </div>
         </div>
         {extra}
       </div>
-      <div className='panel-item__container'>
+      <div className={styles.inner}>
         {children}
       </div>
     </div>
@@ -35,17 +28,11 @@ export function Item(props) {
 }
 
 export function Panel(props) {
-  const { children, title, type, className } = props
-  const styleClass = setClassName({
-    name: 'panel',
-    extra: [type],
-    className
-  })
-
+  const { children, title, className } = props
   return (
-    <div className={styleClass}>
-      {title && <div>{title}</div>}
-      <div>{children}</div>
+    <div className={classnames(styles.panel, className)}>
+      {title && <Title type="h4" className={styles.title}>{title}</Title>}
+      <div className={styles.children}>{children}</div>
     </div>
   )
 }
@@ -59,6 +46,7 @@ Panel.propTypes = {
     PropTypes.string,
     PropTypes.element
   ]),
+  type: PropTypes.string,
 }
 
 Panel.Item = Item

@@ -1,0 +1,44 @@
+/* 隐藏默认的下拉箭头 */
+.select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-repeat: no-repeat;
+  padding: var(--spacing-min) var(--spacing);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  color: var(--text-color);
+  transition: all 0.3s ease-in-out;
+  background-color: var(--background-color);
+  padding-right: var(--spacing);
+  cursor: pointer;
+}
+
+/* 自定义选择框的样式 */
+select:focus {
+  outline: none;
+  border-color: var(--border-color);
+}
+
+/* 自定义选择框中选项的样式 */
+select option {
+  color: var(--text-color);
+  background-color: var(--background-color);
+}
+
+/* 自定义选择框中选中选项的样式 */
+select option:checked {
+  color: #fff;
+  background-color: #0077cc;
+}
+
+/* 鼠标悬停在选项上的样式 */
+select option:hover {
+  background-color: #f2f2f2;
+}
+
+/* 禁用状态下的样式 */
+select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

@@ -1,24 +1,19 @@
 import React from 'react';
-import "./style.less"
-import { setClassName } from '../utils';
+import styles from "./avatar.module.less"
+import { classnames } from '../utils';
 import imageUrl from '@/assets/images/avatar.png'
 
 export const Avatar = (props) => {
-  const { imageUrl, altText, className, size, circle } = props
-  const classStyle = setClassName({
-    name: 'avatar',
-    extra: [size, circle && 'circle'],
-    className
-  })
+  const { src, altText, className, size, circle } = props
   return (
-    <div className={classStyle} style={{ width: size, height: size }}>
-      <img src={imageUrl} alt={altText} />
+    <div className={classnames(styles.avatar, circle && styles.circle, className,)} style={{ width: size, height: size }}>
+      <img src={src || imageUrl} alt={altText} />
     </div>
   );
 };
 
 Avatar.defaultProps = {
-  imageUrl,
+  src: null,
   altText: 'User Avatar',
   circle: true,
 };

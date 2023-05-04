@@ -1,8 +1,8 @@
 import React, { forwardRef, useState } from 'react'
-import './style.less'
-import { setClassName } from '../utils';
+import { classnames } from '../utils';
 import Proptypes from 'prop-types'
 import { Button } from '../Button';
+import styles from './textarea.module.less'
 
 export const Textarea = forwardRef((props, ref) => {
   const {
@@ -32,29 +32,21 @@ export const Textarea = forwardRef((props, ref) => {
     onClear && onClear();
   }
 
-  const classList = setClassName({
-    name: 'textarea',
-    extra: [className]
-  })
-
   return (
-    <div className={classList}>
-      <div className={
-        setClassName({
-          name: 'textarea-inner'
-        })
-      }>
+    <div className={classnames(styles.textarea_box, className)}>
+      <div className={styles.inner}>
         <textarea
           ref={ref}
           rows={rows}
           style={{ height }}
           onChange={handleChange}
           placeholder={placeholder}
+          className={styles.textarea}
           value={value}
           {...rest}
         />
       </div>
-      {showClear && <Button type="icon" onClick={handleClear} icon="cancel" />}
+      {showClear && <Button className={styles.clear} type="icon" onClick={handleClear} icon="cancel" />}
     </div>
   );
 });
