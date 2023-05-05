@@ -6,7 +6,7 @@ import { classnames } from '../components/utils'
 import { useOptions } from './hooks'
 
 export function ChatSideBar() {
-  const { is, setState, setOptions, options } = useGlobal()
+  const { is, setState, options } = useGlobal()
   const { setGeneral } = useOptions()
   return (
     <div className={classnames(styles.sider, 'flex-c-sb flex-column')}>

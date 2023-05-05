@@ -13,8 +13,10 @@ export default function Chat() {
   const chatStyle = is.fullScreen ? styles.full : styles.normal
   return (
     <div className={classnames(styles.chat, chatStyle)}>
-      <ChatSideBar />
-      {is.config ? <ChatOpitons /> : <React.Fragment>{is.sidebar && <ChatList />}<ChatMessage /></React.Fragment>}
+      <div className={styles.chat_inner}>
+        <ChatSideBar />
+        {is.config ? <ChatOpitons /> : <React.Fragment>{is.sidebar && <ChatList />}<ChatMessage /></React.Fragment>}
+      </div>
     </div>
   )
 }
