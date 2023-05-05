@@ -59,7 +59,7 @@ export const initState = {
       organizationId: "",
       temperature: 1,
       model: "gpt-3.5-turbo",
-      apiKey: "sk-",
+      apiKey: "",
       max_tokens: 2048,
       n: 1,
       stream: true,
