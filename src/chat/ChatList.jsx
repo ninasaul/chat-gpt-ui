@@ -25,21 +25,23 @@ export function ChatItem(props) {
   const { setState, currentChat } = useGlobal()
   return (
     <div className={classnames(styles.item, currentChat === props.index && styles.current)} onClick={() => setState({ currentChat: props.index })} >
-      <div className={styles.title}>{props.title}</div>
-      <div className={styles.bar}>
+      <div className={styles.title}>
+        <div>{props.title}</div>
         <div className={styles.message}>{props.messages.length} messages</div>
-        <ListTool index={props.index} />
       </div>
+      <ListTool index={props.index} />
     </div>
   )
 }
 
 export function ChatList() {
   const { chat } = useGlobal()
+  const onSearch = () => {
+  }
   return (
     <div className={styles.list}>
       <div className={styles.search}>
-        <Search />
+        <Search onSearch={onSearch} />
       </div>
       <ScrollView>
         {chat.length ? chat.map((item, index) => <ChatItem key={index} index={index} {...item} />) : null}

@@ -22,20 +22,24 @@
 .bar {
   color: var(--text-color-gray);
 }
-.title {
-  font-size: 12px;
-}
 .tool {
   visibility: hidden;
   display: flex;
   align-items: center;
-  display: none;
+}
+.title {
+  font-size: 12px;
+  position: relative;
+  flex: 1;
 }
 .item {
   padding: var(--spacing);
   color: var(--text-color);
   cursor: pointer;
   transition: 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   &:hover {
     background-color: var(--border-color);
     .tool {
@@ -43,6 +47,7 @@
     }
   }
 }
+
 .current {
   background-color: var(--border-color);
 }

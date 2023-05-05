@@ -9,7 +9,7 @@ import action from "./action";
 import reducer from "./reducer";
 import { initState } from "./initState";
 
-export const ChatContext = createContext({});
+export const ChatContext = createContext(null);
 
 export const ChatProvider = ({ children }) => {
   const init = JSON.parse(localStorage.getItem("SESSIONS")) || initState;

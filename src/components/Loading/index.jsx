@@ -6,10 +6,10 @@ export function Loading(props) {
   const { text, type, color } = props
 
   return (
-    <div className={styles.loading}>
-      <div className={styles.n}>
+    <div className={classnames(styles.loading, styles[type])}>
+      <div className={classnames(styles.n, styles[type])}>
         <div className={styles.bar}>
-          {[1, 2, 3, 4].map((item, index) => <div key={item} className={classnames(styles.line, `line-${index}`)} style={{ backgroundColor: color }} />)}
+          {[1, 2, 3, 4].map((item, index) => <div key={item} className={classnames(styles.line, styles[`line-${index}`])} style={{ backgroundColor: color }} />)}
         </div>
         {text && <div className={styles.text} v-if="text">{text}</div>}
       </div>

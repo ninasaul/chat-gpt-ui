@@ -7,7 +7,7 @@ import { Button } from '../Button';
 
 
 export function Search(props) {
-  const { placeholder, onSearch, className, showButton } = props;
+  const { placeholder, onSearch, className, showButton, ...rest } = props;
   const [query, setQuery] = useState('');
 
   const handleQueryChange = (event) => {
@@ -35,6 +35,7 @@ export function Search(props) {
           onChange={handleQueryChange}
           onKeyPress={handleKeyPress}
           placeholder={placeholder}
+          {...rest}
         />
       </div>
       {showButton && <Button type="primary" className={styles.button} onClick={handleSearch}>Search</Button>}

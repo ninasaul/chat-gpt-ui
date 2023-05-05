@@ -20,15 +20,42 @@
     border-radius: 0;
   }
   &::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 0;
+    height: 0;
   }
   &::-webkit-scrollbar-thumb {
     background-color: var(--background-color);
     border-radius: var(--border-radius);
   }
   &::-webkit-scrollbar-thumb:hover {
-    background-color: #bbb;
+    background-color: var(--background-color);
     border-radius: var(--border-radius);
+  }
+}
+.help {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--spacing) * 10) 0;
+  flex-direction: column;
+}
+.empty {
+  padding: calc(var(--spacing) * 10) 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  &_input {
+    width: 400px;
+    margin-right: var(--spacing-min);
+  }
+  &_inner {
+    flex: 1;
+    display: flex;
+  }
+  &_text {
+    font-size: 12px;
+    color: var(--background-color-gary);
+    margin-top: var(--spacing);
   }
 }

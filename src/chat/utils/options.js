@@ -1,3 +1,6 @@
+export const isMac = navigator.platform.toUpperCase().indexOf("MAC") >= 0;
+export const shortcutKey = isMac ? "Command+Enter" : "Ctrl+Enter";
+
 export const themeOptions = [
   {
     label: "Auto",
@@ -16,11 +19,11 @@ export const themeOptions = [
 export const sendCommandOptions = [
   {
     label: "Enter",
-    value: "Enter",
+    value: "ENTER",
   },
   {
-    label: "Command+Enter",
-    value: "Command+Enter",
+    label: shortcutKey,
+    value: "COMMAND_ENTER",
   },
 ];
 

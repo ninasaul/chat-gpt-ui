@@ -7,15 +7,36 @@
   border: 1px solid var(--border-color);
   background-color: var(--background-color);
   color: var(--text-color);
-  transition: 0.5s;
+  transition: 0.3s;
   display: flex;
+  align-items: center;
   &:hover {
     border: 1px solid var(--border-color);
     background-color: var(--background-color);
   }
+}
+.icon {
+  border: none;
+  background-color: transparent;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  &:hover {
+    border: none;
+    background-color: var(--background-color-gray);
+  }
+}
 
+.icon {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   .ico {
-    margin-right: 2px;
+    margin-right: 4px;
   }
 }
 
@@ -27,6 +48,33 @@
     border: 1px solid var(--primary-dark);
     background-color: var(--primary-dark);
     background-color: var(--primary-dark);
+  }
+}
+.red {
+  background-color: var(--red);
+  border-color: var(--red);
+  &:hover {
+    border: 1px solid var(--red-dark);
+    background-color: var(--red-dark);
+    background-color: var(--red-dark);
+  }
+}
+.green {
+  background-color: var(--green);
+  border-color: var(--green);
+  &:hover {
+    border: 1px solid var(--green-dark);
+    background-color: var(--green-dark);
+    background-color: var(--green-dark);
+  }
+}
+.yellow {
+  background-color: var(--yellow);
+  border-color: var(--yellow);
+  &:hover {
+    border: 1px solid var(--yellow-dark);
+    background-color: var(--yellow-dark);
+    background-color: var(--yellow-dark);
   }
 }
 .min {
@@ -54,26 +102,9 @@
   font-size: 14px;
   padding: 8px 20px;
 }
-.ico {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  .ico {
-    margin-right: var(--spacing-min);
-    font-size: 15px;
-  }
-}
-.icon {
-  border: none;
+
+.link {
   background-color: transparent;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 26px;
-  height: 26px;
-  &:hover {
-    border: none;
-    background-color: var(--background-color-gray);
-  }
+  border: none;
+  color: var(--primary);
 }

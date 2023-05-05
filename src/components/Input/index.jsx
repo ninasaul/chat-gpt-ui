@@ -6,7 +6,6 @@ import PropTypes from 'prop-types'
 
 export const Input = forwardRef((props, ref) => {
   const {
-    value,
     onChange,
     className,
     showClear,
@@ -30,7 +29,7 @@ export const Input = forwardRef((props, ref) => {
   }
 
   return (
-    <div className={styles.input}>
+    <div className={classnames(styles.input, className)}>
       {extra && <div className={styles.extra}>{extra}</div>}
       <div className={styles.inner}>
         <input
@@ -40,6 +39,7 @@ export const Input = forwardRef((props, ref) => {
           className={classnames(styles.content, styles[size])}
           onChange={handleChange}
           placeholder={placeholder}
+          {...rest}
         />
       </div>
       <div className={styles.before}>
@@ -59,7 +59,7 @@ Input.defaultProps = {
   type: 'text',
   size: 'default',
   showPassword: true,
-  autoComplete: false,
+  autoComplete: "off",
 };
 
 
@@ -69,12 +69,10 @@ Input.propTypes = {
   showClear: PropTypes.bool,
   className: PropTypes.string,
   size: PropTypes.string,
+  autoComplete: PropTypes.string,
   extra: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.element
   ]),
-  value: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number
-  ])
+  placeholder: PropTypes.string,
 }

@@ -317,7 +317,7 @@
     background-color: var(--background-color-gray);
     border-radius: var(--border-radius);
     margin: 0;
-    padding: 2px var(--spacing-min);
+    // padding: 2px var(--spacing-min);
     font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas,
       Liberation Mono, monospace;
   }
@@ -352,25 +352,29 @@
 
   .highlight pre,
   pre {
-    line-height: 1.5;
-    font-size: var(--font-size-base);
-    overflow: auto;
-    color: var(--text-color);
-    font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas,
-      Liberation Mono, monospace;
-    direction: ltr;
-    text-align: left;
-    white-space: pre;
-    word-spacing: normal;
-    word-break: normal;
-    tab-size: 2;
-    hyphens: none;
-    overflow: auto;
-    word-wrap: normal;
-    background-color: var(--background-color-gray);
-    padding: var(--spacing);
+    // line-height: 1.5;
+    // font-size: var(--font-size-base);
+    // overflow: auto;
+    // color: var(--text-color);
+    // font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas,
+    //   Liberation Mono, monospace;
+    // direction: ltr;
+    // text-align: left;
+    // white-space: pre;
+    // word-spacing: normal;
+    // word-break: normal;
+    // tab-size: 2;
+    // hyphens: none;
+    // overflow: auto;
+    // word-wrap: normal;
+    // background-color: var(--background-color-gray);
+    // padding: var(--spacing);
   }
-
+  pre code.code-line {
+    display: block;
+    padding: 1em;
+    font-size: var(--font-size-base);
+  }
   pre code,
   pre tt {
     background-color: transparent;

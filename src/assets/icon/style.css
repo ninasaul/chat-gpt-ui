@@ -1,9 +1,9 @@
 @font-face {
-  font-family: 'gptico';
+  font-family: 'ico';
   src:
-    url('fonts/gptico.ttf?dkjfd0') format('truetype'),
-    url('fonts/gptico.woff?dkjfd0') format('woff'),
-    url('fonts/gptico.svg?dkjfd0#gptico') format('svg');
+    url('fonts/ico.ttf?bgdcbf') format('truetype'),
+    url('fonts/ico.woff?bgdcbf') format('woff'),
+    url('fonts/ico.svg?bgdcbf#ico') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -11,7 +11,7 @@
 
 [class^="ico-"], [class*=" ico-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'gptico' !important;
+  font-family: 'ico' !important;
   speak: never;
   font-style: normal;
   font-weight: normal;
@@ -24,6 +24,15 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.ico-star:before {
+  content: "\e900";
+}
+.ico-link:before {
+  content: "\e91f";
+}
+.ico-auto:before {
+  content: "\e939";
+}
 .ico-lang:before {
   content: "\e91b";
 }
@@ -37,161 +46,158 @@
   content: "\e938";
 }
 .ico-history-back:before {
-  content: "\e900";
-}
-.ico-list:before {
   content: "\e901";
 }
-.ico-search:before {
+.ico-list:before {
   content: "\e902";
 }
-.ico-add:before {
+.ico-search:before {
   content: "\e903";
 }
-.ico-back:before {
+.ico-add:before {
   content: "\e904";
 }
-.ico-cancel:before {
+.ico-back:before {
   content: "\e905";
 }
-.ico-clear:before {
+.ico-cancel:before {
   content: "\e906";
 }
-.ico-close:before {
+.ico-clear:before {
   content: "\e907";
 }
-.ico-column-close:before {
+.ico-close:before {
   content: "\e908";
 }
-.ico-column-open:before {
+.ico-column-close:before {
   content: "\e909";
 }
-.ico-config:before {
+.ico-column-open:before {
   content: "\e90a";
 }
-.ico-copy-ok:before {
+.ico-config:before {
   content: "\e90b";
 }
-.ico-copy:before {
+.ico-copy-ok:before {
   content: "\e90c";
 }
-.ico-dark:before {
+.ico-copy:before {
   content: "\e90d";
 }
-.ico-down:before {
+.ico-dark:before {
   content: "\e90e";
 }
-.ico-download:before {
+.ico-down:before {
   content: "\e90f";
 }
-.ico-editor:before {
+.ico-download:before {
   content: "\e910";
 }
-.ico-export:before {
+.ico-editor:before {
   content: "\e911";
 }
-.ico-eye-close:before {
+.ico-export:before {
   content: "\e912";
 }
-.ico-eye-open:before {
+.ico-eye-close:before {
   content: "\e913";
 }
-.ico-file:before {
+.ico-eye-open:before {
   content: "\e914";
 }
-.ico-files:before {
+.ico-file:before {
   content: "\e915";
 }
-.ico-full-screen:before {
+.ico-files:before {
   content: "\e916";
 }
-.ico-help:before {
+.ico-full-screen:before {
   content: "\e917";
 }
-.ico-history-1:before {
+.ico-help:before {
   content: "\e918";
 }
-.ico-history:before {
+.ico-history-1:before {
   content: "\e919";
 }
-.ico-key:before {
+.ico-history:before {
   content: "\e91a";
 }
-.ico-layout:before {
+.ico-key:before {
   content: "\e91c";
 }
-.ico-light:before {
+.ico-layout:before {
   content: "\e91d";
 }
-.ico-link:before {
+.ico-light:before {
   content: "\e91e";
 }
 .ico-mail:before {
-  content: "\e91f";
-}
-.ico-message:before {
   content: "\e920";
 }
-.ico-mic:before {
+.ico-message:before {
   content: "\e921";
 }
-.ico-min-screen:before {
+.ico-mic:before {
   content: "\e922";
 }
-.ico-model:before {
+.ico-min-screen:before {
   content: "\e923";
 }
-.ico-more:before {
+.ico-model:before {
   content: "\e924";
 }
-.ico-new:before {
+.ico-more:before {
   content: "\e925";
 }
-.ico-organization:before {
+.ico-new:before {
   content: "\e926";
 }
-.ico-paste:before {
+.ico-organization:before {
   content: "\e927";
 }
-.ico-push-left:before {
+.ico-paste:before {
   content: "\e928";
 }
-.ico-push-right:before {
+.ico-push-left:before {
   content: "\e929";
 }
-.ico-rating:before {
+.ico-push-right:before {
   content: "\e92a";
 }
-.ico-refresh:before {
+.ico-rating:before {
   content: "\e92b";
 }
-.ico-reload:before {
+.ico-refresh:before {
   content: "\e92c";
 }
-.ico-send:before {
+.ico-reload:before {
   content: "\e92d";
 }
-.ico-setting:before {
+.ico-send:before {
   content: "\e92e";
 }
-.ico-share:before {
+.ico-setting:before {
   content: "\e92f";
 }
-.ico-stop:before {
+.ico-share:before {
   content: "\e930";
 }
-.ico-theme:before {
+.ico-stop:before {
   content: "\e931";
 }
-.ico-trash:before {
+.ico-theme:before {
   content: "\e932";
 }
-.ico-up:before {
+.ico-trash:before {
   content: "\e933";
 }
-.ico-user:before {
+.ico-up:before {
   content: "\e934";
 }
-.ico-waring:before {
+.ico-user:before {
   content: "\e935";
+}
+.ico-waring:before {
+  content: "\e93a";
 }

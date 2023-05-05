@@ -45,13 +45,13 @@ export const initState = {
   currentChat: 0,
   options: {
     account: {
-      name: "AI",
+      name: "CHAT——AI",
       avatar: "",
     },
     general: {
       language: "English",
       theme: "light",
-      sendCommand: "Enter",
+      command: "COMMAND_ENTER",
       size: "normal",
     },
     openai: {
@@ -59,7 +59,7 @@ export const initState = {
       organizationId: "",
       temperature: 1,
       model: "gpt-3.5-turbo",
-      apiKey: "",
+      apiKey: "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",
       max_tokens: 2048,
       n: 1,
       stream: true,

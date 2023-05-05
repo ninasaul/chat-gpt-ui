@@ -123,7 +123,13 @@ export default function action(state, dispatch) {
             };
       setState({ is: { ...state.is, typeing: true }, typeingMessage });
     },
-
+    clearMessage() {
+      const chat = [...state.chat];
+      chat[state.currentChat].messages = [];
+      setState({
+        chat,
+      });
+    },
     removeMessage(index) {
       const messages = state.chat[state.currentChat].messages;
       const chat = [...state.chat];

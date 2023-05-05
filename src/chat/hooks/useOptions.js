@@ -4,7 +4,6 @@ import { useGlobal } from "../context";
 export function useOptions() {
   const { options, setOptions } = useGlobal();
   const { size, theme } = options.general;
-
   useEffect(() => {
     const body = document.querySelector("html");
     body.classList = [];

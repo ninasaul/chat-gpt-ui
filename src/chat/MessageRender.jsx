@@ -28,9 +28,9 @@ export const MessageRender = memo((props) => {
               PreTag="div"
             />
           ) : (
-            <pre {...props} className={`code-line ${className}`}>
+            <code {...props} className={`code-line`}>
               {children}
-            </pre>
+            </code>
           )
         }
       }}

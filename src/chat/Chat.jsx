@@ -6,6 +6,7 @@ import { ChatList } from './ChatList'
 import { classnames } from '../components/utils'
 import { useGlobal } from './context'
 import styles from './style/chat.module.less'
+import './style.less'
 
 export default function Chat() {
   const { is } = useGlobal()

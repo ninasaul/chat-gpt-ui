@@ -1,28 +1,31 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Avatar, Icon, Textarea, Loading, Tooltip, Button, Modal } from '@/components'
-import { CopyIcon, ScrollView, Error } from './component'
+import { CopyIcon, ScrollView, Error, EmptyChat, ChatHelp } from './component'
 import { MessageRender } from './MessageRender'
 import { useGlobal } from './context'
-import { useMesssage } from './hooks'
+import { useMesssage, useSendKey, useOptions } from './hooks'
 import { dateFormat } from './utils'
 import avatar from '@/assets/images/avatar-gpt.png'
 import styles from './style/message.module.less'
 import { classnames } from '../components/utils'
 
 export function MessageHeader() {
-  const { is, setIs } = useGlobal()
+  const { is, setIs, clearMessage, options } = useGlobal()
   const { message } = useMesssage()
   const { messages = [] } = message || {}
   const columnIcon = is.sidebar ? 'column-close' : 'column-open'
-  console.log(styles)
+  const { setGeneral } = useOptions()
+
   return (
     <div className={classnames(styles.header)}>
       <Button type="icon" icon={columnIcon} onClick={() => setIs({ sidebar: !is.sidebar })} />
       <div className={styles.header_title}>
         {message?.title}
-        <div className={styles.length}>{messages.header_length} messages</div>
+        <div className={styles.length}>{messages.length} messages</div>
       </div>
       <div className={styles.header_bar}>
+        <Icon className={styles.icon} type={options.general.theme} onClick={() => setGeneral({ theme: options.general.theme === 'light' ? 'dark' : 'light' })} />
+        <Icon className={styles.icon} type="clear" onClick={clearMessage} />
         <Icon type="download" className={styles.icon} />
       </div>
     </div>
@@ -69,11 +72,14 @@ export function MessageItem(props) {
 }
 
 export function MessageBar() {
-  const { sendMessage, setMessage, is, setIs, typeingMessage, clearTypeing, stopResonse } = useGlobal()
+  const { sendMessage, setMessage, is, options, setIs, typeingMessage, clearTypeing, stopResonse } = useGlobal()
+  useSendKey(sendMessage, options.general.command)
   return (
     <div className={styles.bar}>
       {is.thinking && <div className={styles.bar_tool}>
-        <Button className={styles.stop} onClick={stopResonse} icon="stop">Stop Resonse</Button>
+        <div>
+          Think <Loading /><Button size="min" className={styles.stop} onClick={stopResonse} icon="stop">Stop Resonse</Button>
+        </div>
       </div>}
       <div className={styles.bar_inner}>
         <div className={styles.bar_type}>
@@ -94,26 +100,42 @@ export function MessageBar() {
   )
 }
 
-export function ChatMessage() {
-  const { is } = useGlobal()
+export function MessageContainer() {
+  const { options } = useGlobal()
+  const { openai } = options
   const { message } = useMesssage()
   const { messages = [] } = message || {}
-  const [showModal, setShowModal] = useState(false);
+  if (openai.apiKey) {
+    return (
+      <React.Fragment>
+        {
+          messages.length ? <div className={styles.container}>
+            {messages.map((item, index) => <MessageItem key={index} {...item} />)}
+            {message?.error && <Error />}
+          </div> : <ChatHelp />
+        }
+      </React.Fragment>
+    )
+  } else {
+    return <React.Fragment>{options.openai.apikey}<EmptyChat /></React.Fragment>
+  }
+}
+
+export function ChatMessage() {
+  const { is, options } = useGlobal()
   return (
     <React.Fragment>
       <div className={styles.message}>
         <MessageHeader />
         <ScrollView>
-          <div className={styles.container}>
-            {messages.map((item, index) => <MessageItem key={index} {...item} />)}
-            {message?.error && <Error />}
-          </div>
+          <MessageContainer />
+          {options.openai.apikey}
           {is.thinking && <Loading />}
         </ScrollView>
         <MessageBar />
       </div>
-      <Modal title="New con" visible={showModal} />
-    </React.Fragment>
+      {/* <Modal title="New con" visible={showModal} /> */}
+    </React.Fragment >
   )
 }
 
