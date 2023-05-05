@@ -83,6 +83,17 @@ html {
   border: 0;
   box-sizing: border-box;
 }
+
+input,
+select,
+textarea {
+  color: var(--text-color);
+  display: block;
+  width: 100%;
+  &::placeholder {
+    color: var(--text-color-gray);
+  }
+}
 body {
   font-family: sans-serif;
   color: var(--text-color);
