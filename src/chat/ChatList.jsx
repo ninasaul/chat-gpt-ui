@@ -10,8 +10,8 @@ export function ListTool(props) {
   const { removeChat } = useGlobal()
   return (
     <div className={styles.tool}>
-      <Button type="icon" icon="editor" />
-      <Button type="icon" onClick={() => removeChat(props.index)} icon="close" />
+      {/* <Icon className={styles.icon} type="editor" /> */}
+      <Icon className={styles.icon} type="close" onClick={() => removeChat(props.index)} />
     </div>
   )
 }

@@ -1,6 +1,6 @@
 .list {
   background: var(--background-color);
-  width: 260px;
+  width: 255px;
   flex: 0 0 auto;
   display: flex;
   justify-content: space-between;
@@ -38,6 +38,13 @@
     flex: 1;
   }
 }
+.icon {
+  font-size: 16px;
+  padding: var(--spacing-min);
+}
+.tool {
+  margin-right: calc(0px - var(--spacing-min));
+}
 .item {
   padding: var(--spacing);
   color: var(--text-color);
@@ -46,6 +53,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   &:hover {
     background-color: var(--border-color);
     .tool {

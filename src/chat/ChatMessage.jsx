@@ -54,11 +54,8 @@ export function MessageItem(props) {
                 <Icon className={styles.icon} type="trash" onClick={removeMessage} />
               </Tooltip>
               {role === 'user' ? <React.Fragment>
-                <Tooltip text="reload">
-                  <Icon className={styles.icon} type="reload" />
-                </Tooltip>
-                <Tooltip text="Editor Conversations">
-                  <Icon className={styles.icon} type="editor" /></Tooltip>
+                <Icon className={styles.icon} type="reload" />
+                <Icon className={styles.icon} type="editor" />
               </React.Fragment> : <CopyIcon value={content} />}
             </div>
           </div>
