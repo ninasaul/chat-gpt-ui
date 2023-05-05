@@ -12,15 +12,9 @@ export function ChatSideBar() {
     <div className={classnames(styles.sider, 'flex-c-sb flex-column')}>
       <Avatar />
       <div className={classnames(styles.tool, 'flex-c-sb flex-column')}>
-        <Tooltip text="toggle Theme" position="right">
-          <Icon className={styles.icon} type={options.general.theme} onClick={() => setGeneral({ theme: options.general.theme === 'light' ? 'dark' : 'light' })} />
-        </Tooltip>
-        <Tooltip text="Settings" position="right">
-          <Icon className={styles.icon} type="config" onClick={() => setState({ is: { ...is, config: !is.config } })} />
-        </Tooltip>
-        <Tooltip text="full Screen" position="right">
-          <Icon className={styles.icon} type={`${is.fullScreen ? 'min' : 'full'}-screen`} onClick={() => setState({ is: { ...is, fullScreen: !is.fullScreen } })} />
-        </Tooltip>
+        <Icon className={styles.icon} type={options.general.theme} onClick={() => setGeneral({ theme: options.general.theme === 'light' ? 'dark' : 'light' })} />
+        <Icon className={styles.icon} type="config" onClick={() => setState({ is: { ...is, config: !is.config } })} />
+        <Icon className={styles.icon} type={`${is.fullScreen ? 'min' : 'full'}-screen`} onClick={() => setState({ is: { ...is, fullScreen: !is.fullScreen } })} />
       </div>
     </div>
   )

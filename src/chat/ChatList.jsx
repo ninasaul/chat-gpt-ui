@@ -25,8 +25,11 @@ export function ChatItem(props) {
   const { setState, currentChat } = useGlobal()
   return (
     <div className={classnames(styles.item, currentChat === props.index && styles.current)} onClick={() => setState({ currentChat: props.index })} >
+      <Icon type="translation" />
       <div className={styles.title}>
-        <div>{props.title}</div>
+        <div className={styles.title_item}>
+          <div className={styles.title_p}>{props.title}</div>
+        </div>
         <div className={styles.message}>{props.messages.length} messages</div>
       </div>
       <ListTool index={props.index} />

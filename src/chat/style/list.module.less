@@ -1,7 +1,6 @@
 .list {
   background: var(--background-color);
-  border-radius: var(--border-radius) 0 0 var(--border-radius);
-  width: 250px;
+  width: 260px;
   flex: 0 0 auto;
   display: flex;
   justify-content: space-between;
@@ -31,12 +30,19 @@
   font-size: 12px;
   position: relative;
   flex: 1;
+  &_item {
+    display: flex;
+    align-items: center;
+  }
+  &_p {
+    flex: 1;
+  }
 }
 .item {
   padding: var(--spacing);
   color: var(--text-color);
   cursor: pointer;
-  transition: 0.2s;
+  transition: 0.3s;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -49,7 +55,7 @@
 }
 
 .current {
-  background-color: var(--border-color);
+  background-color: var(--background-color-gray);
 }
 
 .new {
