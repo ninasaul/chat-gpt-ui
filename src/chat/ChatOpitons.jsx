@@ -13,9 +13,7 @@ export function ConfigHeader() {
     <div className={classnames(styles.header, 'flex-c-sb')}>
       <Title type="h5">Setting</ Title>
       <div className="flex-c">
-        <Tooltip text="reset options">
-          <Button type="icon" onClick={() => setIs({ config: !is.config })} icon="refresh" />
-        </Tooltip>
+        <Button type="icon" onClick={() => setIs({ config: !is.config })} icon="refresh" />
         <Button type="icon" onClick={() => setIs({ config: !is.config })} icon="close" />
       </div>
     </div >
