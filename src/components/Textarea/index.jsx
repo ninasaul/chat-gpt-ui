@@ -20,17 +20,29 @@ export const Textarea = forwardRef((props, ref) => {
     onClear,
     ...rest
   } = props;
-
+  const [content, setContent] = useState("");
   const [height, setHeight] = useState('auto')
 
   function handleChange(event) {
     setHeight('auto');
     setHeight(`${event.target.scrollHeight}px`);
+    setContent(event.target.value);
     onChange && onChange(event.target.value);
   }
+
   function handleClear() {
     onChange && onChange("");
     onClear && onClear();
+  }
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+    }
+    if (event.shiftKey && event.key === "Enter") {
+      setContent(content + "\n");
+      event.preventDefault();
+    }
   }
 
   return (
@@ -42,8 +54,9 @@ export const Textarea = forwardRef((props, ref) => {
           style={{ height }}
           onChange={handleChange}
           placeholder={placeholder}
+          onKeyDown={handleKeyPress}
           className={classnames(styles.textarea, transparent && styles.transparent)}
-          value={value}
+          value={content}
           {...rest}
         />
       </div>

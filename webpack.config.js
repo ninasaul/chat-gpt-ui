@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const stylesHandler = MiniCssExtractPlugin.loader;
+const TerserPlugin = require("terser-webpack-plugin");
 
 const lessRegex = /\.less$/;
 const lessModuleRegex = /\.module\.less$/;
@@ -86,6 +87,22 @@ module.exports = {
         },
       },
     },
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          parallel: true,
+          compress: {
+            drop_console: true,
+            drop_debugger: true,
+            unused: true,
+            dead_code: true,
+            reduce_vars: true,
+            comments: false,
+            extractComments: true,
+          },
+        },
+      }),
+    ],
   },
   plugins: [
     new CleanWebpackPlugin({

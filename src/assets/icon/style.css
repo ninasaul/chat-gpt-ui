@@ -1,9 +1,9 @@
 @font-face {
   font-family: 'ico';
   src:
-    url('fonts/ico.ttf?bgdcbf') format('truetype'),
-    url('fonts/ico.woff?bgdcbf') format('woff'),
-    url('fonts/ico.svg?bgdcbf#ico') format('svg');
+    url('fonts/ico.ttf?demgah') format('truetype'),
+    url('fonts/ico.woff?demgah') format('woff'),
+    url('fonts/ico.svg?demgah#ico') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -26,6 +26,9 @@
 
 .ico-star:before {
   content: "\e900";
+}
+.ico-translation-full:before {
+  content: "\e93b";
 }
 .ico-link:before {
   content: "\e91f";

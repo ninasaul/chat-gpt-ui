@@ -2,14 +2,16 @@ import { useEffect } from "react";
 
 export function useSendKey(callback, key) {
   const handleCommandEnter = (event) => {
-    if ((event.metaKey || event.ctrlKey) && event.key === "Enter") {
+    if ((event.ctrlKey || event.metaKey) && event.keyCode === 13) {
       event.preventDefault();
+      console.log("COMMAND+ENTER");
       callback && callback();
     }
   };
   const handleEnter = (event) => {
-    if (event.key === "Enter") {
+    if (event.keyCode === 13) {
       event.preventDefault();
+      console.log("ENTER");
       callback && callback();
     }
   };
@@ -17,15 +19,10 @@ export function useSendKey(callback, key) {
   useEffect(() => {
     document.removeEventListener("keydown", handleCommandEnter);
     document.removeEventListener("keydown", handleEnter);
-    document.addEventListener(
-      "keydown",
-      key === "ENTER" ? handleEnter : handleCommandEnter
+    document.addEventListener("keydown", key === "ENTER" ? handleEnter : handleCommandEnter
     );
     return () => {
-      document.removeEventListener(
-        "keydown",
-        key === "ENTER" ? handleEnter : handleCommandEnter
-      );
+      document.removeEventListener( "keydown", key === "ENTER" ? handleEnter : handleCommandEnter);
     };
   }, [callback, key]);
 }

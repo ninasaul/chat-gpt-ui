@@ -25,7 +25,7 @@ export function ChatItem(props) {
   const { setState, currentChat } = useGlobal()
   return (
     <div className={classnames(styles.item, currentChat === props.index && styles.current)} onClick={() => setState({ currentChat: props.index })} >
-      <Icon type="translation" />
+      <Icon type="translation-full" />
       <div className={styles.title}>
         <div className={styles.title_item}>
           <div className={styles.title_p}>{props.title}</div>
