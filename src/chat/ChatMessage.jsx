@@ -118,7 +118,7 @@ export function MessageContainer() {
 }
 
 export function ChatMessage() {
-  const { is, options } = useGlobal()
+  const { is } = useGlobal()
   return (
     <React.Fragment>
       <div className={styles.message}>
@@ -129,7 +129,6 @@ export function ChatMessage() {
         </ScrollView>
         <MessageBar />
       </div>
-      {/* <Modal title="New con" visible={showModal} /> */}
     </React.Fragment >
   )
 }

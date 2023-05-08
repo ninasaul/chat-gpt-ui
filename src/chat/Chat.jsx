@@ -32,7 +32,7 @@ export default function Chat() {
             </ScrollView>
           </div>
         }
-        {is.options ? <ChatOpitons /> : <ChatMessage />}
+        {is.config ? <ChatOpitons /> : <ChatMessage />}
       </div>
     </div>
   )
