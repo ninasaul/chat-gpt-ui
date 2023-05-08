@@ -22,17 +22,22 @@ export default function Chat() {
     <div className={classnames(styles.chat, chatStyle)}>
       <div className={styles.chat_inner}>
         <ChatSideBar />
-        {is.sidebar &&
-          <div className={styles.sider}>
-            <div className={styles.search}>
-              <Search onSearch={onSearch} />
-            </div>
-            <ScrollView>
-              {is.apps ? <Apps /> : <ChatList />}
-            </ScrollView>
-          </div>
+        {
+          is.config ? <ChatOpitons /> :
+            <React.Fragment>
+              {
+                is.sidebar && <div className={styles.sider}>
+                  <div className={styles.search}>
+                    <Search onSearch={onSearch} />
+                  </div>
+                  <ScrollView>
+                    {is.apps ? <Apps /> : <ChatList />}
+                  </ScrollView>
+                </div>
+              }
+              <ChatMessage />
+            </React.Fragment>
         }
-        {is.config ? <ChatOpitons /> : <ChatMessage />}
       </div>
     </div>
   )
