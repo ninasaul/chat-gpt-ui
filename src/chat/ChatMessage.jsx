@@ -74,8 +74,8 @@ export function MessageBar() {
   return (
     <div className={styles.bar}>
       {is.thinking && <div className={styles.bar_tool}>
-        <div>
-          Think <Loading /><Button size="min" className={styles.stop} onClick={stopResonse} icon="stop">Stop Resonse</Button>
+        <div className={styles.bar_loading}>
+          <div className="flex-c"><span>Thinking</span> <Loading /></div><Button size="min" className={styles.stop} onClick={stopResonse} icon="stop">Stop Resonse</Button>
         </div>
       </div>}
       <div className={styles.bar_inner}>
@@ -99,10 +99,9 @@ export function MessageBar() {
 
 export function MessageContainer() {
   const { options } = useGlobal()
-  const { openai } = options
   const { message } = useMesssage()
   const { messages = [] } = message || {}
-  if (openai.apiKey) {
+  if (options?.openai?.apiKey) {
     return (
       <React.Fragment>
         {
@@ -114,7 +113,7 @@ export function MessageContainer() {
       </React.Fragment>
     )
   } else {
-    return <React.Fragment>{options.openai.apikey}<EmptyChat /></React.Fragment>
+    return <EmptyChat />
   }
 }
 
@@ -126,7 +125,6 @@ export function ChatMessage() {
         <MessageHeader />
         <ScrollView>
           <MessageContainer />
-          {options.openai.apikey}
           {is.thinking && <Loading />}
         </ScrollView>
         <MessageBar />

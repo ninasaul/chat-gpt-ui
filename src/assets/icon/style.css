@@ -1,9 +1,9 @@
 @font-face {
   font-family: 'ico';
   src:
-    url('fonts/ico.ttf?demgah') format('truetype'),
-    url('fonts/ico.woff?demgah') format('woff'),
-    url('fonts/ico.svg?demgah#ico') format('svg');
+    url('fonts/ico.ttf?rkgf8l') format('truetype'),
+    url('fonts/ico.woff?rkgf8l') format('woff'),
+    url('fonts/ico.svg?rkgf8l#ico') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -26,6 +26,48 @@
 
 .ico-star:before {
   content: "\e900";
+}
+.ico-game:before {
+  content: "\e949";
+}
+.ico-legal:before {
+  content: "\e93c";
+}
+.ico-ui:before {
+  content: "\e93d";
+}
+.ico-write:before {
+  content: "\e93e";
+}
+.ico-assistants:before {
+  content: "\e93f";
+}
+.ico-designers:before {
+  content: "\e940";
+}
+.ico-education:before {
+  content: "\e941";
+}
+.ico-engineers:before {
+  content: "\e942";
+}
+.ico-finance:before {
+  content: "\e943";
+}
+.ico-productivity:before {
+  content: "\e944";
+}
+.ico-programming:before {
+  content: "\e945";
+}
+.ico-prompts:before {
+  content: "\e946";
+}
+.ico-recommendations:before {
+  content: "\e947";
+}
+.ico-social-media:before {
+  content: "\e948";
 }
 .ico-translation-full:before {
   content: "\e93b";

@@ -4,7 +4,7 @@ import { Loading } from '@/components'
 import './style.less'
 const Chat = React.lazy(() => import("./Chat"))
 
-export function ChatApp() {
+export default function ChatApp() {
   return (
     <Suspense fallback={<Loading />}>
       <ChatProvider>

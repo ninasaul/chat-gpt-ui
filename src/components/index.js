@@ -25,3 +25,4 @@ export { Tooltip } from "./Tooltip";
 export { Title } from "./Title";
 export { Range } from "./Range";
 export { Search } from "./Search";
+export * from "./Draglayout";

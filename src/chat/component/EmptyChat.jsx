@@ -6,7 +6,7 @@ import EmptyImg from './EmptyImg'
 
 export function EmptyChat() {
   const { setModel } = useOptions()
-  const [apiKey, setApiKey] = useState(null);
+  const [apiKey, setApiKey] = useState('');
   return (
     <div className={styles.empty}>
       <EmptyImg />

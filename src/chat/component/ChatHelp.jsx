@@ -6,7 +6,6 @@ export function ChatHelp() {
   return (
     <div className={styles.help}>
       <EmptyImg />
-      <h2>Help is Jock</h2>
     </div>
   )
 }

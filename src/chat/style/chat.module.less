@@ -28,6 +28,23 @@
     border: 1px solid var(--border-color);
   }
 }
+
+.sider {
+  background: var(--background-color);
+  width: 255px;
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  border-right: 1px solid var(--border-color);
+  & > div {
+    width: 100%;
+  }
+}
+.search {
+  padding: var(--spacing) 0;
+}
 .container {
   background: var(--background-color-gray);
 }
