@@ -90,15 +90,15 @@ module.exports = {
     minimizer: [
       new TerserPlugin({
         terserOptions: {
-          parallel: true,
+          // parallel: true,
           compress: {
             drop_console: true,
             drop_debugger: true,
             unused: true,
             dead_code: true,
             reduce_vars: true,
-            comments: false,
-            extractComments: true,
+            // comments: false,
+            // extractComments: true,
           },
         },
       }),

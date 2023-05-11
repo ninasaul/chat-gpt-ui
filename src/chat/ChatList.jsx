@@ -1,11 +1,19 @@
 import React from 'react'
-import { Icon, Button } from '@/components'
+import { Icon, Title } from '@/components'
 import { useGlobal } from './context'
 import { ScrollView } from './component'
 import { classnames } from '../components/utils'
 import styles from './style/list.module'
 import { Search } from '../components'
 
+export function ListEmpty() {
+  return (
+    <div className={classnames('flex-column')}>
+      <Icon type="message" />
+      <Title type="h3">No conversations found<br />Start a new conversation to begin storing them locally.</Title>
+    </div>
+  )
+}
 export function ListTool(props) {
   const { removeChat } = useGlobal()
   return (
@@ -39,16 +47,9 @@ export function ChatItem(props) {
 
 export function ChatList() {
   const { chat } = useGlobal()
-  const onSearch = () => {
-  }
   return (
     <div className={styles.list}>
-      <div className={styles.search}>
-        <Search onSearch={onSearch} />
-      </div>
-      <ScrollView>
-        {chat.length ? chat.map((item, index) => <ChatItem key={index} index={index} {...item} />) : null}
-      </ScrollView>
+      {chat.length ? chat.map((item, index) => <ChatItem key={index} index={index} {...item} />) : <ListEmpty />}
       <CreateNew />
     </div>
   )

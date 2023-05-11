@@ -10,6 +10,7 @@ import reducer from "./reducer";
 import { initState } from "./initState";
 
 export const ChatContext = createContext(null);
+export const MessagesContext = createContext(null);
 
 export const ChatProvider = ({ children }) => {
   const init = JSON.parse(localStorage.getItem("SESSIONS")) || initState;
@@ -34,10 +35,13 @@ export const ChatProvider = ({ children }) => {
   }, [latestState.current]);
 
   return (
-    <ChatContext.Provider value={{ ...state, ...actionList, dispatch }}>
-      {children}
+    <ChatContext.Provider value={{ ...state, ...actionList }}>
+      <MessagesContext.Provider value={dispatch}>
+        {children}
+      </MessagesContext.Provider>
     </ChatContext.Provider>
   );
 };
 
 export const useGlobal = () => useContext(ChatContext);
+export const useMessages = () => useContext(MessagesContext);

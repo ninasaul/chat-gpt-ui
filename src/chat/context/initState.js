@@ -72,6 +72,7 @@ export const initState = {
     sidebar: true,
     inputing: false,
     thinking: false,
+    apps: true,
   },
   typeingMessage: {},
   version: "0.1.0",

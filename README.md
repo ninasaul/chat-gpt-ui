@@ -3,7 +3,7 @@
 ChatGPT-React Ui is a simple,with chat streaming, code highlighting, code execution, development presets, and more. We encourage you to contribute and help improve this project!
 
 - Demo:[https://chat-gpt-ui-lake.vercel.app/](https://chat-gpt-ui-lake.vercel.app/)
-- Design source file:[https://www.figma.com/community/file/1236510244313601424](https://www.figma.com/community/file/1236510244313601424)
+- Design source:[https://www.figma.com/community/file/1236510244313601424](https://www.figma.com/community/file/1236510244313601424)
 
 ## Developing
 
