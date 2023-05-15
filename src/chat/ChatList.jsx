@@ -83,7 +83,7 @@ export function EditItem(props) {
         <Textarea rows={3} className={styles.editor_text} value={title} onChange={value => setVal(value)} />
       </div>
       <div className={styles.editor_bar}>
-        <Button onClick={() => modifyChat({ title, icon }, props.index)} block={true} type="primary">Ok</Button>
+        <Button onClick={() => modifyChat({ title, icon }, props.index)} block={true} type="primary">Save Conversations</Button>
       </div>
     </div>
   )
