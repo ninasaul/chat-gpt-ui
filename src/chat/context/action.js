@@ -80,6 +80,7 @@ export default function action(state, dispatch) {
         }
       }
     },
+
     newChat() {
       const { chat } = state;
       const chatList = [
@@ -89,10 +90,18 @@ export default function action(state, dispatch) {
           id: Date.now(),
           messages: [],
           ct: Date.now(),
+          icon: [2, "files"],
         },
       ];
       setState({ chat: chatList, currentChat: chatList.length - 1 });
     },
+
+    modifyChat(arg, index) {
+      const chat = [...state.chat];
+      chat.splice(index, 1, { ...chat[index], ...arg });
+      setState({ chat, currentEditor: null });
+    },
+
     editChat(index, title) {
       const chat = [...state.chat];
       chat.splice(index, 1, [...chat[index], title]);
@@ -123,6 +132,7 @@ export default function action(state, dispatch) {
             };
       setState({ is: { ...state.is, typeing: true }, typeingMessage });
     },
+
     clearMessage() {
       const chat = [...state.chat];
       chat[state.currentChat].messages = [];
@@ -130,6 +140,7 @@ export default function action(state, dispatch) {
         chat,
       });
     },
+
     removeMessage(index) {
       const messages = state.chat[state.currentChat].messages;
       const chat = [...state.chat];

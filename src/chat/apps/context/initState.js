@@ -1,6 +1,11 @@
 export const initApps = {
   category: [
     {
+      title: "Programming",
+      icon: "programming",
+      id: 8,
+    },
+    {
       title: "personal-assistants",
       icon: "assistants",
       id: 1,
@@ -30,11 +35,7 @@ export const initApps = {
       icon: "finance",
       id: 6,
     },
-    {
-      title: "Programming",
-      icon: "programming",
-      id: 8,
-    },
+
     {
       title: "Entertainment",
       icon: "game",
@@ -59,10 +60,20 @@ export const initApps = {
   current: 0,
   apps: [
     {
-      title: "Topic Explainer with Theme",
-      desc: "Topic Explainer in any Theme",
+      title: "Linux Terminal",
+      desc: "Linux 终端",
+      content:
+        "我希望你能充当 Linux 终端的角色。我会输入命令，你会回复终端应该显示的内容。我希望你只回复一个唯一的代码块，不要写解释。除非我指示你这样做，否则不要输入命令。当我需要用英语告诉你一些事情时，我会用花括号 {像这样} 把文本括起来。我的第一个命令是 pwd。",
       role: "system",
-      id: 12,
+      id: 8,
+    },
+    {
+      title: "Code Reviewer",
+      desc: "代码审查",
+      content:
+        "我希望你能充当面试官。我将成为候选人，你将问我有关 #position# 职位的面试问题。我希望你只回答面试官的问题。不要一次写下所有的对话。我只希望你与我进行面试。像面试官一样一个一个地问我问题，等待我的回答。不要写解释。我的第一句话是“嗨”。",
+      role: "system",
+      id: 8,
     },
     {
       title: "AI Programmer",

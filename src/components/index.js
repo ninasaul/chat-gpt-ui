@@ -26,3 +26,4 @@ export { Title } from "./Title";
 export { Range } from "./Range";
 export { Search } from "./Search";
 export * from "./Draglayout";
+export * from "./Popover";

@@ -1,9 +1,9 @@
 @font-face {
   font-family: 'ico';
   src:
-    url('fonts/ico.ttf?rkgf8l') format('truetype'),
-    url('fonts/ico.woff?rkgf8l') format('woff'),
-    url('fonts/ico.svg?rkgf8l#ico') format('svg');
+    url('fonts/ico.ttf?tuwxve') format('truetype'),
+    url('fonts/ico.woff?tuwxve') format('woff'),
+    url('fonts/ico.svg?tuwxve#ico') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -26,6 +26,33 @@
 
 .ico-star:before {
   content: "\e900";
+}
+.ico-tape:before {
+  content: "\e951";
+}
+.ico-stopwatch:before {
+  content: "\e952";
+}
+.ico-lab:before {
+  content: "\e94d";
+}
+.ico-mathematics:before {
+  content: "\e94e";
+}
+.ico-science:before {
+  content: "\e94f";
+}
+.ico-trophy:before {
+  content: "\e950";
+}
+.ico-scan-text:before {
+  content: "\e94c";
+}
+.ico-models:before {
+  content: "\e94a";
+}
+.ico-shark:before {
+  content: "\e94b";
 }
 .ico-game:before {
   content: "\e949";

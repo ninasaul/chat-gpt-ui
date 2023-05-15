@@ -5,9 +5,8 @@ import { classnames } from '../utils';
 import { Icon } from '../Icon';
 import { Button } from '../Button';
 
-
 export function Search(props) {
-  const { placeholder, onSearch, className, showButton, ...rest } = props;
+  const { placeholder, onSearch, className, showButton, extra, ...rest } = props;
   const [query, setQuery] = useState('');
 
   const handleQueryChange = (event) => {
@@ -39,6 +38,11 @@ export function Search(props) {
         />
       </div>
       {showButton && <Button type="primary" className={styles.button} onClick={handleSearch}>Search</Button>}
+      {
+        extra && <div className={styles.extra}>
+          {extra}
+        </div>
+      }
     </div>
   );
 }
@@ -47,7 +51,8 @@ Search.propTypes = {
   placeholder: PropTypes.string,
   onSearch: PropTypes.func.isRequired,
   className: PropTypes.string,
-  showButton: PropTypes.bool
+  showButton: PropTypes.bool,
+  extra: PropTypes.node
 };
 
 Search.defaultProps = {

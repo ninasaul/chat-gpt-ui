@@ -20,7 +20,7 @@ export const Textarea = forwardRef((props, ref) => {
     onClear,
     ...rest
   } = props;
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState(value);
   const [height, setHeight] = useState('auto')
 
   function handleChange(event) {
@@ -73,6 +73,7 @@ Textarea.defaultProps = {
   placeholder: '',
   rows: '1',
   transparent: false,
+  value: ''
 };
 
 Textarea.propTypes = {

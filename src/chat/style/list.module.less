@@ -19,13 +19,18 @@
 .title {
   font-size: 12px;
   position: relative;
-  flex: 1;
+  flex: 1 1 auto;
+  margin-left: var(--spacing-min);
+
   &_item {
-    display: flex;
-    align-items: center;
+    width: 100%;
   }
   &_p {
     flex: 1;
+    font-weight: 800;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 .icon {
@@ -63,5 +68,77 @@
   color: var(--primary);
   &:hover {
     opacity: 0.8;
+  }
+}
+
+.colors {
+  &_container {
+    position: relative;
+    width: 24px;
+    height: 24px;
+  }
+  &_currIco {
+    color: #fff;
+  }
+  &_currColor {
+    color: #fff;
+    &:after {
+      content: "";
+      width: 10px;
+      height: 5px;
+      border: 2px solid #fff;
+      border-top: none;
+      border-right: none;
+      transform: rotate(315deg);
+      margin-top: -4px;
+    }
+  }
+  &_item {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    border-radius: var(--border-radius);
+    margin: var(--spacing-min);
+    cursor: pointer;
+    transition: 0.3s;
+    flex: 0 0 auto;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+  &_box {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+.tip {
+  width: 190px;
+  background-color: var(--background-color);
+  z-index: 1000;
+  padding: var(--spacing);
+}
+
+.editor {
+  display: flex;
+  background-color: var(--background-color);
+  border-radius: var(--border-radius);
+  width: 100%;
+  &_title {
+    margin-bottom: var(--spacing);
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+  }
+  &_bar {
+    margin-top: var(--spacing);
+  }
+  &_text {
+    width: 100%;
+  }
+  &_box {
+    width: 100%;
   }
 }
