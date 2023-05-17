@@ -13,7 +13,6 @@ export function ListEmpty() {
   )
 }
 
-
 export function ListTool(props) {
   const { removeChat, setState } = useGlobal()
   return (

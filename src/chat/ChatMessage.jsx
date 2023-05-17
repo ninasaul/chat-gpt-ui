@@ -1,7 +1,8 @@
 import React from 'react'
-import { Avatar, Icon, Textarea, Loading, Tooltip, Button, Modal } from '@/components'
+import { Avatar, Icon, Textarea, Loading, Tooltip, Button, Popover } from '@/components'
 import { CopyIcon, ScrollView, Error, EmptyChat, ChatHelp } from './component'
 import { MessageRender } from './MessageRender'
+import { ConfigInfo } from './ConfigInfo'
 import { useGlobal } from './context'
 import { useMesssage, useSendKey, useOptions } from './hooks'
 import { dateFormat } from './utils'
@@ -26,6 +27,9 @@ export function MessageHeader() {
       <div className={styles.header_bar}>
         <Icon className={styles.icon} type={options.general.theme} onClick={() => setGeneral({ theme: options.general.theme === 'light' ? 'dark' : 'light' })} />
         <Icon className={styles.icon} type="clear" onClick={clearMessage} />
+        <Popover position="bottom" content={<ConfigInfo />}>
+          <Icon className={styles.icon} type="more" />
+        </Popover>
         <Icon type="download" className={styles.icon} />
       </div>
     </div>

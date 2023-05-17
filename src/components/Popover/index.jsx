@@ -12,6 +12,7 @@ export function Popover(props) {
   const [visible, setVisible] = useClickOutside(boxRef, false)
   const [contentPosition, setContenttPosition] = useState({})
   const { x, y, width, height } = usePosition(triggerRef)
+  const { x, y, width, height } = usePosition(triggerRef)
   const { width: containerWidth, height: containerHeight } = usePosition(containerRef)
 
   useEffect(() => {
@@ -24,10 +25,10 @@ export function Popover(props) {
     setVisible(!visible)
   }
   const handleMouseEnter = () => {
-    trigger === 'hover' && togglePanel()
+    trigger === 'hover' && togglePanel(true)
   }
   const handleMouseLeave = () => {
-    trigger === 'hover' && setVisible()
+    trigger === 'hover' && setVisible(false)
   }
   const handleTrigger = () => {
     trigger === 'click' && setVisible(!visible)
@@ -56,5 +57,5 @@ Popover.propTypes = {
 
 Popover.defaultProps = {
   position: 'top',
-  trigger: 'click'
+  trigger: 'hover'
 };
