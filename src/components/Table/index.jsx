@@ -4,7 +4,7 @@ import './style.less'
 export const Table = ({ data, columns, itemsPerPage = 10 }) => {
   const [searchText, setSearchText] = useState("");
   const [sortDirection, setSortDirection] = useState("asc");
-  const [sortedColumn, setSortedColumn] = useState(columns[0].key);
+  const [sortedColumn, setSortedColumn] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
 
   const handleSearch = (e) => {
@@ -26,14 +26,14 @@ export const Table = ({ data, columns, itemsPerPage = 10 }) => {
     setCurrentPage(pageNumber);
   };
 
-  const filteredData = data.filter((item) => {
-    const values = Object.values(item);
-    return values.some((value) =>
-      value.toString().toLowerCase().includes(searchText.toLowerCase())
-    );
-  });
+  // const filteredData = data.filter((item) => {
+  //   const values = Object.values(item);
+  //   return values.some((value) =>
+  //     value.toString().toLowerCase().includes(searchText.toLowerCase())
+  //   );
+  // });
 
-  const sortedData = filteredData.sort((a, b) => {
+  const sortedData = data.sort((a, b) => {
     if (sortDirection === "asc") {
       return a[sortedColumn] > b[sortedColumn] ? 1 : -1;
     } else {
@@ -42,7 +42,7 @@ export const Table = ({ data, columns, itemsPerPage = 10 }) => {
   });
 
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const slicedData = sortedData.slice(startIndex, startIndex + itemsPerPage);
+  // const slicedData = sortedData.slice(startIndex, startIndex + itemsPerPage);
   const totalPages = Math.ceil(sortedData.length / itemsPerPage);
 
   return (
@@ -61,7 +61,7 @@ export const Table = ({ data, columns, itemsPerPage = 10 }) => {
           <thead>
             <tr>
               {columns.map((column) => (
-                <th key={column.key} onClick={() => handleSort(column.key)}>
+                <th key={column.key} onClick={() => handleSort(column.key, column?.sort)}>
                   {column.name}
                   {sortedColumn === column.key && (
                     <span>{sortDirection === "asc" ? "↑" : "↓"}</span>
@@ -71,7 +71,7 @@ export const Table = ({ data, columns, itemsPerPage = 10 }) => {
             </tr>
           </thead>
           <tbody>
-            {slicedData.map((item) => (
+            {sortedData.map((item) => (
               <tr key={item.id}>
                 {columns.map((column) => (
                   <td key={column.key}>{item[column.key]}</td>

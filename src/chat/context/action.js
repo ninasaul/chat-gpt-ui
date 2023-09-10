@@ -70,6 +70,7 @@ export default function action(state, dispatch) {
                 });
                 setState({
                   chat: newChat,
+                  is: { ...is, thinking: false },
                 });
               }
             },

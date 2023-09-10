@@ -12,7 +12,6 @@ export function Popover(props) {
   const [visible, setVisible] = useClickOutside(boxRef, false)
   const [contentPosition, setContenttPosition] = useState({})
   const { x, y, width, height } = usePosition(triggerRef)
-  const { x, y, width, height } = usePosition(triggerRef)
   const { width: containerWidth, height: containerHeight } = usePosition(containerRef)
 
   useEffect(() => {

@@ -4,14 +4,13 @@ export function useSendKey(callback, key) {
   const handleCommandEnter = (event) => {
     if ((event.ctrlKey || event.metaKey) && event.keyCode === 13) {
       event.preventDefault();
-      console.log("COMMAND+ENTER");
       callback && callback();
     }
   };
+
   const handleEnter = (event) => {
     if (event.keyCode === 13) {
       event.preventDefault();
-      console.log("ENTER");
       callback && callback();
     }
   };

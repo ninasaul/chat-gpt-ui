@@ -8,9 +8,8 @@ import { classnames } from '../components/utils'
 import { useGlobal } from './context'
 import { Search } from '@/components'
 import styles from './style/chat.module.less'
-import './style.less'
 import { ScrollView } from './component'
-
+import './style.less'
 
 export default function Chat() {
   const { is } = useGlobal()
@@ -23,7 +22,8 @@ export default function Chat() {
       <div className={styles.chat_inner}>
         <ChatSideBar />
         {
-          is.config ? <ChatOpitons /> :
+          is.config ?
+            <ChatOpitons /> :
             <React.Fragment>
               {
                 is.sidebar && <div className={styles.sider}>
