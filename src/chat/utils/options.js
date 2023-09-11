@@ -9,7 +9,7 @@ export const keyborad = {
 
 export const keyboradArray = isMac
   ? Object.keys(keyborad)
-  : Object.value(keyborad);
+  : Object.values(keyborad);
 export const themeOptions = [
   {
     label: "Auto",
