@@ -2,7 +2,7 @@ import React from 'react'
 import { classnames } from '../utils'
 import { Icon } from '../Icon'
 import { Title } from '../Title'
-import styles from './panel.module'
+import styles from './panel.module.less'
 
 import PropTypes from 'prop-types'
 export function Item(props) {

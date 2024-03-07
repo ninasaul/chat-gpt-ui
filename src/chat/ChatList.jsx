@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react'
-import { Icon, Title, Textarea, Popover, Button } from '@/components'
+import { Icon, Title, Textarea, Popover, Button } from '../components'
 import { useGlobal } from './context'
 import { classnames } from '../components/utils'
-import styles from './style/list.module'
+import styles from './style/list.module.less'
 
 export function ListEmpty() {
   return (

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import styles from './search.module'
+import styles from './search.module.less'
 import { classnames } from '../utils';
 import { Icon } from '../Icon';
 import { Button } from '../Button';

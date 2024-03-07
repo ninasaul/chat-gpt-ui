@@ -1,6 +1,6 @@
 import React from 'react'
 import { useGlobal } from '../context'
-import styles from './style.module'
+import styles from './style.module.less'
 
 export function Error() {
   const { currentChat, chat } = useGlobal()

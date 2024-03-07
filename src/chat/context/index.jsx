@@ -34,12 +34,13 @@ export const ChatProvider = ({ children }) => {
     localStorage.setItem("SESSIONS", JSON.stringify(stateToSave));
   }, [latestState.current]);
 
-  return (
-    <ChatContext.Provider value={{ ...state, ...actionList }}>
-      <MessagesContext.Provider value={dispatch}>
+  return (<>
+    //<ChatContext.Provider value={{ ...state, ...actionList }}>
+    //<MessagesContext.Provider value={dispatch}>
         {children}
-      </MessagesContext.Provider>
-    </ChatContext.Provider>
+    //</MessagesContext.Provider>
+    //</ChatContext.Provider>
+  </>
   );
 };
 

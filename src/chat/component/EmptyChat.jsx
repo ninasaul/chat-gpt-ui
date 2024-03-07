@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { Input, Button } from '@/components'
-import styles from './style.module'
+import { Input, Button } from '../../components'
+import styles from './style.module.less'
 import { useOptions } from '../hooks'
 import EmptyImg from './EmptyImg'
 

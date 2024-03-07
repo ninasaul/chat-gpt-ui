@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from "./avatar.module.less"
 import { classnames } from '../utils';
-import imageUrl from '@/assets/images/avatar.png'
+import imageUrl from '../../assets/images/avatar.png'
 
 export const Avatar = (props) => {
   const { src, altText, className, size, circle } = props

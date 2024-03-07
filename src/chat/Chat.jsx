@@ -1,12 +1,12 @@
 import React from 'react'
 import { ChatMessage } from './ChatMessage'
 import { ChatSideBar } from './ChatSideBar'
-import { ChatOpitons } from './ChatOpitons'
+import { ChatOptions } from './ChatOptions'
 import { Apps } from './apps/index'
 import { ChatList } from './ChatList'
 import { classnames } from '../components/utils'
 import { useGlobal } from './context'
-import { Search } from '@/components'
+import { Search } from '../components/Search'
 import styles from './style/chat.module.less'
 import { ScrollView } from './component'
 import './style.less'
@@ -23,7 +23,7 @@ export default function Chat() {
         <ChatSideBar />
         {
           is.config ?
-            <ChatOpitons /> :
+            <ChatOptions /> :
             <React.Fragment>
               {
                 is.sidebar && <div className={styles.sider}>

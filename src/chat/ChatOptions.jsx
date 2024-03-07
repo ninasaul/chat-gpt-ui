@@ -1,9 +1,9 @@
 import React from 'react'
-import { Button, Panel, Input, Title, Avatar, Select } from '@/components'
+import { Button, Panel, Input, Title, Avatar, Select } from '../components'
 import { useGlobal } from './context'
 import { themeOptions, languageOptions, sendCommandOptions, modelOptions, sizeOptions } from './utils'
 import { Tooltip } from '../components'
-import styles from './style/config.module'
+import styles from './style/config.module.less'
 import { classnames } from '../components/utils'
 import { useOptions } from './hooks'
 
@@ -20,7 +20,7 @@ export function ConfigHeader() {
   )
 }
 
-export function ChatOpitons() {
+export function ChatOptions() {
   const { options } = useGlobal()
   const { account, openai, general } = options
   // const { avatar, name } = account

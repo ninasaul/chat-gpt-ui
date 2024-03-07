@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button } from '../Button';
 import { Input } from '../Input';
 import { Select } from '../Select';
-import './style'
+import './style.less'
 
 export function Pagination(props) {
   const { currentPage, totalPages, onPageChange, itemsPerPage, onPageCountChange } = props
