@@ -35,11 +35,11 @@ export const ChatProvider = ({ children }) => {
   }, [latestState.current]);
 
   return (<>
-    //<ChatContext.Provider value={{ ...state, ...actionList }}>
-    //<MessagesContext.Provider value={dispatch}>
+    <ChatContext.Provider value={{ ...state, ...actionList }}>
+      <MessagesContext.Provider value={dispatch}>
         {children}
-    //</MessagesContext.Provider>
-    //</ChatContext.Provider>
+      </MessagesContext.Provider>
+    </ChatContext.Provider>
   </>
   );
 };
