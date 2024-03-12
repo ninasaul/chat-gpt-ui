@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: openai-ui
+  name: openai-ui
+  namespace: openai-proxy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: openai-ui
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        io.kompose.service: openai-ui
+    spec:
+      containers:
+        - image: ghcr.io/fhswf/openai-ui:latest
+          name: ui
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+      restartPolicy: Always
+status: {}
