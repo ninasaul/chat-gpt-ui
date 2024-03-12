@@ -1,6 +1,6 @@
 import React from 'react'
 import { AppsProvide, useApps } from './context'
-import { classnames } from '@/components/utils'
+import { classnames } from '../../components/utils'
 import styles from './apps.module.less'
 import { Search } from '../../components'
 

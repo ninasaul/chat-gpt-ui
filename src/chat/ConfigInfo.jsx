@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './style/chat.module'
+import styles from './style/chat.module.less'
 import { useGlobal } from './context'
 
 export function ConfigInfo() {

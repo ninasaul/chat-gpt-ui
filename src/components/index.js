@@ -1,5 +1,5 @@
-import "@/assets/style/common.less";
-import "@/assets/icon/style.css";
+import "../assets/style/common.less";
+import "../assets/icon/style.css";
 
 export { Button } from "./Button";
 export { Empty } from "./Empty";

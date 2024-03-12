@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react'
-import { ChatProvider } from './context'
-import { Loading } from '@/components'
+import { ChatProvider } from './context/index.jsx'
+import { Loading } from '../components/Loading'
 import './style.less'
 const Chat = React.lazy(() => import("./Chat"))
 

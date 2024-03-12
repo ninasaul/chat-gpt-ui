@@ -1,7 +1,7 @@
 import React from 'react'
 import { Avatar, Icon } from '../components'
 import { useGlobal } from './context'
-import styles from './style/sider.module'
+import styles from './style/sider.module.less'
 import { classnames } from '../components/utils'
 import { useOptions } from './hooks'
 

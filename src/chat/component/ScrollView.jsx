@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { classnames } from '../../components/utils'
 import { useGlobal } from '../context'
-import styles from './style.module'
+import styles from './style.module.less'
 
 export const ScrollView = (props) => {
   const { children, className, ...rest } = props

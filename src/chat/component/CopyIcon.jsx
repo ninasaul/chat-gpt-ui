@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { Tooltip, Icon } from '@/components'
-import styles from './style.module'
+import { Tooltip, Icon } from '../../components'
+import styles from './style.module.less'
 import { classnames } from '../../components/utils';
 
 export function CopyIcon(props) {
