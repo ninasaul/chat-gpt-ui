@@ -30,13 +30,9 @@ export const ChatProvider = ({ children }) => {
     }
   }, []);
 
-  useEffect(() => {
-    const stateToSave = latestState.current;
-    localStorage.setItem("SESSIONS", JSON.stringify(stateToSave));
-  }, [latestState.current]);
-
   // get user
   useEffect(() => {
+
     fetch("https://login.ki.fh-swf.de/openai/api/dashboard")
       .catch(err => {
         console.log("getting user: ", err);
@@ -63,8 +59,14 @@ export const ChatProvider = ({ children }) => {
           dispatch({ type: "SET_STATE", payload: { user } });
         })
       })
+  }, [])
 
-  }, [latestState.current.user])
+
+  useEffect(() => {
+    const stateToSave = latestState.current;
+    localStorage.setItem("SESSIONS", JSON.stringify(stateToSave));
+  }, [latestState.current]);
+
 
   return (<>
     <ChatContext.Provider value={{ ...state, ...actionList }}>
