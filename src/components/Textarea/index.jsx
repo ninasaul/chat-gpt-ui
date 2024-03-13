@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from 'react'
+import React, { forwardRef, useEffect, useState } from 'react'
 import { classnames } from '../utils';
 import Proptypes from 'prop-types'
 import { Button } from '../Button';
@@ -22,6 +22,10 @@ export const Textarea = forwardRef((props, ref) => {
   } = props;
   const [content, setContent] = useState(value);
   const [height, setHeight] = useState('auto')
+
+  useEffect(() => {
+    setContent(value);
+  }, [value])
 
   function handleChange(event) {
     setHeight('auto');
