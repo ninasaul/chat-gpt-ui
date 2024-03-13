@@ -33,7 +33,7 @@ export const ChatProvider = ({ children }) => {
   // get user
   useEffect(() => {
 
-    fetch("https://login.ki.fh-swf.de/openai/api/dashboard")
+    fetch("https://login.ki.fh-swf.de/openai/api/user")
       .catch(err => {
         console.log("getting user: ", err);
         window.location.href = "https://login.ki.fh-swf.de/openai/api/login";
@@ -45,13 +45,7 @@ export const ChatProvider = ({ children }) => {
         }
         return res.json()
       })
-      .then(data => {
-        const user = {
-          name: data.name,
-          preferred_userame: data.preferred_username,
-          email: data.email,
-          sub: data.sub
-        }
+      .then(user => {
         sha256Digest(user.email).then(hash => {
           user.hash = hash;
           user.avatar = `https://www.gravatar.com/avatar/${hash}`;

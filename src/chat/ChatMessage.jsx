@@ -45,10 +45,10 @@ export function EditorMessage() {
 
 export function MessageItem(props) {
   const { content, sentTime, role, } = props
-  const { removeMessage } = useGlobal()
+  const { removeMessage, user } = useGlobal()
   return (
     <div className={classnames(styles.item, styles[role])}>
-      <Avatar src={role !== 'user' && avatar} />
+      <Avatar src={role === 'user' ? user?.avatar : avatar} />
       <div className={classnames(styles.item_content, styles[`item_${role}`])}>
         <div className={styles.item_inner}>
           <div className={styles.item_tool}>
