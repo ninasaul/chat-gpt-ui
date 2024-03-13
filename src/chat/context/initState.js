@@ -50,6 +50,7 @@ export const initState = {
     apps: true,
   },
   typeingMessage: {},
+  user: null,
   version: "0.1.0",
   cotent: "",
 };
