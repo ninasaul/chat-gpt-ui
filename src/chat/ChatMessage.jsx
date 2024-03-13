@@ -84,7 +84,7 @@ export function MessageBar() {
       </div>}
       <div className={styles.bar_inner}>
         <div className={styles.bar_type}>
-          <Textarea transparent={true} rows="3" value={typeingMessage?.content || ''} onFocus={() => setIs({ inputing: true })} onBlur={() => setIs({ inputing: false })} placeholder="Enter somthing...." onChange={setMessage} />
+          <Textarea transparent={true} rows="3" value={typeingMessage?.content || ''} onFocus={() => setIs({ inputing: true })} onBlur={() => setIs({ inputing: false })} placeholder="Enter something...." onChange={setMessage} />
         </div>
         <div className={styles.bar_icon}>
           {typeingMessage?.content &&
