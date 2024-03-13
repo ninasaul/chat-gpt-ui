@@ -6,11 +6,11 @@ import { classnames } from '../components/utils'
 import { useOptions } from './hooks'
 
 export function ChatSideBar() {
-  const { is, setState, options } = useGlobal()
+  const { is, setState, options, user } = useGlobal()
   const { setGeneral } = useOptions()
   return (
     <div className={classnames(styles.sider, 'flex-c-sb flex-column')}>
-      <Avatar />
+      <Avatar src={user?.avatar || ""} />
       <div className={classnames(styles.tool, 'flex-c-sb flex-column')}>
         <Icon className={styles.icon} type="apps" onClick={() => setState({ is: { ...is, apps: true } })} />
         <Icon className={styles.icon} type="history" onClick={() => setState({ is: { ...is, apps: false } })} />

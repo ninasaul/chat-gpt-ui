@@ -8,6 +8,7 @@ import React, {
 import action from "./action";
 import reducer from "./reducer";
 import { initState } from "./initState";
+import { sha256Digest } from "../utils";
 
 export const ChatContext = createContext(null);
 export const MessagesContext = createContext(null);
@@ -55,8 +56,12 @@ export const ChatProvider = ({ children }) => {
           email: data.email,
           sub: data.sub
         }
-        localStorage.setItem("USER", JSON.stringify(user));
-        dispatch({ type: "SET_STATE", payload: { user } });
+        sha256Digest(user.email).then(hash => {
+          user.hash = hash;
+          user.avatar = `https://www.gravatar.com/avatar/${hash}`;
+          localStorage.setItem("USER", JSON.stringify(user));
+          dispatch({ type: "SET_STATE", payload: { user } });
+        })
       })
 
   }, [latestState.current.user])
