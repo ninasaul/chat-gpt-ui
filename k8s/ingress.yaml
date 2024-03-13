@@ -3,7 +3,7 @@ apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   namespace: openai-proxy
-  name: openai-stripprefix
+  name: openai-ui-stripprefix
 spec:
   stripPrefix:
     prefixes:
@@ -12,7 +12,7 @@ spec:
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: proxy
+  name: ui
   namespace: openai-proxy
 spec:
   entryPoints:
@@ -27,6 +27,6 @@ spec:
           namespace: openai-proxy
           port: 80
       middlewares:
-        - name: openai-stripprefix
+        - name: openai-ui-stripprefix
   tls:
     certResolver: default
