@@ -8,10 +8,10 @@ export const initState = {
       ct: "2023-12-12",
       messages: [
         {
-          content: "Hello, I'm ChatGPT! Ask me anything!",
-          sentTime: "1682827639323",
-          role: "user",
-          id: 123,
+          content: "Hallo, ich bin KImpuls, Dein FH-Chatbot. Wie kann ich Dir helfen?",
+          sentTime: Date.now(),
+          role: "system",
+          id: 1,
         },
       ],
     },
@@ -20,7 +20,7 @@ export const initState = {
   currentChat: 0,
   options: {
     account: {
-      name: "CHAT——AI",
+      name: "Anonymus",
       avatar: "",
     },
     general: {
@@ -34,7 +34,7 @@ export const initState = {
       organizationId: "",
       temperature: 1,
       model: "gpt-4",
-      apiKey: "",
+      apiKey: "unused",
       max_tokens: 2048,
       n: 1,
       stream: true,
