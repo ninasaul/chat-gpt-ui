@@ -30,7 +30,7 @@ export const initState = {
       size: "normal",
     },
     openai: {
-      baseUrl: "https://login.ki.fh-swf.de/openai/api/chat/completions",
+      baseUrl: "https://login.ki.fh-swf.de/openai/api/v1/chat/completions",
       organizationId: "",
       temperature: 1,
       model: "gpt-4",
