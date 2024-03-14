@@ -25,9 +25,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: 
-            ghcr.io/fhswf/openai-ui:latest
-            ghcr.io/fhswf/openai-ui:${{ github.sha }}
+          tags: ghcr.io/fhswf/openai-ui:latest, ghcr.io/fhswf/openai-ui:${{ github.sha }}
 
       - name: Update yaml
         uses: fjogeleit/yaml-update-action@main
