@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: openai-ui
+  namespace: argocd
+
+spec:
+  destination:
+    namespace: openai-proxy
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: k8s
+    repoURL: https://github.com/fhswf/openai-ui.git
+    targetRevision: HEAD
