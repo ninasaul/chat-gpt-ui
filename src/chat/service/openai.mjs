@@ -91,6 +91,10 @@ export const fetchStream = async ({
   );
   if (!result) return;
   if (!result.ok) {
+    if (result.status === 401) {
+      onError && onError("Unauthorized", controller);
+      return;
+    } 
     const error = await result.json();
     onError && onError(error);
     return;

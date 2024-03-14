@@ -54,7 +54,7 @@ export default function action(state, dispatch) {
                 chat: newChat,
               });
             },
-            onStar() {},
+            onStar() { },
             onEnd() {
               setState({
                 is: { ...is, thinking: false },
@@ -64,6 +64,10 @@ export default function action(state, dispatch) {
               console.log(res);
               const { error } = res || {};
               if (error) {
+                if (error === "Unauthorized") {
+                  console.log("Unauthorized");
+                  window.location.href = "https://login.ki.fh-swf.de/openai/api/login";
+                }
                 newChat.splice(currentChat, 1, {
                   ...chat[currentChat],
                   error,
@@ -127,10 +131,10 @@ export default function action(state, dispatch) {
         content === ""
           ? {}
           : {
-              role: "user",
-              content,
-              id: Date.now(),
-            };
+            role: "user",
+            content,
+            id: Date.now(),
+          };
       setState({ is: { ...state.is, typeing: true }, typeingMessage });
     },
 
