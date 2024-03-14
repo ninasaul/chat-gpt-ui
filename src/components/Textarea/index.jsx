@@ -7,6 +7,7 @@ import styles from './textarea.module.less'
 export const Textarea = forwardRef((props, ref) => {
   const {
     onChange,
+    onEnter,
     placeholder,
     className,
     showClear,
@@ -46,7 +47,8 @@ export const Textarea = forwardRef((props, ref) => {
       event.preventDefault();
     }
     else if (event.key === "Enter") {
-      //event.preventDefault();
+      onEnter && onEnter(content);
+      event.preventDefault();
     }
   }
 
