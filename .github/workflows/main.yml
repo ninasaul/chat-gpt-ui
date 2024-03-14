@@ -33,7 +33,5 @@ jobs:
           valueFile: 'k8s/deployment.yaml'
           propertyPath: 'spec.template.spec.containers[0].image'
           value: ghcr.io/fhswf/openai-ui:${{ github.sha }}
-          branch: build-${{ github.sha }}
-          targetBranch: main
-          createPR: true
-          message: 'Update Image Version to ghcr.io/fhswf/openai-ui:${{ github.sha }}'
+          branch: main
+          message: 'Update image to ${{ github.sha }}'
