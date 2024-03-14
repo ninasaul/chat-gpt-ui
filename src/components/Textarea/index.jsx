@@ -40,12 +40,13 @@ export const Textarea = forwardRef((props, ref) => {
   }
 
   const handleKeyPress = (event) => {
-    if (event.key === "Enter") {
-      event.preventDefault();
-    }
+
     if (event.shiftKey && event.key === "Enter") {
       setContent(content + "\n");
       event.preventDefault();
+    }
+    else if (event.key === "Enter") {
+      //event.preventDefault();
     }
   }
 
