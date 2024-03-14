@@ -26,3 +26,14 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ghcr.io/fhswf/openai-ui:latest
+
+      - name: Update yaml
+        uses: fjogeleit/yaml-update-action@main
+        with:
+          valueFile: 'k8s/deployment.yaml'
+          propertyPath: 'spec.template.spec.containers[0].image'
+          value: ghcr.io/fhswf/openai-ui:${{ github.sha }}
+          branch: build-${{ github.sha }}
+          targetBranch: main
+          createPR: true
+          message: 'Update Image Version to ghcr.io/fhswf/openai-ui:${{ github.sha }}''
