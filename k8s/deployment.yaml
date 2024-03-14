@@ -18,16 +18,16 @@ spec:
         io.kompose.service: openai-ui
     spec:
       containers:
-        - image: ghcr.io/fhswf/openai-ui:latest
+        - image: ghcr.io/fhswf/openai-ui:48f37ed2f470fb9f0c5bb9bee0b452058f032f9b
           name: ui
           ports:
             - containerPort: 80
           resources:
             limits:
-              memory: "128Mi"
-              cpu: "500m"
+              memory: 128Mi
+              cpu: 500m
             requests:
-              memory: "64Mi"
-              cpu: "250m"
+              memory: 64Mi
+              cpu: 250m
       restartPolicy: Always
 status: {}
