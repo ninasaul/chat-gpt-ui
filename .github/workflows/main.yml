@@ -36,4 +36,4 @@ jobs:
           branch: build-${{ github.sha }}
           targetBranch: main
           createPR: true
-          message: 'Update Image Version to ghcr.io/fhswf/openai-ui:${{ github.sha }}''
+          message: 'Update Image Version to ghcr.io/fhswf/openai-ui:${{ github.sha }}'
