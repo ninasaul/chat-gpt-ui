@@ -9,6 +9,10 @@ import { dateFormat } from './utils'
 import avatar from '../assets/images/avatar-gpt.png'
 import styles from './style/message.module.less'
 import { classnames } from '../components/utils'
+import { useTranslation } from "react-i18next";
+
+const { t } = useTranslation();
+
 
 export function MessageHeader() {
   const { is, setIs, clearMessage, options } = useGlobal()
@@ -54,7 +58,7 @@ export function MessageItem(props) {
           <div className={styles.item_tool}>
             <div className={styles.item_date}>{dateFormat(sentTime)}</div>
             <div className={styles.item_bar}>
-              <Tooltip text="Remove Messages">
+              <Tooltip text={t("Remove Messages")}>
                 <Icon className={styles.icon} type="trash" onClick={removeMessage} />
               </Tooltip>
               {role === 'user' ? <React.Fragment>
@@ -84,7 +88,9 @@ export function MessageBar() {
       </div>}
       <div className={styles.bar_inner}>
         <div className={styles.bar_type}>
-          <Textarea transparent={true} rows="3" value={typeingMessage?.content || ''} onFocus={() => setIs({ inputing: true })} onBlur={() => setIs({ inputing: false })} placeholder="Enter something...." onChange={setMessage} onEnter={sendMessage} />
+          <Textarea transparent={true} rows="3" value={typeingMessage?.content || ''}
+            onFocus={() => setIs({ inputing: true })} onBlur={() => setIs({ inputing: false })}
+            placeholder={t("Enter something....")} onChange={setMessage} onEnter={sendMessage} />
         </div>
         <div className={styles.bar_icon}>
           {typeingMessage?.content &&

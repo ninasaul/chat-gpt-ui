@@ -57,6 +57,10 @@ export const languageOptions = [
     value: "en",
   },
   {
+    label: "Deutsch",
+    value: "de",
+  },
+  {
     label: "简体中文",
     value: "zh",
   },
