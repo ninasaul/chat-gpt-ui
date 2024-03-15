@@ -17,13 +17,14 @@ export function MessageHeader() {
   const { messages = [] } = message || {}
   const columnIcon = is.sidebar ? 'column-close' : 'column-open'
   const { setGeneral } = useOptions()
+  const { t } = useTranslation();
 
   return (
     <div className={classnames(styles.header)}>
       <Button type="icon" icon={columnIcon} onClick={() => setIs({ sidebar: !is.sidebar })} />
       <div className={styles.header_title}>
         {message?.title}
-        <div className={styles.length}>{messages.length} messages</div>
+        <div className={styles.length}>{t('count_messages', { count: messages.length })}</div>
       </div>
       <div className={styles.header_bar}>
         <Icon className={styles.icon} type={options.general.theme} onClick={() => setGeneral({ theme: options.general.theme === 'light' ? 'dark' : 'light' })} />

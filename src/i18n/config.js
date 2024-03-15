@@ -40,15 +40,19 @@ i18n
                 // More details about namespaces shortly.
                 translation: {
                     hello_world: "Hello, World!",
+                    count_messages: "{{count}} messages",
                 },
             },
             // German
             de: {
                 translation: {
                     hello_world: "Hallo, Welt!",
-                    "Enter something....": "Geben Sie etwas ein ...",
+                    "Enter something....": "Geben Sie etwas ein …",
                     "Remove Messages": "Nachrichten entfernen",
                     "Remove Message": "Nachricht entfernen",
+                    "Search...": "Suche …",
+                    count_messages_one: "Eine Nachricht",
+                    count_messages_other: "{{count}} Nachrichten",
                 },
             },
         },

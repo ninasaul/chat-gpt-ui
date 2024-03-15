@@ -4,10 +4,13 @@ import styles from './search.module.less'
 import { classnames } from '../utils';
 import { Icon } from '../Icon';
 import { Button } from '../Button';
+import { useTranslation } from 'react-i18next';
+import { t } from 'i18next';
 
 export function Search(props) {
   const { placeholder, onSearch, className, showButton, extra, ...rest } = props;
   const [query, setQuery] = useState('');
+  const { t } = useTranslation();
 
   const handleQueryChange = (event) => {
     setQuery(event.target.value);
@@ -56,7 +59,7 @@ Search.propTypes = {
 };
 
 Search.defaultProps = {
-  placeholder: 'Search...',
+  placeholder: t('Search...'),
   showButton: false
 };
 
