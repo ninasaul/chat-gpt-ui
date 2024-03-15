@@ -50,6 +50,8 @@ i18n
             de: {
                 translation: {
                     hello_world: "Hallo, Welt!",
+                    "Enter something....": "Geben Sie etwas ein ...",
+                    "Remove Messages": "Nachrichten entfernen",
                 },
             },
         },
