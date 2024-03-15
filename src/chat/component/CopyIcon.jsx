@@ -2,10 +2,13 @@ import React, { useState } from 'react'
 import { Tooltip, Icon } from '../../components'
 import styles from './style.module.less'
 import { classnames } from '../../components/utils';
+import { useTranslation } from 'react-i18next';
+import { t } from 'i18next';
 
 export function CopyIcon(props) {
   const { text, value, className } = props
   const [icon, setIcon] = useState('copy');
+  const { t } = useTranslation();
   function handleCopy() {
     const tempInput = document.createElement("input");
     tempInput.style = "position: absolute; left: -1000px; top: -1000px;"
@@ -26,5 +29,5 @@ export function CopyIcon(props) {
 }
 
 CopyIcon.defaultProps = {
-  text: 'copy'
+  text: t('copy')
 }

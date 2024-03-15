@@ -47,6 +47,7 @@ i18n
             de: {
                 translation: {
                     hello_world: "Hallo, Welt!",
+                    "copy": "Kopieren",
                     "Enter something....": "Geben Sie etwas ein …",
                     "Remove Messages": "Nachrichten entfernen",
                     "Remove Message": "Nachricht entfernen",
