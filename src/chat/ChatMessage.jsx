@@ -11,9 +11,6 @@ import styles from './style/message.module.less'
 import { classnames } from '../components/utils'
 import { useTranslation } from "react-i18next";
 
-const { t } = useTranslation();
-
-
 export function MessageHeader() {
   const { is, setIs, clearMessage, options } = useGlobal()
   const { message } = useMesssage()
@@ -50,6 +47,8 @@ export function EditorMessage() {
 export function MessageItem(props) {
   const { content, sentTime, role, } = props
   const { removeMessage, user } = useGlobal()
+  const { t } = useTranslation();
+
   return (
     <div className={classnames(styles.item, styles[role])}>
       <Avatar src={role === 'user' ? user?.avatar : avatar} />
@@ -78,6 +77,7 @@ export function MessageItem(props) {
 
 export function MessageBar() {
   const { sendMessage, setMessage, is, options, setIs, typeingMessage, clearTypeing, stopResonse } = useGlobal()
+  const { t } = useTranslation();
   useSendKey(sendMessage, options.general.command)
   return (
     <div className={styles.bar}>
