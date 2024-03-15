@@ -8,7 +8,7 @@ import React, {
 import action from "./action";
 import reducer from "./reducer";
 import { initState } from "./initState";
-import { sha256Digest } from "../utils";
+import { fetchAndGetUser } from "../utils";
 
 export const ChatContext = createContext(null);
 export const MessagesContext = createContext(null);
@@ -32,26 +32,8 @@ export const ChatProvider = ({ children }) => {
 
   // get user
   useEffect(() => {
-
-    fetch("https://login.ki.fh-swf.de/openai/api/user")
-      .catch(err => {
-        console.log("error getting user: ", err);
-      })
-      .then(res => {
-        console.log("getting user: ", res.status);
-        if (res.status === 401 && !import.meta.env.DEV) {
-          window.location.href = "https://login.ki.fh-swf.de/openai/api/login";
-        }
-        return res.json()
-      })
-      .then(user => {
-        sha256Digest(user.email).then(hash => {
-          user.hash = hash;
-          user.avatar = `https://www.gravatar.com/avatar/${hash}`;
-          localStorage.setItem("USER", JSON.stringify(user));
-          dispatch({ type: "SET_STATE", payload: { user } });
-        })
-      })
+    console.log("fetch user");
+    fetchAndGetUser(dispatch);
   }, [])
 
 
@@ -73,3 +55,5 @@ export const ChatProvider = ({ children }) => {
 
 export const useGlobal = () => useContext(ChatContext);
 export const useMessages = () => useContext(MessagesContext);
+
+
