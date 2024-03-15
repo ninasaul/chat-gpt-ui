@@ -2,19 +2,15 @@ import i18n from "i18next";
 // Bindings for React: allow components to
 // re-render when language changes.
 import { initReactI18next } from "react-i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
 
 i18n
+    .use(LanguageDetector)
     // Add React bindings as a plugin.
     .use(initReactI18next)
     // Initialize the i18next instance.
     .init({
         // Config options
-
-        // Specifies the default language (locale) used
-        // when a user visits our site for the first time.
-        // We use English here, but feel free to use
-        // whichever locale you want.                   
-        lng: "de",
 
         // Fallback locale used when a translation is
         // missing in the active locale. Again, use your
@@ -52,6 +48,7 @@ i18n
                     hello_world: "Hallo, Welt!",
                     "Enter something....": "Geben Sie etwas ein ...",
                     "Remove Messages": "Nachrichten entfernen",
+                    "Remove Message": "Nachricht entfernen",
                 },
             },
         },

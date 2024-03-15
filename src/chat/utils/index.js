@@ -1,3 +1,5 @@
+import i18next from "i18next";
+
 export * from "./options";
 
 export function formatNumber(n) {
@@ -5,26 +7,11 @@ export function formatNumber(n) {
 }
 
 export function dateFormat(ms) {
+
+  const activeLocale = i18next.resolvedLanguage;
+
   const date = new Date(parseInt(ms));
-
-  const year = date.getFullYear();
-  let month = date.getMonth() + 1;
-  let day = date.getDate();
-
-  month = formatNumber(month);
-  day = formatNumber(day);
-
-  let hour = date.getHours();
-  let minute = date.getMinutes();
-  let second = date.getSeconds();
-
-  hour = formatNumber(hour);
-  minute = formatNumber(minute);
-  second = formatNumber(second);
-
-  return [[year, month, day].join("/"), [hour, minute, second].join(":")].join(
-    " "
-  );
+  return new Intl.DateTimeFormat(activeLocale, { dateStyle: "short", timeStyle: "medium" }).format(date);
 }
 
 export async function sha256Digest(message) {

@@ -57,7 +57,7 @@ export function MessageItem(props) {
           <div className={styles.item_tool}>
             <div className={styles.item_date}>{dateFormat(sentTime)}</div>
             <div className={styles.item_bar}>
-              <Tooltip text={t("Remove Messages")}>
+              <Tooltip text={t("Remove Message")}>
                 <Icon className={styles.icon} type="trash" onClick={removeMessage} />
               </Tooltip>
               {role === 'user' ? <React.Fragment>
