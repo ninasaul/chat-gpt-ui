@@ -8,9 +8,7 @@ import { useOptions } from './hooks'
 const Option = (props) => {
   const { type, onClick, tooltip } = props
   return (
-    <Tooltip text={tooltip}>
-      <Icon className={styles.icon} type={type} onClick={onClick} />
-    </Tooltip>
+    <Tooltip text={tooltip}><Icon className={styles.icon} type={type} onClick={onClick} /></Tooltip>
   )
 }
 
