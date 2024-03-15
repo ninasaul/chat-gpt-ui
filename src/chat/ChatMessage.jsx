@@ -46,7 +46,7 @@ export function EditorMessage() {
 }
 
 export function MessageItem(props) {
-  const { content, sentTime, role, } = props
+  const { content, sentTime, role, id } = props
   const { removeMessage, user } = useGlobal()
   const { t } = useTranslation();
 
@@ -59,7 +59,7 @@ export function MessageItem(props) {
             <div className={styles.item_date}>{dateFormat(sentTime)}</div>
             <div className={styles.item_bar}>
               <Tooltip text={t("Remove Message")}>
-                <Icon className={styles.icon} type="trash" onClick={removeMessage} />
+                <Icon className={styles.icon} type="trash" onClick={() => removeMessage(id)} />
               </Tooltip>
               {role === 'user' ? <React.Fragment>
                 <Icon className={styles.icon} type="reload" />

@@ -148,11 +148,10 @@ export default function action(state, dispatch) {
       });
     },
 
-    removeMessage(index) {
-      console.log("removeMessage", index);
-      const messages = state.chat[state.currentChat].messages;
+    removeMessage(id) {
+      console.log("removeMessage", id);
+      const messages = state.chat[state.currentChat].messages.filter((m) => m.id !== id);
       const chat = [...state.chat];
-      messages.splice(index, 1);
       chat[state.currentChat].messages = messages;
       setState({
         chat,
