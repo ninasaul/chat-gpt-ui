@@ -3,12 +3,14 @@ import { Icon, Title, Textarea, Popover, Button } from '../components'
 import { useGlobal } from './context'
 import { classnames } from '../components/utils'
 import styles from './style/list.module.less'
+import { useTranslation } from 'react-i18next'
+import { t } from 'i18next'
 
 export function ListEmpty() {
   return (
     <div className={classnames('flex-column')}>
       <Icon type="message" />
-      <Title type="h3">No conversations found<br />Start a new conversation to begin storing them locally.</Title>
+      <Title type="h3">No conversations found<br />{t("Start a new conversation to begin storing them locally.")}</Title>
     </div>
   )
 }
@@ -25,7 +27,7 @@ export function ListTool(props) {
 
 export function CreateNew() {
   const { newChat } = useGlobal()
-  return <div className={styles.new} onClick={newChat}><Icon type="add" />New Conversations</div>
+  return <div className={styles.new} onClick={newChat}><Icon type="add" />{t("New Conversation")}</div>
 }
 
 export function ColorIcon({ onChange }) {
@@ -99,7 +101,7 @@ export function ChatItem(props) {
         <div className={styles.title_item}>
           <div className={styles.title_p}>{props.title}</div>
         </div>
-        <div className={styles.message}>{props.messages.length} messages</div>
+        <div className={styles.message}>{t("count_messages", { count: props.messages.length })}</div>
       </div>
       <ListTool index={props.index} />
     </React.Fragment>

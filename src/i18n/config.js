@@ -53,6 +53,8 @@ i18n
                     "Search...": "Suche …",
                     count_messages_one: "Eine Nachricht",
                     count_messages_other: "{{count}} Nachrichten",
+                    "New Conversation": "Neues Gespräch",
+                    "Start a new conversation to begin storing them locally.": "Beginnen Sie ein neues Gespräch. Die Nachrichten werden lokal gespeichert.",
                 },
             },
         },
