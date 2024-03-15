@@ -3,12 +3,12 @@ export const initState = {
   current: 0,
   chat: [
     {
-      title: "Dateschutzfreundlicher Chatbot",
+      title: "K!mpuls, der dateschutzfreundliche Chatbot der FH Südwestfalen",
       id: 1,
       ct: "2023-12-12",
       messages: [
         {
-          content: "Hallo, ich bin KImpuls, Dein FH-Chatbot. Wie kann ich Dir helfen?",
+          content: "Hallo, ich bin K!mpuls, Dein FH-Chatbot. Wie kann ich Dir helfen?",
           sentTime: Date.now(),
           role: "system",
           id: 1,
