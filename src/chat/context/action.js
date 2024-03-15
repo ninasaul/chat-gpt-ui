@@ -1,5 +1,6 @@
 import { fetchStream } from "../service";
-import i18next from "i18next";
+import i18next, { t, use } from "i18next";
+import { useApps } from "../apps/context";
 
 export default function action(state, dispatch) {
   const setState = (payload = {}) =>
@@ -63,9 +64,9 @@ export default function action(state, dispatch) {
             },
             onError(res) {
               console.log(res);
-              const { error } = res || {};
+              const error = res || {};
               if (error) {
-                if (error === "Unauthorized") {
+                if (error.message === "Unauthorized") {
                   console.log("Unauthorized");
                   if (!import.meta.env.DEV)
                     window.location.href = "https://login.ki.fh-swf.de/openai/api/login";
@@ -88,14 +89,21 @@ export default function action(state, dispatch) {
       }
     },
 
+    setApp(app) {
+      console.log("setApp", app);
+      setState({ currentApp: app });
+    },
+
     newChat() {
+      const { currentApp } = state;
+      console.log("newChat: ", currentApp)
       const { chat } = state;
       const chatList = [
         ...chat,
         {
-          title: "This is a New Conversations",
+          title: currentApp.title || t("new_conversation"),
           id: Date.now(),
-          messages: [],
+          messages: [{ content: currentApp.content || t("system_welcome"), sentTime: Date.now(), role: "system", id: 1, }],
           ct: Date.now(),
           icon: [2, "files"],
         },

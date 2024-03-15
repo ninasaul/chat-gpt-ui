@@ -42,7 +42,8 @@ i18n
                     hello_world: "Hello, World!",
                     count_messages: "{{count}} messages",
                     chatbot_title: "K!mpuls, the privacy-friendly chatbot of FH Südwestfalen",
-                    system_welcome: "Hello, I'm K!mpuls, your university chatbot. How can I help you?"
+                    system_welcome: "Hello, I'm K!mpuls, your university chatbot. How can I help you?",
+                    new_conversation: "This is a New Conversation",
                 },
             },
             // German
@@ -58,6 +59,7 @@ i18n
                     "Search...": "Suche …",
                     count_messages_one: "Eine Nachricht",
                     count_messages_other: "{{count}} Nachrichten",
+                    new_conversation: "Dies ist ein neues Gespräch",
                     "New Conversation": "Neues Gespräch",
                     "Start a new conversation to begin storing them locally.": "Beginnen Sie ein neues Gespräch. Die Nachrichten werden lokal gespeichert.",
                 },

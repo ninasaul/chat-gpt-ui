@@ -1,12 +1,17 @@
 import React from 'react'
-import { AppsProvide, useApps } from './context'
+import { AppsProvider, useApps } from './context'
+import { useGlobal } from '../context'
 import { classnames } from '../../components/utils'
 import styles from './apps.module.less'
-import { Search } from '../../components'
 
 export function AppItem(props) {
+  const { setCurrent, apps, dispatch } = useApps()
+  const { setApp, newChat } = useGlobal()
+
+  const { category } = props;
+  const app = apps.filter(item => item.category === category)[0]
   return (
-    <div className={styles.app}>
+    <div className={styles.app} onClick={() => { setApp(app); newChat() }}>
       {/* <div className={classnames(styles.app_icon, `ico-prompts`)}></div> */}
       <div className={styles.app_content}>
         <div className={styles.app_title}>{props.title}</div>
@@ -27,7 +32,7 @@ export function Empty() {
 
 export function Category(props) {
   const { setState, apps, current, category } = useApps()
-  const list = apps.filter(item => item.id === category[current].id)
+  const list = apps.filter(item => item.category === category[current].id)
   return (
     <div>
       <div className={classnames(styles.category, current === props.index && styles.current)} onClick={() => setState({ current: props.index })}>
@@ -42,7 +47,7 @@ export function Category(props) {
 }
 
 export function AppContainer() {
-  const { category } = useApps()
+  const { category, dispatch } = useApps()
   return (
     <div className={styles.apps}>
       {category.map((item, index) => <Category index={index} {...item} key={item.id} />)}
@@ -52,8 +57,8 @@ export function AppContainer() {
 
 export function Apps() {
   return (
-    <AppsProvide>
+    <AppsProvider>
       <AppContainer />
-    </AppsProvide>
+    </AppsProvider>
   )
 }

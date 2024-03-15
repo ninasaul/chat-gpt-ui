@@ -117,7 +117,9 @@ export function MessageContainer() {
       <React.Fragment>
         {
           messages.length ? <div className={styles.container}>
-            {messages.map((item, index) => <MessageItem key={index} {...item} />)}
+            {messages
+              .filter(message => message.role === "user" || message.role === "assistant")
+              .map((item, index) => <MessageItem key={index} {...item} />)}
             {message?.error && <Error />}
           </div> : <ChatHelp />
         }

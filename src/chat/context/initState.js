@@ -58,5 +58,5 @@ export const initState = {
   typeingMessage: {},
   user: null,
   version: "0.1.0",
-  cotent: "",
+  content: "",
 };

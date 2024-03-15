@@ -7,10 +7,18 @@ export default function action(state, dispatch) {
   };
   return {
     setState,
-    toggleItem(current) {
+    setCurrent(current) {
+
+      console.log("setCurrent", current);
       setState({
         current,
       });
     },
+    setCurrentApp(currentApp) {
+      console.log("setCurrentApp", currentApp);
+      setState({
+        currentApp,
+      });
+    }
   };
 }

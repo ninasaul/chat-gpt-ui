@@ -5,7 +5,7 @@ import { initApps } from "./initState";
 
 export const AppsContext = createContext(null);
 
-export function AppsProvide({ children }) {
+export function AppsProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initApps);
   const actions = action(state, dispatch);
   return (

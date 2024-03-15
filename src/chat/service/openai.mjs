@@ -93,7 +93,7 @@ export const fetchStream = async ({
   if (!result.ok) {
     if (result.status === 401) {
       console.log("Unauthorized");
-      onError && onError({ error: "Unauthorized" }, controller);
+      onError && onError({ code: result.status, message: "Unauthorized" }, controller);
       return;
     }
     const error = await result.json();
