@@ -3,8 +3,8 @@ export const initState = {
   current: 0,
   chat: [
     {
-      title: "Generate useLocalStorage",
-      id: 321123123,
+      title: "Dateschutzfreundlicher Chatbot",
+      id: 1,
       ct: "2023-12-12",
       messages: [
         {

@@ -1,4 +1,5 @@
 import { fetchStream } from "../service";
+import i18next from "i18next";
 
 export default function action(state, dispatch) {
   const setState = (payload = {}) =>
@@ -66,7 +67,8 @@ export default function action(state, dispatch) {
               if (error) {
                 if (error === "Unauthorized") {
                   console.log("Unauthorized");
-                  window.location.href = "https://login.ki.fh-swf.de/openai/api/login";
+                  if (!import.meta.env.DEV)
+                    window.location.href = "https://login.ki.fh-swf.de/openai/api/login";
                 }
                 newChat.splice(currentChat, 1, {
                   ...chat[currentChat],
@@ -157,9 +159,14 @@ export default function action(state, dispatch) {
     },
 
     setOptions({ type, data = {} }) {
-      console.log(type, data);
+      console.log('set options: ', type, data);
       let options = { ...state.options };
       options[type] = { ...options[type], ...data };
+      if (type === "general") {
+        if (data.language) {
+          i18next.changeLanguage(data.language);
+        }
+      }
       setState({ options });
     },
 

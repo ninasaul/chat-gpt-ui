@@ -1,5 +1,6 @@
 export default function reducer(state, action = {}) {
   const { type, payload = {}, isConfig } = action;
+  // console.log("context reducer:", state, action);
   switch (type) {
     case "CHANGE_MESSAGE":
       return {

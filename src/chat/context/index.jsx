@@ -35,12 +35,11 @@ export const ChatProvider = ({ children }) => {
 
     fetch("https://login.ki.fh-swf.de/openai/api/user")
       .catch(err => {
-        console.log("getting user: ", err);
-        window.location.href = "https://login.ki.fh-swf.de/openai/api/login";
+        console.log("error getting user: ", err);
       })
       .then(res => {
         console.log("getting user: ", res.status);
-        if (res.status === 401) {
+        if (res.status === 401 && !import.meta.env.DEV) {
           window.location.href = "https://login.ki.fh-swf.de/openai/api/login";
         }
         return res.json()

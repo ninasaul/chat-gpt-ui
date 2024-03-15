@@ -7,7 +7,7 @@ COPY package-lock.json /app
 COPY . /app
 
 RUN npm install
-RUN npm run build
+RUN NODE_ENV=production npm run build
 
 FROM nginx:1.21-alpine
 
