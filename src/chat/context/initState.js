@@ -1,14 +1,20 @@
+import i18next from "i18next";
+import config from "../../i18n/config";
+
+i18next.init(config)
+const { t } = i18next;
+
 export const initState = {
   conversation: [],
   current: 0,
   chat: [
     {
-      title: "K!mpuls, der dateschutzfreundliche Chatbot der FH Südwestfalen",
+      title: t("chatbot_title"),
       id: 1,
       ct: "2023-12-12",
       messages: [
         {
-          content: "Hallo, ich bin K!mpuls, Dein FH-Chatbot. Wie kann ich Dir helfen?",
+          content: t("system_welcome"),
           sentTime: Date.now(),
           role: "system",
           id: 1,

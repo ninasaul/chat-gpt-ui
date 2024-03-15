@@ -41,12 +41,16 @@ i18n
                 translation: {
                     hello_world: "Hello, World!",
                     count_messages: "{{count}} messages",
+                    chatbot_title: "K!mpuls, the privacy-friendly chatbot of FH Südwestfalen",
+                    system_welcome: "Hello, I'm K!mpuls, your university chatbot. How can I help you?"
                 },
             },
             // German
             de: {
                 translation: {
                     hello_world: "Hallo, Welt!",
+                    chatbot_title: "K!mpuls, der datenschutzfreundliche Chatbot der FH Südwestfalen",
+                    system_welcome: "Hallo, ich bin K!mpuls, Dein FH-Chatbot. Wie kann ich Dir helfen?",
                     "copy": "Kopieren",
                     "Enter something....": "Geben Sie etwas ein …",
                     "Remove Messages": "Nachrichten entfernen",
