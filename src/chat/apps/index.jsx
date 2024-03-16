@@ -11,7 +11,7 @@ export function AppItem(props) {
   const { category } = props;
   const app = apps.filter(item => item.category === category)[0]
   return (
-    <div className={styles.app} onClick={() => { setApp(app); newChat() }}>
+    <div className={styles.app} onClick={() => { setApp(app); newChat(app) }}>
       {/* <div className={classnames(styles.app_icon, `ico-prompts`)}></div> */}
       <div className={styles.app_content}>
         <div className={styles.app_title}>{props.title}</div>

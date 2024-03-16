@@ -24,68 +24,7 @@ export default function action(state, dispatch) {
         const messages = [...chat[currentChat].messages, newMessage];
         let newChat = [...chat];
         newChat.splice(currentChat, 1, { ...chat[currentChat], messages });
-        setState({
-          is: { ...is, thinking: true },
-          typeingMessage: {},
-          chat: newChat,
-        });
-        const controller = new AbortController();
-        try {
-          const res = await fetchStream({
-            messages: messages.map((item) => {
-              const { sentTime, id, ...rest } = item;
-              return { ...rest };
-            }),
-            options: options.openai,
-            signal: controller.signal,
-            onMessage(content) {
-              newChat.splice(currentChat, 1, {
-                ...chat[currentChat],
-                messages: [
-                  ...messages,
-                  {
-                    content,
-                    role: "assistant",
-                    sentTime: Date.now(),
-                    id: Date.now(),
-                  },
-                ],
-              });
-              setState({
-                is: { ...is, thinking: content.length },
-                chat: newChat,
-              });
-            },
-            onStar() { },
-            onEnd() {
-              setState({
-                is: { ...is, thinking: false },
-              });
-            },
-            onError(res) {
-              console.log(res);
-              const error = res || {};
-              if (error) {
-                if (error.message === "Unauthorized") {
-                  console.log("Unauthorized");
-                  if (!import.meta.env.DEV)
-                    window.location.href = "https://login.ki.fh-swf.de/openai/api/login";
-                }
-                newChat.splice(currentChat, 1, {
-                  ...chat[currentChat],
-                  error,
-                });
-                setState({
-                  chat: newChat,
-                  is: { ...is, thinking: false },
-                });
-              }
-            },
-          });
-          console.log(res);
-        } catch (error) {
-          console.log(error);
-        }
+        await executeChatRequest(setState, is, newChat, messages, options, currentChat, chat);
       }
     },
 
@@ -94,21 +33,28 @@ export default function action(state, dispatch) {
       setState({ currentApp: app });
     },
 
-    newChat() {
-      const { currentApp } = state;
-      console.log("newChat: ", currentApp)
-      const { chat } = state;
+    async newChat(app) {
+      const { _currentApp, is, options, currentChat, chat } = state;
+      const currentApp = app || _currentApp;
+      let messages = [{ content: currentApp?.content || t("system_welcome"), sentTime: Date.now(), role: "system", id: 1, }]
+      console.log("newChat: ", currentApp, chat)
       const chatList = [
         ...chat,
         {
-          title: currentApp.title || t("new_conversation"),
+          title: currentApp?.title || t("new_conversation"),
           id: Date.now(),
-          messages: [{ content: currentApp.content || t("system_welcome"), sentTime: Date.now(), role: "system", id: 1, }],
+          messages,
           ct: Date.now(),
           icon: [2, "files"],
         },
       ];
-      setState({ chat: chatList, currentChat: chatList.length - 1 });
+      let _chat = chatList;
+      setState({ chat: _chat, currentChat: chatList.length - 1 });
+      console.log("newChat: ", _chat)
+      if (currentApp.botStarts) {
+        console.log("botStarts");
+        await executeChatRequest(setState, is, _chat, messages, options, currentChat, chat);
+      }
     },
 
     modifyChat(arg, index) {
@@ -193,5 +139,70 @@ export default function action(state, dispatch) {
       });
     },
   };
+}
+
+async function executeChatRequest(setState, is, newChat, messages, options, currentChat, chat) {
+  setState({
+    is: { ...is, thinking: true },
+    typeingMessage: {},
+    chat: newChat,
+  });
+  const controller = new AbortController();
+  try {
+    const res = await fetchStream({
+      messages: messages.map((item) => {
+        const { sentTime, id, ...rest } = item;
+        return { ...rest };
+      }),
+      options: options.openai,
+      signal: controller.signal,
+      onMessage(content) {
+        newChat.splice(currentChat, 1, {
+          ...chat[currentChat],
+          messages: [
+            ...messages,
+            {
+              content,
+              role: "assistant",
+              sentTime: Date.now(),
+              id: Date.now(),
+            },
+          ],
+        });
+        setState({
+          is: { ...is, thinking: content.length },
+          chat: newChat,
+        });
+      },
+      onStar() { },
+      onEnd() {
+        setState({
+          is: { ...is, thinking: false },
+        });
+      },
+      onError(res) {
+        console.log(res);
+        const error = res || {};
+        if (error) {
+          if (error.message === "Unauthorized") {
+            console.log("Unauthorized");
+            if (!import.meta.env.DEV)
+              window.location.href = "https://login.ki.fh-swf.de/openai/api/login";
+          }
+          newChat.splice(currentChat, 1, {
+            ...chat[currentChat],
+            error,
+          });
+          setState({
+            chat: newChat,
+            is: { ...is, thinking: false },
+          });
+        }
+      },
+    });
+    console.log(res);
+  } catch (error) {
+    console.log(error);
+  }
 }
 

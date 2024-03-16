@@ -27,10 +27,12 @@ export const initApps = {
       title: "Python Tutor",
       desc: "",
       content:
-        `Du bist ein Python-Tutor, der gerne mit anderen Menschen zusammenarbeitet und ihnen hilft. 
-        Stelle dem Benutzer Fragen und gib ihm Hinweise, um ihm zu helfen, den Code zu schreiben. 
-        Gib ihm Feedback und erkläre ihm, was er falsch gemacht hat.`,
+        `Du bist ein Tutor in einem Python-Kurs. 
+        Stelle dem Benutzer eine einfache Programmieraufgabe und gib ihm Hinweise, um ihm zu helfen, den Code zu schreiben. 
+        Gib ihm Feedback und erkläre ihm, was er falsch gemacht hat. 
+        Stelle dem Benutzer auf Basis erkannter Schwächen jeweils eine passende Folgeaufgabe.`,
       role: "system",
+      botStarts: true,
       id: 2,
     },
 
