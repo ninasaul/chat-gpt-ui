@@ -39,7 +39,6 @@ export default function action(state, dispatch) {
       let messages = [{ content: currentApp?.content || t("system_welcome"), sentTime: Date.now(), role: "system", id: 1, }]
       console.log("newChat: ", currentApp, chat)
       const chatList = [
-        ...chat,
         {
           title: currentApp?.title || t("new_conversation"),
           id: Date.now(),
@@ -47,13 +46,14 @@ export default function action(state, dispatch) {
           ct: Date.now(),
           icon: [2, "files"],
         },
+        ...chat,
       ];
       let _chat = chatList;
-      setState({ chat: _chat, currentChat: chatList.length - 1 });
+      setState({ chat: _chat, currentChat: 0 });
       console.log("newChat: ", _chat)
       if (currentApp.botStarts) {
         console.log("botStarts");
-        await executeChatRequest(setState, is, _chat, messages, options, currentChat, chat);
+        await executeChatRequest(setState, is, _chat, messages, options, 0, chat);
       }
     },
 
