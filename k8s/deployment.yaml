@@ -12,6 +12,7 @@ spec:
       io.kompose.service: openai-ui
   strategy:
     type: RollingUpdate
+  revisionHistoryLimit: 5
   template:
     metadata:
       labels:
