@@ -1,4 +1,4 @@
-# [1.1.0](https://github.com/fhswf/openai-ui/compare/v1.0.0...v1.1.0) (2024-03-18)
+# [0.2.0](https://github.com/fhswf/openai-ui/compare/v0.1.2...v0.2.0) (2024-03-18)
 
 
 ### Bug Fixes
