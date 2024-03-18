@@ -22,7 +22,7 @@ spec:
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: ui
+  name: login.ki.fh-swf.de
   namespace: openai-proxy
 spec:
   entryPoints:
@@ -44,7 +44,7 @@ spec:
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: ui
+  name: openai.ki.fh-swf.de
   namespace: openai-proxy
 spec:
   entryPoints:
