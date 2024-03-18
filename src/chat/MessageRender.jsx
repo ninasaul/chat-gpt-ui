@@ -6,7 +6,9 @@ import { useGlobal } from './context'
 import remarkMath from 'remark-math'
 import remarkGfm from 'remark-gfm'
 import remarkBreaks from 'remark-breaks'
+import rehypeKatex from 'rehype-katex'
 import './style/markdown.less'
+import 'katex/dist/katex.min.css'
 
 export const MessageRender = memo((props) => {
   const { options } = useGlobal()
@@ -16,6 +18,7 @@ export const MessageRender = memo((props) => {
       className="z-ui-markdown"
       children={props.children}
       remarkPlugins={[remarkMath, remarkGfm, remarkBreaks]}
+      rehypePlugins={[rehypeKatex]}
       components={{
         code({ node, inline, className, children, ...rest }) {
           const match = /language-(\w+)/.exec(className || '')
