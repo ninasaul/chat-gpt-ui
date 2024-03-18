@@ -24,7 +24,6 @@ export function ChatOptions() {
   const { options } = useGlobal()
   const { account, openai, general } = options
   // const { avatar, name } = account
-  // const { theme, language, command, size } = general
   // const { max_tokens, apiKey, temperature, baseUrl, organizationId, top_p, model } = openai
   const { setAccount, setGeneral, setModel } = useOptions()
   return (
@@ -47,7 +46,7 @@ export function ChatOptions() {
             <Select value={general.theme} onChange={(val) => setGeneral({ theme: val })} options={themeOptions} placeholder="Select interface style" />
           </Panel.Item>
           <Panel.Item icon="files" title="Send messages" desc="Want to make this keyboard shortcut a global one?">
-            <Select value={general.command} onChange={(val) => setGeneral({ sendCommand: val })} options={sendCommandOptions} placeholder="Select interface style" />
+            <Select value={general.sendCommand} onChange={(val) => setGeneral({ sendCommand: val })} options={sendCommandOptions} placeholder="Select interface style" />
           </Panel.Item>
           <Panel.Item icon="lang" title="Language" desc="Select interface language">
             <Select value={general.language} onChange={val => setGeneral({ language: val })} options={languageOptions} placeholder="language" />

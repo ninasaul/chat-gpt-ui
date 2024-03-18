@@ -79,7 +79,7 @@ export function MessageItem(props) {
 export function MessageBar() {
   const { sendMessage, setMessage, is, options, setIs, typeingMessage, clearTypeing, stopResonse } = useGlobal()
   const { t } = useTranslation();
-  useSendKey(sendMessage, options.general.command)
+  useSendKey(sendMessage, options.general.sendCommand)
   return (
     <div className={styles.bar}>
       {is.thinking && <div className={styles.bar_tool}>
@@ -91,7 +91,7 @@ export function MessageBar() {
         <div className={styles.bar_type}>
           <Textarea transparent={true} rows="3" value={typeingMessage?.content || ''}
             onFocus={() => setIs({ inputing: true })} onBlur={() => setIs({ inputing: false })}
-            placeholder={t("Enter something....")} onChange={setMessage} onEnter={sendMessage} />
+            placeholder={t("Enter something....")} onChange={setMessage} onEnter={onEnter} />
         </div>
         <div className={styles.bar_icon}>
           {typeingMessage?.content &&
@@ -106,6 +106,11 @@ export function MessageBar() {
       </div>
     </div>
   )
+}
+
+const onEnter = (content, event) => {
+
+  //sendMessage(content)
 }
 
 export function MessageContainer() {

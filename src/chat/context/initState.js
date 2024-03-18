@@ -32,7 +32,7 @@ export const initState = {
     general: {
       language: "English",
       theme: "light",
-      command: "COMMAND_ENTER",
+      sendCommand: "ENTER",
       size: "normal",
     },
     openai: {
