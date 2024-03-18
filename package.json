@@ -1,6 +1,6 @@
 {
   "name": "openai-ui",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Privacy-focused UI for OpenAI APIs",
   "main": "index.js",
   "keywords": [],
