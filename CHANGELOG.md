@@ -1,3 +1,15 @@
+# [1.1.0](https://github.com/fhswf/openai-ui/compare/v1.0.0...v1.1.0) (2024-03-18)
+
+
+### Bug Fixes
+
+* error handling ([da92610](https://github.com/fhswf/openai-ui/commit/da9261024540902b0234a2bc7884fbae0fe4eddf))
+
+
+### Features
+
+* **chat:** add math support ([d07f2cf](https://github.com/fhswf/openai-ui/commit/d07f2cf93f5bd57d2bee6fee83a96418f2d6dcd5))
+
 # 0.1.2 (2024-03-18)
 
 
