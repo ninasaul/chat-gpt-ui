@@ -47,7 +47,7 @@ export const Textarea = forwardRef((props, ref) => {
       event.preventDefault();
     }
     else if (event.key === "Enter") {
-      onEnter && onEnter(content);
+      onEnter && onEnter(content, event);
       event.preventDefault();
     }
   }
