@@ -189,10 +189,14 @@ async function executeChatRequest(setState, is, newChat, messages, options, curr
             if (!import.meta.env.DEV)
               window.location.href = "https://login.ki.fh-swf.de/openai/api/login";
           }
+
           newChat.splice(currentChat, 1, {
             ...chat[currentChat],
+            messages,
             error,
           });
+
+
           setState({
             chat: newChat,
             is: { ...is, thinking: false },
