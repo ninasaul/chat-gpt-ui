@@ -62,13 +62,13 @@ jobs:
             ghcr.io/fhswf/openai-ui            
           # generate Docker tags based on the following events/attributes
           tags: |
+            type=sha,prefix=sha-,format=short,enable=true,priority=1100
             type=schedule
             type=ref,event=branch
             type=ref,event=pr
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
-            type=sha
             type=raw,value=${{ env.RELEASE_VERSION }}
 
       - name: Build and push Docker image
@@ -79,12 +79,15 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-      
+
+      - name: Set deploy tag
+        id: deploy_tag
+        run: echo "DEPLOY_TAG=${{ fromJSON(steps.meta.outputs.json).tags[0] }} >> GITHUB_ENV
       - name: Update yaml
         uses: fjogeleit/yaml-update-action@main
         with:
           valueFile: 'k8s/deployment-dev.yaml'
           propertyPath: 'spec.template.spec.containers[0].image'
-          value: ghcr.io/fhswf/openai-proxy:${{ github.sha }}
+          value: ghcr.io/fhswf/openai-proxy:${{ env.DEPLOY_TAG }}
           branch: main
-          message: 'Update image to ${{ github.sha }}'
+          message: 'Update image to ${{ env.DEPLOY_TAG }}'
