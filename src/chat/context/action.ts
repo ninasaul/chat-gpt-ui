@@ -160,7 +160,7 @@ export default function action(state, dispatch): GlobalAction {
   };
 }
 
-async function executeChatRequest(setState, is, newChat, messages, options, currentChat, chat) {
+async function executeChatRequest(setState, is, newChat, messages, options: Options, currentChat, chat) {
   setState({
     is: { ...is, thinking: true },
     typeingMessage: {},
@@ -168,15 +168,13 @@ async function executeChatRequest(setState, is, newChat, messages, options, curr
   });
   const controller = new AbortController();
   try {
-    const res = await fetchStream({
-      messages: messages.map((item) => {
+    console.log("executeChatRequest, options: ", options.openai);
+    const res = await fetchStream(options.openai,
+      messages.map((item) => {
         const { sentTime, id, ...rest } = item;
         return { ...rest };
       }),
-      options: options.openai,
-      //TODO: clarify if this is indeed no longer needed
-      // signal: controller.signal,
-      onMessage(content) {
+      (content) => {
         newChat.splice(currentChat, 1, {
           ...chat[currentChat],
           messages: [
@@ -194,13 +192,12 @@ async function executeChatRequest(setState, is, newChat, messages, options, curr
           chat: newChat,
         });
       },
-      onStar() { },
-      onEnd() {
+      () => {
         setState({
           is: { ...is, thinking: false },
         });
       },
-      onError(res) {
+      (res) => {
         console.log(res);
         const error = res || {};
         if (error) {
@@ -223,7 +220,7 @@ async function executeChatRequest(setState, is, newChat, messages, options, curr
           });
         }
       },
-    });
+      () => { });
     console.log(res);
   } catch (error) {
     console.log(error);

@@ -1,6 +1,6 @@
 import { createParser } from "eventsource-parser";
 import { setAbortController } from "./abortController.mjs";
-import { OpenAIOptions } from "../context";
+import { Options, OpenAIOptions } from "../context";
 
 export async function* streamAsyncIterable(stream) {
   const reader = stream.getReader();
@@ -41,7 +41,7 @@ export const throwError = async (response) => {
   }
 };
 
-export const fetchBody = (options: Partial<OpenAIOptions> = {}, messages = []) => {
+export const fetchBody = (options: OpenAIOptions, messages = []) => {
   const { top_p, n, max_tokens, temperature, model, stream } = options;
   return {
     messages,
@@ -55,14 +55,12 @@ export const fetchBody = (options: Partial<OpenAIOptions> = {}, messages = []) =
   };
 };
 
-export const fetchAction = async (
-  method = "POST",
-  messages = [],
-  options: Partial<OpenAIOptions> = {},
-  signal) => {
-  const { baseUrl, ...rest } = options;
+export const fetchAction = async (method: string,
+  messages = [], options: OpenAIOptions, signal) => {
+  const baseUrl = options.baseUrl;
+  console.log("fetchAction", options);
   const url = fetchBaseUrl(baseUrl);
-  const headers = fetchHeaders({ ...rest });
+  const headers = fetchHeaders(options);
   const body = JSON.stringify(fetchBody(options, messages));
   const response = await fetch(url, {
     method,
@@ -73,18 +71,11 @@ export const fetchAction = async (
   return response;
 };
 
-export const fetchStream = async ({
-  options,
-  messages,
-  onMessage,
-  onEnd,
-  onError,
-  onStar,
-}) => {
+export const fetchStream = async (options: OpenAIOptions, messages, onMessage, onEnd, onError, onStar) => {
   let answer = "";
   const { controller, signal } = setAbortController();
   console.log(signal, controller);
-  const result = await fetchAction("POST", options, messages, signal)
+  const result = await fetchAction("POST", messages, options, signal)
     .catch((error) => {
       onError && onError(error, controller);
     });
