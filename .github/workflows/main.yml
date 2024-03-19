@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  release: 
+  release:
     name: Release
     runs-on: ubuntu-latest
     permissions:
@@ -21,16 +21,23 @@ jobs:
         with:
           fetch-depth: 0
       - name: Semantic Release
+        id: semantic_release
         uses: cycjimmy/semantic-release-action@v4
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - run: echo ${{ steps.semantic_release.outputs.new_release_published }}
+      - name: Set default (old) release version
+        run: echo "RELEASE_VERSION=${{ steps.semantic_release.outputs.last_release_version }}" >> $GITHUB_ENV  
+      - name: Set new release version
+        run: echo "RELEASE_VERSION=${{ steps.semantic_release.outputs.new_release_version }}" >> $GITHUB_ENV 
+        if: steps.semantic_release.outputs.new_release_published == 'true'
+
     outputs:
       new_release_published: ${{ steps.semantic_release.outputs.new_release_published }}
       new_release_version: ${{ steps.semantic_release.outputs.new_release_version }}
-      latest_release_version: ${{ steps.semantic_release.outputs.latest_release_version }}
+      last_release_version: ${{ steps.semantic_release.outputs.last_release_version }}
+      release_version: ${{ env.RELEASE_VERSION }}
       
   build:
     needs: release
@@ -45,21 +52,39 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Set release version
-        run: echo "RELEASE_VERSION=${{ needs.release.outputs.new_release_version }}" >> $GITHUB_ENV
-        if: needs.release.outputs.new_release_published == 'true'
-      - name: Set latest version
-        run: echo "RELEASE_VERSION=${{ needs.release.outputs.latest_release_version }}" >> $GITHUB_ENV
-        if: needs.release.outputs.new_release_published == 'false'
 
-      - name: Output release version
-        run: echo $RELEASE_VERSION
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          # list of Docker images to use as base name for tags
+          images: |
+            ghcr.io/fhswf/openai-ui            
+          # generate Docker tags based on the following events/attributes
+          tags: |
+            type=sha,prefix=sha-,format=short,enable=true,priority=1100
+            type=schedule
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=raw,value=${{ env.RELEASE_VERSION }}
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v5
         with:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ghcr.io/fhswf/openai-ui:latest, ghcr.io/fhswf/openai-ui:${{ github.sha }}, ghcr.io/fhswf/openai-ui:${{ env.RELEASE_VERSION }}
-      
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Update yaml
+        uses: fjogeleit/yaml-update-action@main
+        with:
+          valueFile: 'k8s/deployment-dev.yaml'
+          propertyPath: 'spec.template.spec.containers[0].image'
+          value: ghcr.io/fhswf/openai-ui:${{ env.DOCKER_METADATA_OUTPUT_VERSION }}
+          branch: main
+          message: 'Update image to ${{ env.DOCKER_METADATA_OUTPUT_VERSION }}'
