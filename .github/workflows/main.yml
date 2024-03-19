@@ -85,6 +85,6 @@ jobs:
         with:
           valueFile: 'k8s/deployment-dev.yaml'
           propertyPath: 'spec.template.spec.containers[0].image'
-          value: ghcr.io/fhswf/openai-proxy:${{ env.DOCKER_METADATA_OUTPUT_VERSION }}
+          value: ghcr.io/fhswf/openai-ui:${{ env.DOCKER_METADATA_OUTPUT_VERSION }}
           branch: main
           message: 'Update image to ${{ env.DOCKER_METADATA_OUTPUT_VERSION }}'
