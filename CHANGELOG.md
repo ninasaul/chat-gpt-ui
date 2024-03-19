@@ -1,3 +1,10 @@
+## [0.3.4](https://github.com/fhswf/openai-ui/compare/v0.3.3...v0.3.4) (2024-03-19)
+
+
+### Bug Fixes
+
+* build workflow ([b20e104](https://github.com/fhswf/openai-ui/commit/b20e104e95ca39348d632a3ad7c0d7d85bf8cfa7))
+
 ## [0.3.3](https://github.com/fhswf/openai-ui/compare/v0.3.2...v0.3.3) (2024-03-19)
 
 
