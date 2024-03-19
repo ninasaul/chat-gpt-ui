@@ -1,3 +1,10 @@
+# [0.5.0](https://github.com/fhswf/openai-ui/compare/v0.4.2...v0.5.0) (2024-03-19)
+
+
+### Features
+
+* reset options ([af26282](https://github.com/fhswf/openai-ui/commit/af26282b2bd2c8af5153cde8e992f98e75df6ee4))
+
 ## [0.4.2](https://github.com/fhswf/openai-ui/compare/v0.4.1...v0.4.2) (2024-03-19)
 
 
