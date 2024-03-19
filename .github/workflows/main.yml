@@ -29,11 +29,10 @@ jobs:
 
       - name: Set default (old) release version
         run: echo "RELEASE_VERSION=${{ steps.semantic_release.outputs.last_release_version }}" >> $GITHUB_ENV  
-      - name: Output release version
+      - name: Set new release version
         run: echo "RELEASE_VERSION=${{ steps.semantic_release.outputs.new_release_version }}" >> $GITHUB_ENV 
         if: steps.semantic_release.outputs.new_release_published == 'true'
-      - name: Output release version
-        run: echo "RELEASE_VERSION=${{ env.RELEASE_VERSION }}" 
+
     outputs:
       new_release_published: ${{ steps.semantic_release.outputs.new_release_published }}
       new_release_version: ${{ steps.semantic_release.outputs.new_release_version }}
@@ -64,3 +63,11 @@ jobs:
           push: true
           tags: ghcr.io/fhswf/openai-ui:latest, ghcr.io/fhswf/openai-ui:${{ github.sha }}, ghcr.io/fhswf/openai-ui:${{ needs.release.outputs.release_version }}
       
+      - name: Update yaml
+        uses: fjogeleit/yaml-update-action@main
+        with:
+          valueFile: 'k8s/deployment-dev.yaml'
+          propertyPath: 'spec.template.spec.containers[0].image'
+          value: ghcr.io/fhswf/openai-proxy:${{ github.sha }}
+          branch: main
+          message: 'Update image to ${{ github.sha }}'
