@@ -15,7 +15,7 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         organization: fhswf
         container: openai-ui
-        dry-run: true 
-        keep-younger-than: 2
+        dry-run: false 
+        keep-last: 10
         prune-tags-regexes: |
           ^sha-.*
