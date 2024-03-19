@@ -1,3 +1,10 @@
+## [0.4.1](https://github.com/fhswf/openai-ui/compare/v0.4.0...v0.4.1) (2024-03-19)
+
+
+### Bug Fixes
+
+* docker build ([0e1f967](https://github.com/fhswf/openai-ui/commit/0e1f967ccdefa4c6a94527c73a7d06020d583953))
+
 # [0.4.0](https://github.com/fhswf/openai-ui/compare/v0.3.4...v0.4.0) (2024-03-19)
 
 
