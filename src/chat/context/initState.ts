@@ -1,8 +1,17 @@
-import i18next from "i18next";
-import config from "../../i18n/config";
 
-i18next.init(config)
-const { t } = i18next;
+import i18n from "../../i18n/config";
+const { t } = i18n;
+
+export enum GlobalActionType {
+  SET_STATE = "SET_STATE",
+  CHANGE_MESSAGE = "CHANGE_MESSAGE",
+  IS_CONFIG = "IS_CONFIG",
+};
+export type GlobalState = any;
+export type GlobalAction =
+  | { type: GlobalActionType.SET_STATE; payload: Partial<GlobalState> }
+  | { type: GlobalActionType.CHANGE_MESSAGE; payload: Partial<GlobalState> }
+  | { type: GlobalActionType.IS_CONFIG; payload: Partial<GlobalState> };
 
 export const initState = {
   conversation: [],

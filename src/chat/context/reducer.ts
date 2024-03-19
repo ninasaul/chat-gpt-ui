@@ -1,5 +1,7 @@
-export default function reducer(state, action = {}) {
-  const { type, payload = {}, isConfig } = action;
+import { GlobalState, GlobalAction } from "./initState";
+
+export default function reduce(state: GlobalState, action: GlobalAction): GlobalState {
+  const { type, payload = {} } = action;
   // console.log("context reducer:", state, action);
   switch (type) {
     case "CHANGE_MESSAGE":
@@ -10,7 +12,7 @@ export default function reducer(state, action = {}) {
     case "IS_CONFIG":
       return {
         ...state,
-        isConfig,
+        ...payload,
       };
     case "SET_STATE":
       return {
