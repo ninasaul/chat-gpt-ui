@@ -82,7 +82,7 @@ jobs:
 
       - name: Set deploy tag
         id: deploy_tag
-        run: echo "DEPLOY_TAG=${{ fromJSON(steps.meta.outputs.json).tags[0] }} >> GITHUB_ENV
+        run: echo "DEPLOY_TAG=${{ fromJSON(steps.meta.outputs.json).tags[0] }}" >> GITHUB_ENV
       - name: Update yaml
         uses: fjogeleit/yaml-update-action@main
         with:
