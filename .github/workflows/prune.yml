@@ -17,6 +17,7 @@ jobs:
         container: openai-ui
         dry-run: false 
         keep-last: 10
+        prune-untagged: true
         prune-tags-regexes: |
           ^sha.*
           ^...................*
