@@ -25,9 +25,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - run: echo ${{ steps.semantic_release.outputs.new_release_published }}
     outputs:
       new_release_published: ${{ steps.semantic_release.outputs.new_release_published }}
       new_release_version: ${{ steps.semantic_release.outputs.new_release_version }}
+      latest_release_version: ${{ steps.semantic_release.outputs.latest_release_version }}
       
   build:
     needs: release
@@ -42,29 +45,21 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set release version
+        run: echo "RELEASE_VERSION=${{ needs.release.outputs.new_release_version }}" >> $GITHUB_ENV
+        if: needs.release.outputs.new_release_published == 'true'
+      - name: Set latest version
+        run: echo "RELEASE_VERSION=${{ needs.release.outputs.latest_release_version }}" >> $GITHUB_ENV
+        if: needs.release.outputs.new_release_published == 'false'
+
+      - name: Output release version
+        run: echo $RELEASE_VERSION
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ghcr.io/fhswf/openai-ui:latest, ghcr.io/fhswf/openai-ui:${{ github.sha }}
+          tags: ghcr.io/fhswf/openai-ui:latest, ghcr.io/fhswf/openai-ui:${{ github.sha }}, ghcr.io/fhswf/openai-ui:${{ env.RELEASE_VERSION }}
       
-      - run: echo ${{needs.release.outputs.new_release_published}}
-      
-      - name: Build and tag Docker image
-        if: needs.release.outputs.new_release_published == 'true'
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: ./Dockerfile
-          push: true
-          tags: ghcr.io/fhswf/openai-ui:${{ needs.release.outputs.new_release_version }}
-      - name: Update yaml
-        uses: fjogeleit/yaml-update-action@main
-        with:
-          valueFile: 'k8s/deployment.yaml'
-          propertyPath: 'spec.template.spec.containers[0].image'
-          value: ghcr.io/fhswf/openai-ui:${{ github.sha }}
-          branch: main
-          message: 'Update image to ${{ github.sha }}'
