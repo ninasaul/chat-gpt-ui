@@ -3,7 +3,25 @@ import i18next, { t, use } from "i18next";
 import { useApps } from "../apps/context";
 import { AccountOptions, GeneralOptions, GlobalState, OpenAIOptions, Options, OptionAction } from ".";
 
-export default function action(state, dispatch) {
+export type GlobalAction = {
+  setState: (payload: Partial<GlobalState>) => void;
+  clearTypeing: () => void;
+  sendMessage: () => void;
+  setApp: (app: any) => void;
+  newChat: (app: any) => void;
+  modifyChat: (arg: any, index: number) => void;
+  editChat: (index: number, title: string) => void;
+  removeChat: (index: number) => void;
+  setMessage: (content: string) => void;
+  clearMessage: () => void;
+  removeMessage: (id: number) => void;
+  setOptions: (arg: OptionAction) => void;
+  setIs: (arg: any) => void;
+  currentList: () => any;
+  stopResonse: () => void;
+};
+
+export default function action(state, dispatch): GlobalAction {
   const setState = (payload = {}) =>
     dispatch({
       type: "SET_STATE",

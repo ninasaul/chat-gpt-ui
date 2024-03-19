@@ -91,7 +91,7 @@ export const ChatContext = createContext(null);
 export const MessagesContext = createContext<Dispatch<GlobalAction> | null>(null);
 
 export const ChatProvider = ({ children }) => {
-  const init = JSON.parse(localStorage.getItem("SESSIONS") || "") || initState;
+  const init: GlobalState = JSON.parse(localStorage.getItem("SESSIONS")) || initState;
   const [state, dispatch] = useReducer(reducer, init);
   const actionList = action(state, dispatch);
   const latestState = useRef(state);
@@ -101,7 +101,7 @@ export const ChatProvider = ({ children }) => {
   }, [state]);
 
   useEffect(() => {
-    const savedState = JSON.parse(localStorage.getItem("SESSIONS") || "");
+    const savedState = JSON.parse(localStorage.getItem("SESSIONS"));
     if (savedState) {
       dispatch({ type: GlobalActionType.SET_STATE, payload: savedState });
     }
@@ -130,7 +130,7 @@ export const ChatProvider = ({ children }) => {
   );
 };
 
-export const useGlobal = () => useContext(ChatContext);
+export const useGlobal = () => useContext<GlobalAction & GlobalState>(ChatContext);
 export const useMessages = () => useContext(MessagesContext);
 
 

@@ -13,7 +13,7 @@ import './style.less'
 
 export default function Chat() {
   const { is } = useGlobal()
-  const chatStyle = is.fullScreen ? styles.full : styles.normal
+  const chatStyle = is?.fullScreen ? styles.full : styles.normal
   const onSearch = (e) => {
     console.log(e)
   }
@@ -22,16 +22,16 @@ export default function Chat() {
       <div className={styles.chat_inner}>
         <ChatSideBar />
         {
-          is.config ?
+          is?.config ?
             <ChatOptions /> :
             <React.Fragment>
               {
-                is.sidebar && <div className={styles.sider}>
+                is?.sidebar && <div className={styles.sider}>
                   <div className={styles.search}>
                     <Search onSearch={onSearch} />
                   </div>
                   <ScrollView>
-                    {is.apps ? <Apps /> : <ChatList />}
+                    {is?.apps ? <Apps /> : <ChatList />}
                   </ScrollView>
                 </div>
               }
