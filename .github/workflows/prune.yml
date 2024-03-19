@@ -19,3 +19,4 @@ jobs:
         keep-last: 10
         prune-tags-regexes: |
           ^sha.*
+          ^...................*
