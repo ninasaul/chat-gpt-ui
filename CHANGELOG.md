@@ -1,3 +1,10 @@
+## [0.4.2](https://github.com/fhswf/openai-ui/compare/v0.4.1...v0.4.2) (2024-03-19)
+
+
+### Bug Fixes
+
+* option handling ([20a3153](https://github.com/fhswf/openai-ui/commit/20a31531ed5a7fd9a44361b42498f518c2cc1166))
+
 ## [0.4.1](https://github.com/fhswf/openai-ui/compare/v0.4.0...v0.4.1) (2024-03-19)
 
 
