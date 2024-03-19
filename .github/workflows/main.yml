@@ -25,7 +25,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        
+    outputs:
+      new_release_published: ${{ steps.semantic_release.outputs.new_release_published }}
+      new_release_version: ${{ steps.semantic_release.outputs.new_release_version }}
+      
   build:
     needs: release
     runs-on: ubuntu-latest
@@ -47,7 +50,7 @@ jobs:
           push: true
           tags: ghcr.io/fhswf/openai-ui:latest, ghcr.io/fhswf/openai-ui:${{ github.sha }}
       
-      - run: echo ${{needs.release.outputs}}
+      - run: echo ${{needs.release.outputs.new_release_published}}
       
       - name: Build and tag Docker image
         if: needs.release.outputs.new_release_published == 'true'
