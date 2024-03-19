@@ -35,10 +35,10 @@ export const initState: GlobalState = {
       size: "normal",
     },
     openai: {
-      baseUrl: "https://login.ki.fh-swf.de/openai/api/v1/chat/completions",
+      baseUrl: "https://openai.ki.fh-swf.de/api/v1/chat/completions",
       organizationId: "",
       temperature: 1,
-      model: "gpt-4",
+      model: "gpt-4-turbo-preview",
       apiKey: "unused",
       max_tokens: 2048,
       n: 1,

@@ -28,10 +28,11 @@ export function Item(props) {
 }
 
 export function Panel(props) {
-  const { children, title, className } = props
+  const { children, title, desc, className } = props
   return (
     <div className={classnames(styles.panel, className)}>
       {title && <Title type="h4" className={styles.title}>{title}</Title>}
+      {desc && <div className={styles.panel_desc}>{desc}</div>}
       <div className={styles.children}>{children}</div>
     </div>
   )

@@ -42,13 +42,19 @@ export const sendCommandOptions = [
 
 export const modelOptions = [
   {
-    label: "gpt-3.5-turbo",
-    value: "gpt-3.5-turbo",
+    label: "gpt-4-turbo-preview",
+    value: "gpt-4-turbo-preview",
   },
   {
     label: "gpt-4",
     value: "gpt-4",
   },
+  {
+    label: "gpt-3.5-turbo",
+    value: "gpt-3.5-turbo",
+  },
+
+
 ];
 
 export const languageOptions = [
