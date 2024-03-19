@@ -1,3 +1,10 @@
+# [0.3.0](https://github.com/fhswf/openai-ui/compare/v0.2.0...v0.3.0) (2024-03-19)
+
+
+### Features
+
+* **build:** tag image with release ([2685692](https://github.com/fhswf/openai-ui/commit/2685692a39aae22dcd261d8628f735340c631d19))
+
 # [0.2.0](https://github.com/fhswf/openai-ui/compare/v0.1.2...v0.2.0) (2024-03-18)
 
 
