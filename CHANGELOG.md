@@ -1,3 +1,11 @@
+# [0.4.0](https://github.com/fhswf/openai-ui/compare/v0.3.4...v0.4.0) (2024-03-19)
+
+
+### Features
+
+* endpoint configuration ([621f9a8](https://github.com/fhswf/openai-ui/commit/621f9a8904c7ab1790e47042feb8fb4309898bb9))
+* **ui:** i18n ([e8d385e](https://github.com/fhswf/openai-ui/commit/e8d385ed572945fe4398acd5459917553eb49a3f))
+
 ## [0.3.4](https://github.com/fhswf/openai-ui/compare/v0.3.3...v0.3.4) (2024-03-19)
 
 
