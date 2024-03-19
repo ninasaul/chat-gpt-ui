@@ -1,3 +1,10 @@
+## [0.5.1](https://github.com/fhswf/openai-ui/compare/v0.5.0...v0.5.1) (2024-03-19)
+
+
+### Bug Fixes
+
+* option passing to openai service ([fd486b1](https://github.com/fhswf/openai-ui/commit/fd486b19245f5c21a17d5212d70b89ca8f6cf333))
+
 # [0.5.0](https://github.com/fhswf/openai-ui/compare/v0.4.2...v0.5.0) (2024-03-19)
 
 
