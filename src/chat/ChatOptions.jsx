@@ -7,14 +7,15 @@ import styles from './style/config.module.less'
 import { classnames } from '../components/utils'
 import { useOptions } from './hooks'
 import { t } from 'i18next'
+import { initState } from './context/initState'
 
 export function ConfigHeader() {
-  const { setIs, is } = useGlobal()
+  const { setState, setIs, is } = useGlobal()
   return (
     <div className={classnames(styles.header, 'flex-c-sb')}>
       <Title type="h5">Setting</ Title>
       <div className="flex-c">
-        <Button type="icon" onClick={() => setIs({ config: !is.config })} icon="refresh" />
+        <Button type="icon" onClick={() => setState(initState)} icon="refresh" />
         <Button type="icon" onClick={() => setIs({ config: !is.config })} icon="close" />
       </div>
     </div >

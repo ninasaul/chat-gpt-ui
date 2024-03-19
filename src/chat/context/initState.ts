@@ -29,7 +29,7 @@ export const initState: GlobalState = {
       avatar: "",
     },
     general: {
-      language: "English",
+      language: "de",
       theme: "light",
       sendCommand: "ENTER",
       size: "normal",
