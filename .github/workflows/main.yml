@@ -80,14 +80,11 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-      - name: Set deploy tag
-        id: deploy_tag
-        run: echo "DEPLOY_TAG=${{ fromJSON(steps.meta.outputs.json).tags[0] }}" >> GITHUB_ENV
       - name: Update yaml
         uses: fjogeleit/yaml-update-action@main
         with:
           valueFile: 'k8s/deployment-dev.yaml'
           propertyPath: 'spec.template.spec.containers[0].image'
-          value: ghcr.io/fhswf/openai-proxy:${{ env.DEPLOY_TAG }}
+          value: ghcr.io/fhswf/openai-proxy:${{ env.DOCKER_METADATA_OUTPUT_VERSION }}
           branch: main
-          message: 'Update image to ${{ env.DEPLOY_TAG }}'
+          message: 'Update image to ${{ env.DOCKER_METADATA_OUTPUT_VERSION }}'
