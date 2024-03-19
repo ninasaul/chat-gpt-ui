@@ -18,4 +18,4 @@ jobs:
         dry-run: false 
         keep-last: 10
         prune-tags-regexes: |
-          ^sha-.*
+          ^sha.*
