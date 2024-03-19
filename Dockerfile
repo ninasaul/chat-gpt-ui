@@ -6,6 +6,11 @@ COPY package.json /app
 COPY package-lock.json /app
 COPY . /app
 
+ENV NODE_ENV=production
+ENV VITE_API_URL=/api/v1/chat/completions
+ENV VITE_LOGIN_URL=/api/login
+ENV VITE_USER_URL=/api/user
+
 RUN npm install
 RUN NODE_ENV=production npm run build
 

@@ -26,14 +26,14 @@ export async function sha256Digest(message) {
 
 
 export function fetchAndGetUser(dispatch) {
-  fetch("https://login.ki.fh-swf.de/openai/api/user")
+  fetch(import.meta.env.VITE_USER_URL)
     .catch(err => {
       console.log("error getting user: ", err);
     })
     .then(res => {
       console.log("getting user: ", res.status);
       if (res.status === 401 && !import.meta.env.DEV) {
-        window.location.href = "https://login.ki.fh-swf.de/openai/api/login";
+        window.location.href = import.meta.env.VITE_LOGIN_URL;
       }
       return res.json();
     })

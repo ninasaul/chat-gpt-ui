@@ -189,7 +189,7 @@ async function executeChatRequest(setState, is, newChat, messages, options, curr
           if (error.message === "Unauthorized") {
             console.log("Unauthorized");
             if (!import.meta.env.DEV)
-              window.location.href = "https://login.ki.fh-swf.de/openai/api/login";
+              window.location.href = import.meta.env.VITE_LOGIN_URL;
           }
 
           newChat.splice(currentChat, 1, {
