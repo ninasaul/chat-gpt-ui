@@ -26,11 +26,18 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - run: echo ${{ steps.semantic_release.outputs.new_release_published }}
+      - name: Set default (old) release version
+        run: echo "RELEASE_VERSION=${{ steps.semantic_release.outputs.last_RELEASE_VERSION }}" >> $GITHUB_ENV  
+      - name: Output release version
+        run: echo "RELEASE_VERSION=${{ steps.semantic_release.outputs.new_RELEASE_VERSION }}" >> $GITHUB_ENV 
+        if: steps.semantic_release.outputs.new_release_published == 'true'
+      - name: Output release version
+        run: echo "RELEASE_VERSION=${{ env.RELEASE_VERSION }}" 
     outputs:
       new_release_published: ${{ steps.semantic_release.outputs.new_release_published }}
       new_release_version: ${{ steps.semantic_release.outputs.new_release_version }}
-      latest_release_version: ${{ steps.semantic_release.outputs.latest_release_version }}
+      last_release_version: ${{ steps.semantic_release.outputs.last_release_version }}
+      release_version: ${{ env.RELEASE_VERSION }}
       
   build:
     needs: release
@@ -45,12 +52,6 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Set release version
-        run: echo "RELEASE_VERSION=${{ needs.release.outputs.new_release_version }}" >> $GITHUB_ENV
-        if: needs.release.outputs.new_release_published == 'true'
-      - name: Set latest version
-        run: echo "RELEASE_VERSION=${{ needs.release.outputs.latest_release_version }}" >> $GITHUB_ENV
-        if: needs.release.outputs.new_release_published == 'false'
 
       - name: Output release version
         run: echo $RELEASE_VERSION
