@@ -46,6 +46,9 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ghcr.io/fhswf/openai-ui:latest, ghcr.io/fhswf/openai-ui:${{ github.sha }}
+      
+      - run: echo ${{needs.release.outputs}}
+      
       - name: Build and tag Docker image
         if: needs.release.outputs.new_release_published == 'true'
         uses: docker/build-push-action@v2
