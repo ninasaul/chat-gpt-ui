@@ -1,6 +1,7 @@
-import { fetchStream } from "../service";
+import { fetchStream } from "../service/index";
 import i18next, { t, use } from "i18next";
 import { useApps } from "../apps/context";
+import { GlobalState } from "./initState";
 
 export default function action(state, dispatch) {
   const setState = (payload = {}) =>
@@ -112,7 +113,7 @@ export default function action(state, dispatch) {
       });
     },
 
-    setOptions({ type, data = {} }) {
+    setOptions(type, data: GlobalState = {}) {
       console.log('set options: ', type, data);
       let options = { ...state.options };
       options[type] = { ...options[type], ...data };
@@ -155,7 +156,8 @@ async function executeChatRequest(setState, is, newChat, messages, options, curr
         return { ...rest };
       }),
       options: options.openai,
-      signal: controller.signal,
+      //TODO: clarify if this is indeed no longer needed
+      // signal: controller.signal,
       onMessage(content) {
         newChat.splice(currentChat, 1, {
           ...chat[currentChat],

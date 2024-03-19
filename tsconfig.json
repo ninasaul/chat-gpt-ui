@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "module": "esnext",
+        "moduleResolution": "Node",
+        "target": "esnext",
+        "types": [
+            "vite/client"
+        ],
+        "jsx": "react",
+        "allowSyntheticDefaultImports": true
+    }
+}

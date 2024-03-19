@@ -4,17 +4,18 @@ import React, {
   useReducer,
   useContext,
   createContext,
+  Dispatch
 } from "react";
 import action from "./action";
 import reducer from "./reducer";
-import { initState } from "./initState";
+import { initState, GlobalState, GlobalActionType, GlobalAction } from "./initState";
 import { fetchAndGetUser } from "../utils";
 
 export const ChatContext = createContext(null);
-export const MessagesContext = createContext(null);
+export const MessagesContext = createContext<Dispatch<GlobalAction> | null>(null);
 
 export const ChatProvider = ({ children }) => {
-  const init = JSON.parse(localStorage.getItem("SESSIONS")) || initState;
+  const init = JSON.parse(localStorage.getItem("SESSIONS") || "") || initState;
   const [state, dispatch] = useReducer(reducer, init);
   const actionList = action(state, dispatch);
   const latestState = useRef(state);
@@ -24,9 +25,9 @@ export const ChatProvider = ({ children }) => {
   }, [state]);
 
   useEffect(() => {
-    const savedState = JSON.parse(localStorage.getItem("SESSIONS"));
+    const savedState = JSON.parse(localStorage.getItem("SESSIONS") || "");
     if (savedState) {
-      dispatch({ type: "SET_STATE", payload: savedState });
+      dispatch({ type: GlobalActionType.SET_STATE, payload: savedState });
     }
   }, []);
 
