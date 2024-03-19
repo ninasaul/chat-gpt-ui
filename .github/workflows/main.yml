@@ -53,15 +53,32 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Output release version
-        run: echo "RELEASE_VERSION=${{ needs.release.outputs.release_version }}" 
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          # list of Docker images to use as base name for tags
+          images: |
+            ghcr.io/fhswf/openai-ui            
+          # generate Docker tags based on the following events/attributes
+          tags: |
+            type=schedule
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=sha
+            type=raw,value=${{ env.RELEASE_VERSION }}
+
       - name: Build and push Docker image
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v5
         with:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ghcr.io/fhswf/openai-ui:latest, ghcr.io/fhswf/openai-ui:${{ github.sha }}, ghcr.io/fhswf/openai-ui:${{ needs.release.outputs.release_version }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
       
       - name: Update yaml
         uses: fjogeleit/yaml-update-action@main
