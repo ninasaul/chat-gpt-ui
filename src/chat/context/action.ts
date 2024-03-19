@@ -1,7 +1,7 @@
 import { fetchStream } from "../service/index";
 import i18next, { t, use } from "i18next";
 import { useApps } from "../apps/context";
-import { GlobalState } from "./initState";
+import { AccountOptions, GeneralOptions, GlobalState, OpenAIOptions, Options, OptionAction } from ".";
 
 export default function action(state, dispatch) {
   const setState = (payload = {}) =>
@@ -113,7 +113,7 @@ export default function action(state, dispatch) {
       });
     },
 
-    setOptions(type, data: GlobalState = {}) {
+    setOptions({ type, data }: OptionAction) {
       console.log('set options: ', type, data);
       let options = { ...state.options };
       options[type] = { ...options[type], ...data };

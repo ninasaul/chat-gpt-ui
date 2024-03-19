@@ -1,19 +1,9 @@
+import { GlobalState } from ".";
 
 import i18n from "../../i18n/config";
 const { t } = i18n;
 
-export enum GlobalActionType {
-  SET_STATE = "SET_STATE",
-  CHANGE_MESSAGE = "CHANGE_MESSAGE",
-  IS_CONFIG = "IS_CONFIG",
-};
-export type GlobalState = any;
-export type GlobalAction =
-  | { type: GlobalActionType.SET_STATE; payload: Partial<GlobalState> }
-  | { type: GlobalActionType.CHANGE_MESSAGE; payload: Partial<GlobalState> }
-  | { type: GlobalActionType.IS_CONFIG; payload: Partial<GlobalState> };
-
-export const initState = {
+export const initState: GlobalState = {
   conversation: [],
   current: 0,
   chat: [
@@ -52,6 +42,7 @@ export const initState = {
       apiKey: "unused",
       max_tokens: 2048,
       n: 1,
+      top_p: 1,
       stream: true,
     },
   },

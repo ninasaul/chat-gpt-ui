@@ -1,5 +1,6 @@
-import { GlobalState, GlobalAction } from "./initState";
+import { GlobalState, GlobalAction } from ".";
 
+// TODO: refactor this to use proper actions and types
 export default function reduce(state: GlobalState, action: GlobalAction): GlobalState {
   const { type, payload = {} } = action;
   // console.log("context reducer:", state, action);

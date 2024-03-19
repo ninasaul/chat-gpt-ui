@@ -1,5 +1,6 @@
 import { createParser } from "eventsource-parser";
 import { setAbortController } from "./abortController.mjs";
+import { OpenAIOptions } from "../context";
 
 export async function* streamAsyncIterable(stream) {
   const reader = stream.getReader();
@@ -19,7 +20,7 @@ export async function* streamAsyncIterable(stream) {
 export const fetchBaseUrl = (baseUrl) =>
   baseUrl || "https://api.openai.com/v1/chat/completions";
 
-export const fetchHeaders = (options = {}) => {
+export const fetchHeaders = (options: Partial<OpenAIOptions>) => {
   const { organizationId, apiKey } = options;
   return {
     Authorization: "Bearer " + apiKey,
@@ -40,7 +41,7 @@ export const throwError = async (response) => {
   }
 };
 
-export const fetchBody = ({ options = {}, messages = [] }) => {
+export const fetchBody = (options: Partial<OpenAIOptions> = {}, messages = []) => {
   const { top_p, n, max_tokens, temperature, model, stream } = options;
   return {
     messages,
@@ -54,16 +55,15 @@ export const fetchBody = ({ options = {}, messages = [] }) => {
   };
 };
 
-export const fetchAction = async ({
+export const fetchAction = async (
   method = "POST",
   messages = [],
-  options = {},
-  signal,
-}) => {
+  options: Partial<OpenAIOptions> = {},
+  signal) => {
   const { baseUrl, ...rest } = options;
   const url = fetchBaseUrl(baseUrl);
   const headers = fetchHeaders({ ...rest });
-  const body = JSON.stringify(fetchBody({ messages, options }));
+  const body = JSON.stringify(fetchBody(options, messages));
   const response = await fetch(url, {
     method,
     headers,
@@ -84,11 +84,10 @@ export const fetchStream = async ({
   let answer = "";
   const { controller, signal } = setAbortController();
   console.log(signal, controller);
-  const result = await fetchAction({ options, messages, signal }).catch(
-    (error) => {
+  const result = await fetchAction("POST", options, messages, signal)
+    .catch((error) => {
       onError && onError(error, controller);
-    }
-  );
+    });
   if (!result) return;
   if (!result.ok) {
     if (result.status === 401) {
@@ -102,7 +101,7 @@ export const fetchStream = async ({
   }
 
   const parser = createParser((event) => {
-    console.log(event.data);
+    console.log(event);
     if (event.type === "event") {
       if (event.data === "[DONE]") {
         return;
