@@ -1,3 +1,10 @@
+## [0.5.3](https://github.com/fhswf/openai-ui/compare/v0.5.2...v0.5.3) (2024-03-20)
+
+
+### Bug Fixes
+
+* workflow permissions ([b76fc30](https://github.com/fhswf/openai-ui/commit/b76fc30efffd265f28e2bd98a23d27713aa24147))
+
 ## [0.5.2](https://github.com/fhswf/openai-ui/compare/v0.5.1...v0.5.2) (2024-03-20)
 
 
