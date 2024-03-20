@@ -87,4 +87,4 @@ jobs:
           propertyPath: 'spec.template.spec.containers[0].image'
           value: ghcr.io/fhswf/openai-ui:${{ env.DOCKER_METADATA_OUTPUT_VERSION }}
           branch: main
-          message: 'Update image to ${{ env.DOCKER_METADATA_OUTPUT_VERSION }}'
+          message: 'Update image to ${{ env.DOCKER_METADATA_OUTPUT_VERSION }} [skip ci]'
