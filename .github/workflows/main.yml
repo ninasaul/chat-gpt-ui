@@ -94,9 +94,8 @@ jobs:
 
       - name: Update yaml
         uses: fjogeleit/yaml-update-action@main
-        env:
-          GITHUB_TOKEN: ${{ steps.cicd.outputs.token }}
         with:
+          token: ${{ steps.cicd.outputs.token }}
           valueFile: 'k8s/deployment-dev.yaml'
           propertyPath: 'spec.template.spec.containers[0].image'
           value: ghcr.io/fhswf/openai-ui:${{ env.DOCKER_METADATA_OUTPUT_VERSION }}
