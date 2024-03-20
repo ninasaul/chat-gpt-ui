@@ -1,6 +1,6 @@
 import { createParser } from "eventsource-parser";
 import { setAbortController } from "./abortController.mjs";
-import { Options, OpenAIOptions } from "../context";
+import { Options, OpenAIOptions } from "../context/types";
 
 export async function* streamAsyncIterable(stream) {
   const reader = stream.getReader();
@@ -67,6 +67,7 @@ export const fetchAction = async (method: string,
     headers,
     body,
     signal,
+    credentials: "include"
   });
   return response;
 };

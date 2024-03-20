@@ -67,15 +67,19 @@
   --text-color: #dfe2eb;
   --text-color-gray: #a7acbb;
 }
+
 [data-size="small"] {
   --font-size-base: 12px;
 }
+
 [data-size="middle"] {
   --font-size-base: 13px;
 }
+
 [data-size="default"] {
   --font-size-base: 14px;
 }
+
 [data-size="large"] {
   --font-size-base: 16px;
 }
@@ -83,11 +87,10 @@
 html {
   background-color: var(--background-color-gray);
 }
+
 * {
   vertical-align: baseline;
-  font-weight: inherit;
-  font-family: inherit;
-  font-style: inherit;
+
   font-size: 100%;
   outline: 0;
   padding: 0;
@@ -102,34 +105,42 @@ textarea {
   color: var(--text-color);
   display: block;
   width: 100%;
+
   &::placeholder {
     color: var(--text-color-gray);
   }
 }
+
 body {
   font-family: sans-serif;
   color: var(--text-color);
 }
+
 .flex {
   display: flex;
+
   &-c {
     display: flex;
     align-items: center;
+
     &-c {
       display: flex;
       align-items: center;
       justify-content: center;
     }
+
     &-sb {
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
   }
+
   &-column {
     display: flex;
     flex-direction: column;
   }
+
   &-1 {
     flex: 1;
   }

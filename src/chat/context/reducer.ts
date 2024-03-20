@@ -1,4 +1,4 @@
-import { GlobalState, GlobalAction } from ".";
+import { GlobalState, GlobalAction } from "./types";
 
 // TODO: refactor this to use proper actions and types
 export default function reduce(state: GlobalState, action: GlobalAction): GlobalState {

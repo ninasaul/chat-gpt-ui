@@ -1,3 +1,32 @@
+## [0.5.4](https://github.com/fhswf/openai-ui/compare/v0.5.3...v0.5.4) (2024-03-20)
+
+
+### Bug Fixes
+
+* favicon ([e14c8e3](https://github.com/fhswf/openai-ui/commit/e14c8e3d7a46f39f04269d16047348ecef3dae04))
+* markdown highlighting ([5b4c8ac](https://github.com/fhswf/openai-ui/commit/5b4c8ac052f124c345cc6441705dea428c640c85))
+
+## [0.5.3](https://github.com/fhswf/openai-ui/compare/v0.5.2...v0.5.3) (2024-03-20)
+
+
+### Bug Fixes
+
+* workflow permissions ([b76fc30](https://github.com/fhswf/openai-ui/commit/b76fc30efffd265f28e2bd98a23d27713aa24147))
+
+## [0.5.2](https://github.com/fhswf/openai-ui/compare/v0.5.1...v0.5.2) (2024-03-20)
+
+
+### Bug Fixes
+
+* cookies for cors ([1c24d60](https://github.com/fhswf/openai-ui/commit/1c24d60729378f455ea999306d91685fe7c57920))
+
+## [0.5.1](https://github.com/fhswf/openai-ui/compare/v0.5.0...v0.5.1) (2024-03-19)
+
+
+### Bug Fixes
+
+* option passing to openai service ([fd486b1](https://github.com/fhswf/openai-ui/commit/fd486b19245f5c21a17d5212d70b89ca8f6cf333))
+
 # [0.5.0](https://github.com/fhswf/openai-ui/compare/v0.4.2...v0.5.0) (2024-03-19)
 
 
