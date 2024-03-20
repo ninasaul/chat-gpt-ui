@@ -1,27 +1,10 @@
 import { fetchStream } from "../service/index";
 import i18next, { t, use } from "i18next";
 import { useApps } from "../apps/context";
-import { AccountOptions, GeneralOptions, GlobalState, OpenAIOptions, Options, OptionAction } from ".";
+import { AccountOptions, GeneralOptions, GlobalState, OpenAIOptions, Options, OptionAction, GlobalActions, Messages } from "./types";
 
-export type GlobalAction = {
-  setState: (payload: Partial<GlobalState>) => void;
-  clearTypeing: () => void;
-  sendMessage: () => void;
-  setApp: (app: any) => void;
-  newChat: (app: any) => void;
-  modifyChat: (arg: any, index: number) => void;
-  editChat: (index: number, title: string) => void;
-  removeChat: (index: number) => void;
-  setMessage: (content: string) => void;
-  clearMessage: () => void;
-  removeMessage: (id: number) => void;
-  setOptions: (arg: OptionAction) => void;
-  setIs: (arg: any) => void;
-  currentList: () => any;
-  stopResonse: () => void;
-};
 
-export default function action(state, dispatch): GlobalAction {
+export default function action(state, dispatch): GlobalActions {
   const setState = (payload = {}) =>
     dispatch({
       type: "SET_STATE",
@@ -160,7 +143,7 @@ export default function action(state, dispatch): GlobalAction {
   };
 }
 
-async function executeChatRequest(setState, is, newChat, messages, options: Options, currentChat, chat) {
+async function executeChatRequest(setState, is, newChat, messages: Messages, options: Options, currentChat, chat) {
   setState({
     is: { ...is, thinking: true },
     typeingMessage: {},

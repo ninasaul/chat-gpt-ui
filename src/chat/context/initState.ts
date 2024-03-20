@@ -1,4 +1,4 @@
-import { GlobalState } from ".";
+import { GlobalState } from "./types";
 
 import i18n from "../../i18n/config";
 const { t } = i18n;
