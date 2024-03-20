@@ -19,7 +19,7 @@ spec:
         io.kompose.service: openai-ui
     spec:
       containers:
-        - image: ghcr.io/fhswf/openai-ui:sha-62c77f8
+        - image: ghcr.io/fhswf/openai-ui:sha-d94a2cc
           name: ui
           ports:
             - containerPort: 80
