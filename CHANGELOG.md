@@ -1,3 +1,10 @@
+## [0.5.2](https://github.com/fhswf/openai-ui/compare/v0.5.1...v0.5.2) (2024-03-20)
+
+
+### Bug Fixes
+
+* cookies for cors ([1c24d60](https://github.com/fhswf/openai-ui/commit/1c24d60729378f455ea999306d91685fe7c57920))
+
 ## [0.5.1](https://github.com/fhswf/openai-ui/compare/v0.5.0...v0.5.1) (2024-03-19)
 
 
