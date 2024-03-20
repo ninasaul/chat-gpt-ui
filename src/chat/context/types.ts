@@ -43,13 +43,14 @@ export type Options = {
     openai: OpenAIOptions;
 };
 
-export type GlobalState = {
-    conversation: any[];
-    current: number;
-    chat: any[];
-    currentChat: number;
-    options: Options;
+export type AnyOptions = GeneralOptions | AccountOptions | OpenAIOptions;
 
+export type GlobalState = {
+    current: number;
+    chat: Chat[];
+    currentChat: number;
+    currentApp: App | null;
+    options: Options;
     is: {
         typeing: boolean;
         config: boolean;
@@ -106,4 +107,13 @@ export type Chat = {
     id: number;
     ct: string;
     messages: Messages;
+};
+
+export type App = {
+    category: number;
+    title: string;
+    desc: string;
+    id: number;
+    content: string;
+    botStarts: boolean;
 };

@@ -1,13 +1,14 @@
 import { fetchStream } from "../service/index";
 import i18next, { t, use } from "i18next";
 import { useApps } from "../apps/context";
-import { AccountOptions, GeneralOptions, GlobalState, OpenAIOptions, Options, OptionAction, GlobalActions, Messages } from "./types";
+import { AccountOptions, GeneralOptions, GlobalState, OpenAIOptions, Options, OptionAction, GlobalActions, Messages, GlobalAction, GlobalActionType, AnyOptions, OptionActionType } from "./types";
+import React from "react";
 
 
-export default function action(state, dispatch): GlobalActions {
-  const setState = (payload = {}) =>
+export default function action(state: Partial<GlobalState>, dispatch: React.Dispatch<GlobalAction>): GlobalActions {
+  const setState = (payload: Partial<GlobalState> = {}) =>
     dispatch({
-      type: "SET_STATE",
+      type: GlobalActionType.SET_STATE,
       payload: { ...payload },
     });
   return {
@@ -36,13 +37,13 @@ export default function action(state, dispatch): GlobalActions {
     },
 
     async newChat(app) {
-      const { _currentApp, is, options, currentChat, chat } = state;
-      const currentApp = app || _currentApp;
-      let messages = [{ content: currentApp?.content || t("system_welcome"), sentTime: Date.now(), role: "system", id: 1, }]
-      console.log("newChat: ", currentApp, chat)
+      const { currentApp, is, options, currentChat, chat } = state;
+      const newApp = app || currentApp;
+      let messages = [{ content: newApp?.content || t("system_welcome"), sentTime: Date.now(), role: "system", id: 1, }]
+      console.log("newChat: ", newApp, chat)
       const chatList = [
         {
-          title: currentApp?.title || t("new_conversation"),
+          title: newApp?.title || t("new_conversation"),
           id: Date.now(),
           messages,
           ct: Date.now(),
@@ -53,7 +54,7 @@ export default function action(state, dispatch): GlobalActions {
       let _chat = chatList;
       setState({ chat: _chat, currentChat: 0 });
       console.log("newChat: ", _chat)
-      if (currentApp.botStarts) {
+      if (newApp.botStarts) {
         console.log("botStarts");
         await executeChatRequest(setState, is, _chat, messages, options, 0, chat);
       }
@@ -67,7 +68,8 @@ export default function action(state, dispatch): GlobalActions {
 
     editChat(index, title) {
       const chat = [...state.chat];
-      chat.splice(index, 1, [...chat[index], title]);
+      const _chat = { ...chat[index], title };
+      chat.splice(index, 1, _chat);
       setState({
         chat,
       });
@@ -117,12 +119,15 @@ export default function action(state, dispatch): GlobalActions {
     setOptions({ type, data }: OptionAction) {
       console.log('set options: ', type, data);
       let options = { ...state.options };
+      if (type === OptionActionType.OPENAI) {
+      }
       options[type] = { ...options[type], ...data };
       if (type === "general") {
         if (data.language) {
           i18next.changeLanguage(data.language);
         }
       }
+      console.log('set options: ', options);
       setState({ options });
     },
 

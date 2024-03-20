@@ -4,7 +4,6 @@ import i18n from "../../i18n/config";
 const { t } = i18n;
 
 export const initState: GlobalState = {
-  conversation: [],
   current: 0,
   chat: [
     {
@@ -23,6 +22,7 @@ export const initState: GlobalState = {
 
   ],
   currentChat: 0,
+  currentApp: null,
   options: {
     account: {
       name: "Anonymus",

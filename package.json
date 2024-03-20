@@ -9,7 +9,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "start": "vite",
+    "start": "NODE_ENV='production' vite",
     "build": "vite build"
   },
   "dependencies": {
