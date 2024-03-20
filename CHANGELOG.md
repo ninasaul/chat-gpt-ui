@@ -1,3 +1,11 @@
+## [0.5.4](https://github.com/fhswf/openai-ui/compare/v0.5.3...v0.5.4) (2024-03-20)
+
+
+### Bug Fixes
+
+* favicon ([e14c8e3](https://github.com/fhswf/openai-ui/commit/e14c8e3d7a46f39f04269d16047348ecef3dae04))
+* markdown highlighting ([5b4c8ac](https://github.com/fhswf/openai-ui/commit/5b4c8ac052f124c345cc6441705dea428c640c85))
+
 ## [0.5.3](https://github.com/fhswf/openai-ui/compare/v0.5.2...v0.5.3) (2024-03-20)
 
 
