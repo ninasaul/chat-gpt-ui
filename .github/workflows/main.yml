@@ -49,6 +49,12 @@ jobs:
     needs: release
     runs-on: ubuntu-latest
     steps:
+      - name: ci-install token
+        id: cicd
+        uses: getsentry/action-github-app-token@v2
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.APP_PRIVATE_KEY }}
       - uses: actions/checkout@v4
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
@@ -88,6 +94,8 @@ jobs:
 
       - name: Update yaml
         uses: fjogeleit/yaml-update-action@main
+        env:
+          GITHUB_TOKEN: ${{ steps.cicd.outputs.token }}
         with:
           valueFile: 'k8s/deployment-dev.yaml'
           propertyPath: 'spec.template.spec.containers[0].image'
