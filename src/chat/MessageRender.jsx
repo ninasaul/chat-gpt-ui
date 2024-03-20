@@ -1,5 +1,5 @@
 import React, { memo } from 'react'
-import ReactMarkdown from 'react-markdown'
+import Markdown from 'react-markdown'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { oneLight, oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import { useGlobal } from './context'
@@ -14,7 +14,7 @@ export const MessageRender = memo((props) => {
   const { options } = useGlobal()
   const style = options.general.theme === 'dark' ? oneDark : oneLight
   return (
-    <ReactMarkdown
+    <Markdown
       className="z-ui-markdown"
       children={props.children}
       remarkPlugins={[remarkMath, remarkGfm, remarkBreaks]}
