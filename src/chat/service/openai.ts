@@ -67,6 +67,7 @@ export const fetchAction = async (method: string,
     headers,
     body,
     signal,
+    credentials: "include"
   });
   return response;
 };

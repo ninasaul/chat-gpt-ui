@@ -26,7 +26,7 @@ export async function sha256Digest(message) {
 
 
 export function fetchAndGetUser(dispatch) {
-  fetch(import.meta.env.VITE_USER_URL)
+  fetch(import.meta.env.VITE_USER_URL, { credentials: "include" })
     .catch(err => {
       console.log("error getting user: ", err);
     })
