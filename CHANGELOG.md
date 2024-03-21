@@ -1,3 +1,10 @@
+# [0.6.0](https://github.com/fhswf/openai-ui/compare/v0.5.5...v0.6.0) (2024-03-21)
+
+
+### Features
+
+* **ui:** User and application info ([2b081cb](https://github.com/fhswf/openai-ui/commit/2b081cb3e20be10a6fd802bd28c272f0e14f6d03))
+
 ## [0.5.5](https://github.com/fhswf/openai-ui/compare/v0.5.4...v0.5.5) (2024-03-20)
 
 
