@@ -1,3 +1,10 @@
+## [0.5.5](https://github.com/fhswf/openai-ui/compare/v0.5.4...v0.5.5) (2024-03-20)
+
+
+### Bug Fixes
+
+* remove endless loop in workflow ([a7b9f20](https://github.com/fhswf/openai-ui/commit/a7b9f20c609ace335ace61589107c7740e57afd7))
+
 ## [0.5.4](https://github.com/fhswf/openai-ui/compare/v0.5.3...v0.5.4) (2024-03-20)
 
 
