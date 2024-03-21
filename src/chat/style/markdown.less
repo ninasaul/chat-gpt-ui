@@ -1,14 +1,15 @@
 .z-ui-markdown {
   font-family: Helvetica, arial, sans-serif;
   font-size: var(--font-size-base);
-  line-height: 1.7;
+  line-height: 1.5;
   word-wrap: break-word;
+
   // padding: var(--spacing);
-  & > :first-child {
+  &> :first-child {
     margin-top: 0 !important;
   }
 
-  & > :last-child {
+  &> :last-child {
     margin-bottom: 0 !important;
   }
 
@@ -97,7 +98,9 @@
   h6 code {
     font-size: inherit;
   }
+
   @border: var (--text-color-gray);
+
   h1 {
     // font-size: 1.5em;
     font-size: 20px;
@@ -190,11 +193,11 @@
     padding: 0 var(--spacing);
   }
 
-  blockquote > :first-child {
+  blockquote> :first-child {
     margin-top: 0;
   }
 
-  blockquote > :last-child {
+  blockquote> :last-child {
     margin-bottom: 0;
   }
 
@@ -230,6 +233,7 @@
     background: var(--background-color-gray);
     display: inline;
   }
+
   img {
     max-width: 100%;
     -moz-box-sizing: border-box;
@@ -241,7 +245,7 @@
     overflow: hidden;
   }
 
-  span.frame > span {
+  span.frame>span {
     border: 1px solid #ddd;
     display: block;
     float: left;
@@ -263,7 +267,7 @@
     padding: var(--spacing-min) 0 0;
   }
 
-  span.align-center > span {
+  span.align-center>span {
     display: block;
     overflow: hidden;
     text-align: center;
@@ -275,7 +279,7 @@
     margin: 0 auto;
   }
 
-  span.align-right > span {
+  span.align-right>span {
     display: block;
     overflow: hidden;
     text-align: right;
@@ -305,7 +309,7 @@
     float: right;
   }
 
-  span.float-right > span {
+  span.float-right>span {
     display: block;
     overflow: hidden;
     text-align: right;
@@ -340,7 +344,7 @@
     vertical-align: text-top;
   }
 
-  pre > code {
+  pre>code {
     white-space: pre;
     border: none;
     background: transparent;
@@ -370,12 +374,14 @@
     // background-color: var(--background-color-gray);
     // padding: var(--spacing);
   }
+
   pre code.code-line {
     display: block;
     padding: 1em;
     font-size: var(--font-size-base);
     margin: var(--spacing) 0;
   }
+
   pre code,
   pre tt {
     background-color: transparent;

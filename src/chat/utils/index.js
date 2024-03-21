@@ -32,7 +32,7 @@ export function fetchAndGetUser(dispatch) {
     })
     .then(res => {
       console.log("getting user: ", res.status);
-      if (res.status === 401 && !import.meta.env.DEV) {
+      if (res.status === 401) {
         window.location.href = import.meta.env.VITE_LOGIN_URL;
       }
       return res.json();

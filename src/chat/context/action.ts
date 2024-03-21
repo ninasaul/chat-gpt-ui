@@ -191,15 +191,15 @@ async function executeChatRequest(setState, is, newChat, messages: Messages, opt
         if (error) {
           if (error.message === "Unauthorized") {
             console.log("Unauthorized");
-            if (!import.meta.env.DEV)
-              window.location.href = import.meta.env.VITE_LOGIN_URL;
+            window.location.href = import.meta.env.VITE_LOGIN_URL;
           }
-
-          newChat.splice(currentChat, 1, {
-            ...chat[currentChat],
-            messages,
-            error,
-          });
+          else {
+            newChat.splice(currentChat, 1, {
+              ...chat[currentChat],
+              messages,
+              error,
+            });
+          }
 
 
           setState({

@@ -78,6 +78,7 @@ i18n
                     fontsize_help: "Wählen Sie die Schriftgröße der Benutzeroberfläche aus.",
                     openai_model_help: "Wählen Sie ein Modell für die KI-Unterstützung aus.",
                     custom_endpoint_desc: "Wenn Sie unseren Proxy-Server nicht verwenden möchten, können Sie einen anderen Endpunkt konfigurieren, z.B. api.openai.com",
+                    about: "Infos",
                 },
             },
         },
