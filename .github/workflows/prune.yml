@@ -20,3 +20,5 @@ jobs:
         prune-untagged: true
         prune-tags-regexes: |
           ^sha.*
+        keep-tags: |
+          latest
