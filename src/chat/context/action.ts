@@ -1,7 +1,6 @@
 import { fetchStream } from "../service/index";
-import i18next, { t, use } from "i18next";
-import { useApps } from "../apps/context";
-import { AccountOptions, GeneralOptions, GlobalState, OpenAIOptions, Options, OptionAction, GlobalActions, Messages, GlobalAction, GlobalActionType, AnyOptions, OptionActionType } from "./types";
+import i18next, { t } from "i18next";
+import { Chat, GlobalState, Options, OptionAction, GlobalActions, Messages, GlobalAction, GlobalActionType, OptionActionType } from "./types";
 import React from "react";
 
 
@@ -39,7 +38,7 @@ export default function action(state: Partial<GlobalState>, dispatch: React.Disp
     async newChat(app) {
       const { currentApp, is, options, currentChat, chat } = state;
       const newApp = app || currentApp;
-      let messages = [{ content: newApp?.content || t("system_welcome"), sentTime: Date.now(), role: "system", id: 1, }]
+      let messages: Messages = [{ content: newApp?.content || t("system_welcome"), sentTime: Date.now(), role: "system", id: 1, }]
       console.log("newChat: ", newApp, chat)
       const chatList = [
         {
@@ -47,11 +46,11 @@ export default function action(state: Partial<GlobalState>, dispatch: React.Disp
           id: Date.now(),
           messages,
           ct: Date.now(),
-          icon: [2, "files"],
+          //icon: [2, "files"],
         },
         ...chat,
       ];
-      let _chat = chatList;
+      let _chat: Chat[] = chatList;
       setState({ chat: _chat, currentChat: 0 });
       console.log("newChat: ", _chat)
       if (newApp.botStarts) {
@@ -120,12 +119,16 @@ export default function action(state: Partial<GlobalState>, dispatch: React.Disp
       console.log('set options: ', type, data);
       let options = { ...state.options };
       if (type === OptionActionType.OPENAI) {
+        options[type] = { ...options[type], ...data };
       }
-      options[type] = { ...options[type], ...data };
-      if (type === "general") {
+      else if (type === OptionActionType.GENERAL) {
+        options[type] = { ...options[type], ...data };
         if (data.language) {
           i18next.changeLanguage(data.language);
         }
+      }
+      else if (type === OptionActionType.ACCOUNT) {
+        options[type] = { ...options[type], ...data };
       }
       console.log('set options: ', options);
       setState({ options });

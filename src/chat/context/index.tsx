@@ -10,11 +10,11 @@ import action from "./action";
 import reducer from "./reducer";
 import { initState } from "./initState";
 import { fetchAndGetUser } from "../utils";
-import { GlobalAction, GlobalState, GlobalActionType } from "./types";
+import { GlobalAction, GlobalActions, GlobalState, GlobalActionType } from "./types";
 
 
 export const ChatContext = createContext(null);
-export const MessagesContext = createContext<Dispatch<GlobalAction> | null>(null);
+export const MessagesContext = createContext<Dispatch<GlobalAction>>(null);
 
 export const ChatProvider = ({ children }) => {
   const init: GlobalState = JSON.parse(localStorage.getItem("SESSIONS")) || initState;
@@ -46,17 +46,16 @@ export const ChatProvider = ({ children }) => {
   }, [latestState.current]);
 
 
-  return (<>
+  return (
     <ChatContext.Provider value={{ ...state, ...actionList }}>
       <MessagesContext.Provider value={dispatch}>
         {children}
       </MessagesContext.Provider>
     </ChatContext.Provider>
-  </>
   );
 };
 
-export const useGlobal = () => useContext<GlobalAction & GlobalState>(ChatContext);
+export const useGlobal = () => useContext<GlobalActions & GlobalState>(ChatContext);
 export const useMessages = () => useContext(MessagesContext);
 
 

@@ -50,6 +50,7 @@ export type GlobalState = {
     chat: Chat[];
     currentChat: number;
     currentApp: App | null;
+    currentEditor?: any;
     options: Options;
     is: {
         typeing: boolean;
@@ -105,8 +106,9 @@ export type Messages = Message[];
 export type Chat = {
     title: string;
     id: number;
-    ct: string;
+    ct: number;
     messages: Messages;
+    error?: any;
 };
 
 export type App = {

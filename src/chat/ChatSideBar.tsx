@@ -3,12 +3,11 @@ import { Avatar, Button, Icon, Panel, Tooltip } from '../components'
 import { useGlobal } from './context'
 import { classnames } from '../components/utils'
 import { useOptions } from './hooks'
-import { t, use } from 'i18next'
+import { t } from 'i18next'
 import Markdown from 'react-markdown'
 import remarkMath from 'remark-math'
 import smartypants from 'remark-smartypants'
 import remarkGfm from 'remark-gfm'
-import remarkBreaks from 'remark-breaks'
 import rehypeKatex from 'rehype-katex'
 
 import styles from './style/sider.module.less'
@@ -97,12 +96,12 @@ export function ChatSideBar() {
 
             <Panel title="User information" className={styles.user} onClose={() => setUserModal(false)}>
               <Button type="icon" icon="close" onClick={() => setUserModal(false)} class={styles.close} />
-              <div class={styles.user}>
+              <div className={styles.user}>
                 <Avatar src={user?.avatar || ""} />
                 <div className={styles.name}>{user?.name}</div>
                 <div className={styles.email}>{user?.email}</div>
               </div>
-              <div class={styles.panel}>
+              <div className={styles.panel}>
                 <Button type="primary" onClick={logout}>Logout</Button>
               </div>
             </Panel>

@@ -1,13 +1,13 @@
 import React from 'react'
-import { useGlobal, useMessages } from './context'
+import { useMessage } from './hooks/useMessage'
 
 export function ChatHistory() {
-  const { message } = useMessages()
+  const { message } = useMessage()
   return (
     <div>
       {
         message.messages.map(item =>
-          <div>
+          <div key={item.id}>
             {item.content}
           </div>
         )

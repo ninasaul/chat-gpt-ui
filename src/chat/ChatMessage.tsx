@@ -4,7 +4,8 @@ import { CopyIcon, ScrollView, Error, EmptyChat, ChatHelp } from './component'
 import { MessageRender } from './MessageRender'
 import { ConfigInfo } from './ConfigInfo'
 import { useGlobal } from './context'
-import { useMesssage, useSendKey, useOptions } from './hooks'
+import { useSendKey, useOptions } from './hooks'
+import { useMessage } from './hooks/useMessage'
 import { dateFormat } from './utils'
 import avatar from '../assets/images/avatar-gpt.png'
 import styles from './style/message.module.less'
@@ -13,8 +14,8 @@ import { useTranslation } from "react-i18next";
 
 export function MessageHeader() {
   const { is, setIs, clearMessage, options } = useGlobal()
-  const { message } = useMesssage()
-  const { messages = [] } = message || {}
+  const { message } = useMessage()
+  const messages = message.messages;
   const columnIcon = is.sidebar ? 'column-close' : 'column-open'
   const { setGeneral } = useOptions()
   const { t } = useTranslation();
@@ -115,7 +116,7 @@ const onEnter = (content, event) => {
 
 export function MessageContainer() {
   const { options } = useGlobal()
-  const { message } = useMesssage()
+  const { message } = useMessage()
   const { messages = [] } = message || {}
   if (options?.openai?.apiKey) {
     return (
@@ -124,7 +125,7 @@ export function MessageContainer() {
           messages.length ? <div className={styles.container}>
             {messages
               .filter(message => message.role === "user" || message.role === "assistant")
-              .map((item, index) => <MessageItem key={index} {...item} />)}
+              .map((item, index) => <MessageItem key={item.id} {...item} />)}
             {message?.error && <Error />}
           </div> : <ChatHelp />
         }
@@ -138,16 +139,14 @@ export function MessageContainer() {
 export function ChatMessage() {
   const { is } = useGlobal()
   return (
-    <React.Fragment>
-      <div className={styles.message}>
-        <MessageHeader />
-        <ScrollView>
-          <MessageContainer />
-          {is.thinking && <Loading />}
-        </ScrollView>
-        <MessageBar />
-      </div>
-    </React.Fragment >
+    <div className={styles.message}>
+      <MessageHeader />
+      <ScrollView>
+        <MessageContainer />
+        {is.thinking && <Loading />}
+      </ScrollView>
+      <MessageBar />
+    </div>
   )
 }
 

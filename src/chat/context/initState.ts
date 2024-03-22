@@ -9,7 +9,7 @@ export const initState: GlobalState = {
     {
       title: t("chatbot_title"),
       id: 1,
-      ct: "2023-12-12",
+      ct: Date.now(),
       messages: [
         {
           content: t("system_welcome"),
