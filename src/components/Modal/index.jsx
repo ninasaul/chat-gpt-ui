@@ -62,8 +62,8 @@ export const Modal = (props) => {
             <div>
               {
                 footer && <React.Fragment>
-                  <Button>取消</Button>
-                  <Button>确定</Button>
+                  <Button>Cancel</Button>
+                  <Button>Confirm</Button>
                 </React.Fragment>
               }
             </div>

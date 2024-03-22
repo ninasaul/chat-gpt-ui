@@ -59,10 +59,10 @@ const xMessage = (function () {
   }
 
   /**
-     * 提示提示组件, 全局参数
-     * @param {duration} number 默认自动关闭延时，单位秒
-     * @param {getContainer} HTMLNode 配置渲染节点的输出位置，默认document.body
-     * @param {closeIcon} HTMLNode 自定义关闭图标
+     * Notification component, global parameters
+     * @param {duration} number Default auto close delay, in seconds
+     * @param {getContainer} HTMLNode Configures the output location of the rendering node, default is document.body
+     * @param {closeIcon} HTMLNode Custom close icon
   */
   const config = (config) => {
     const { duration, getContainer, closeIcon } = config
@@ -90,7 +90,7 @@ const xMessage = (function () {
       destroy
     }
   }
-  // 如果为创建实例，则创建默认实例
+  // If an instance is not created, create a default instance
   Notification.newInstance({}, (notice) => message = notice)
 
   return {
