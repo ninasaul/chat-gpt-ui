@@ -87,6 +87,7 @@ export type GlobalActions = {
     removeChat: (index: number) => void;
     setMessage: (content: string) => void;
     clearMessage: () => void;
+    editMessage: (id: number) => void;
     removeMessage: (id: number) => void;
     setOptions: (arg: OptionAction) => void;
     setIs: (arg: any) => void;

@@ -16,7 +16,7 @@ export default function action(state: Partial<GlobalState>, dispatch: React.Disp
       console.log("clear");
       setState({ typeingMessage: {} });
     },
-    async sendMessage() {
+    async sendMessage(): Promise<void> {
       const { typeingMessage, options, chat, is, currentChat } = state;
       if (typeingMessage?.content) {
         const newMessage = {
@@ -113,6 +113,17 @@ export default function action(state: Partial<GlobalState>, dispatch: React.Disp
       setState({
         chat,
       });
+    },
+
+    editMessage(id) {
+      console.log("editMessage", id);
+      const message = state.chat[state.currentChat].messages.find((m) => m.id == id);
+      console.log("editMessage: original", message);
+      const newMessage = { ...message, id: Date.now() };
+      console.log("editMessage: new", newMessage);
+      setState({
+        typeingMessage: newMessage,
+      })
     },
 
     setOptions({ type, data }: OptionAction) {

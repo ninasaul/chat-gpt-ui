@@ -4,7 +4,8 @@ import { CopyIcon, ScrollView, Error, EmptyChat, ChatHelp } from './component'
 import { MessageRender } from './MessageRender'
 import { ConfigInfo } from './ConfigInfo'
 import { useGlobal } from './context'
-import { useSendKey, useOptions } from './hooks'
+import { useSendKey } from './hooks/useSendKey'
+import { useOptions } from './hooks/useOptions'
 import { useMessage } from './hooks/useMessage'
 import { dateFormat } from './utils'
 import avatar from '../assets/images/avatar-gpt.png'
@@ -48,7 +49,7 @@ export function EditorMessage() {
 
 export function MessageItem(props) {
   const { content, sentTime, role, id } = props
-  const { removeMessage, user } = useGlobal()
+  const { removeMessage, editMessage, user } = useGlobal()
   const { t } = useTranslation();
 
   return (
@@ -63,8 +64,8 @@ export function MessageItem(props) {
                 <Icon className={styles.icon} type="trash" onClick={() => removeMessage(id)} />
               </Tooltip>
               {role === 'user' ? <React.Fragment>
-                <Icon className={styles.icon} type="reload" />
-                <Icon className={styles.icon} type="editor" />
+                {false && <Icon className={styles.icon} type="reload" />}
+                <Icon className={styles.icon} type="editor" onClick={() => editMessage(id)} />
               </React.Fragment> : <CopyIcon value={content} />}
             </div>
           </div>
