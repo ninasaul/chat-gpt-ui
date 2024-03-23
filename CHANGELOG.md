@@ -1,3 +1,10 @@
+# [0.7.0](https://github.com/fhswf/openai-ui/compare/v0.6.0...v0.7.0) (2024-03-23)
+
+
+### Features
+
+* **ui:** edit message ([#14](https://github.com/fhswf/openai-ui/issues/14)) ([da322a2](https://github.com/fhswf/openai-ui/commit/da322a2b27af90649f9029d4a60a29a05c872c44))
+
 # [0.6.0](https://github.com/fhswf/openai-ui/compare/v0.5.5...v0.6.0) (2024-03-21)
 
 
