@@ -10,7 +10,8 @@
   "private": true,
   "scripts": {
     "start": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "test:e2e": "cypress run --spec cypress/e2e/uiTest.cy.js"
   },
   "dependencies": {
     "eventsource-parser": "^1.0.0",
@@ -56,6 +57,7 @@
     "@types/react": "^18.2.67",
     "@vitejs/plugin-react": "^4.2.1",
     "css-loader": "^6.7.3",
+    "cypress": "^13.7.2",
     "eslint": "^8.36.0",
     "eslint-plugin-react": "^7.32.2",
     "file-loader": "^6.2.0",
