@@ -88,14 +88,14 @@ export function ChatSideBar() {
   }
 
   return (
-    <div className={classnames(styles.sider, 'flex-c-sb flex-column')}>
+    <div className={classnames(styles.sider, 'flex-c-sb flex-column')} data-testid="LeftSideBar">
       <div className={classnames(styles.tool, 'flex-c-sb flex-column')}>
-        <Avatar src={user?.avatar || ""} onClick={userClick} />
+        <Avatar src={user?.avatar || ""} onClick={userClick} dataTestId="UserInformationBtn"/>
         {showUserModal &&
           <Modal>
 
-            <Panel title="User information" className={styles.user} onClose={() => setUserModal(false)}>
-              <Button type="icon" icon="close" onClick={() => setUserModal(false)} class={styles.close} />
+            <Panel title="User information" className={styles.user} onClose={() => setUserModal(false)} dataTestId="UserInformation">
+              <Button type="icon" icon="close" onClick={() => setUserModal(false)} class={styles.close} data-testid="UserInformationCloseBtn"/>*
               <div className={styles.user}>
                 <Avatar src={user?.avatar || ""} />
                 <div className={styles.name}>{user?.name}</div>
@@ -126,7 +126,7 @@ export function ChatSideBar() {
           </Modal>
         }
       </div>
-      <div className={classnames(styles.tool, 'flex-c-sb flex-column')}>
+      <div className={classnames(styles.tool, 'flex-c-sb flex-column')} data-testid="BottomLeftSideBar">
         <Option type="apps" onClick={() => setState({ is: { ...is, apps: true } })} tooltip="Apps" />
         <Option type="history" onClick={() => setState({ is: { ...is, apps: false } })} tooltip="History" />
         <Option type={options.general.theme} onClick={() => setGeneral({ theme: options.general.theme === 'light' ? 'dark' : 'light' })} tooltip="Theme" />

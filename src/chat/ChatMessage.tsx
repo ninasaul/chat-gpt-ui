@@ -24,12 +24,12 @@ export function MessageHeader() {
   return (
     <div className={classnames(styles.header)}>
       <Button type="icon" icon={columnIcon} onClick={() => setIs({ sidebar: !is.sidebar })} />
-      <div className={styles.header_title}>
+      <div className={styles.header_title} data-testid="HeaderTitle">
         {message?.title}
         <div className={styles.length}>{t('count_messages', { count: messages.length })}</div>
       </div>
       <div className={styles.header_bar}>
-        <Icon className={styles.icon} type={options.general.theme} onClick={() => setGeneral({ theme: options.general.theme === 'light' ? 'dark' : 'light' })} />
+        <Icon className={styles.icon} type={options.general.theme} onClick={() => setGeneral({ theme: options.general.theme === 'light' ? 'dark' : 'light' })} dataTestId="TopRightDarkModeBtn"/>
         <Icon className={styles.icon} type="clear" onClick={clearMessage} />
         <Popover position="bottom" content={<ConfigInfo />}>
           <Icon className={styles.icon} type="more" />
@@ -48,12 +48,12 @@ export function EditorMessage() {
 }
 
 export function MessageItem(props) {
-  const { content, sentTime, role, id } = props
+  const { content, sentTime, role, id, dataTestId } = props
   const { removeMessage, editMessage, user } = useGlobal()
   const { t } = useTranslation();
 
   return (
-    <div className={classnames(styles.item, styles[role])}>
+    <div className={classnames(styles.item, styles[role])} data-testid={dataTestId}>
       <Avatar src={role === 'user' ? user?.avatar : avatar} />
       <div className={classnames(styles.item_content, styles[`item_${role}`])}>
         <div className={styles.item_inner}>
@@ -93,7 +93,7 @@ export function MessageBar() {
         <div className={styles.bar_type}>
           <Textarea transparent={true} rows="3" value={typeingMessage?.content || ''}
             onFocus={() => setIs({ inputing: true })} onBlur={() => setIs({ inputing: false })}
-            placeholder={t("Enter something....")} onChange={setMessage} onEnter={onEnter} />
+            placeholder={t("Enter something....")} onChange={setMessage} onEnter={onEnter} data-testid="ChatTextArea"/>
         </div>
         <div className={styles.bar_icon}>
           {typeingMessage?.content &&
@@ -103,7 +103,7 @@ export function MessageBar() {
           <Tooltip text="history">
             <Icon className={styles.icon} type="history" />
           </Tooltip>
-          <Icon className={styles.icon} type="send" onClick={sendMessage} />
+          <Icon className={styles.icon} type="send" onClick={sendMessage} dataTestId="SendMessageBtn"/>
         </div>
       </div>
     </div>
@@ -123,10 +123,10 @@ export function MessageContainer() {
     return (
       <React.Fragment>
         {
-          messages.length ? <div className={styles.container}>
+          messages.length ? <div className={styles.container} data-testid="ChatListContainer">
             {messages
               .filter(message => message.role === "user" || message.role === "assistant")
-              .map((item, index) => <MessageItem key={item.id} {...item} />)}
+              .map((item, index) => <MessageItem key={item.id} {...item} dataTestId="ChatMessage"/>)}
             {message?.error && <Error />}
           </div> : <ChatHelp />
         }
@@ -142,8 +142,8 @@ export function ChatMessage() {
   return (
     <div className={styles.message}>
       <MessageHeader />
-      <ScrollView>
-        <MessageContainer />
+      <ScrollView data-testid="ChatList">
+        <MessageContainer/>
         {is.thinking && <Loading />}
       </ScrollView>
       <MessageBar />

@@ -4,7 +4,7 @@ import { classnames } from '../utils';
 import styles from "./select.module.less"
 
 export const Select = forwardRef((props, ref) => {
-  const { value, className, options, onChange, defaultValue, ...rest } = props
+  const { value, className, options, onChange, defaultValue, dataTestId, ...rest } = props
   const [selectedValue, setSelectedValue] = useState(defaultValue);
   const controlled = value !== undefined;
 
@@ -29,6 +29,7 @@ export const Select = forwardRef((props, ref) => {
         {...rest}
         value={controlled ? props.value : selectedValue}
         onChange={handleChange}
+        data-testid={dataTestId}
       >
         {optionsList}
       </select>

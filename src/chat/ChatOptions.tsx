@@ -15,8 +15,8 @@ export function ConfigHeader() {
     <div className={classnames(styles.header, 'flex-c-sb')}>
       <Title type="h5">Setting</ Title>
       <div className="flex-c">
-        <Button type="icon" onClick={() => setState(initState)} icon="refresh" />
-        <Button type="icon" onClick={() => setIs({ config: !is.config })} icon="close" />
+        <Button type="icon" onClick={() => setState(initState)} icon="refresh" dataTestId="SettingsRefreshBtn" />
+        <Button type="icon" onClick={() => setIs({ config: !is.config })} icon="close" dataTestId="SettingsCloseBtn" />
       </div>
     </div >
   )
@@ -48,10 +48,10 @@ export function ChatOptions() {
             <Switch label={theme} />
           </Panel.Item> */}
           <Panel.Item icon="light" title="Theme Style" desc={t("theme_help")}>
-            <Select value={general.theme} onChange={(val) => setGeneral({ theme: val })} options={themeOptions} placeholder="Select interface style" />
+            <Select value={general.theme} onChange={(val) => setGeneral({ theme: val })} options={themeOptions} placeholder="Select interface style" dataTestId="OptionDarkModeSelect" />
           </Panel.Item>
           <Panel.Item icon="files" title="Send messages" desc={t("send_help")}>
-            <Select value={general.sendCommand} onChange={(val) => setGeneral({ sendCommand: val })} options={sendCommandOptions} placeholder="Select interface style" />
+            <Select value={general.sendCommand} onChange={(val) => setGeneral({ sendCommand: val })} options={sendCommandOptions} placeholder="Select interface style" dataTestId="SendMessageSelect" />
           </Panel.Item>
           <Panel.Item icon="lang" title="Language" desc={t("language_help")}>
             <Select value={general.language} onChange={val => setGeneral({ language: val })} options={languageOptions} placeholder="language" />
