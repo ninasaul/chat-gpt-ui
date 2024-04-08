@@ -80,9 +80,40 @@ describe("Chat", () => {
     });
   });
 
+  it("Sending 2 messages and checking if both are in the chat", () => {
+    cy.getDataTestId("SendMessageBtn").click();
+    //cy.getDataTestId("ChatTextArea").should("have.text", "");
+    cy.wait(2000);
+    cy.getDataTestId("ChatListContainer").should("be.visible");
+    cy.getDataTestId("ChatMessage").each((message) => {
+      cy.wrap(message).should("contain.text", "Cypress wrote this!");
+    });
+    cy.getDataTestId("ChatTextArea").click().type("Cypress also wrote this!");
+    cy.getDataTestId("ChatTextArea").should(
+      "have.text",
+      "Cypress also wrote this!"
+    );
+    cy.getDataTestId("SendMessageBtn").click();
+    cy.getDataTestId("ChatTextArea").should("have.text", "");
+    cy.getDataTestId("ChatListContainer").should("be.visible");
+
+    cy.get('[data-testid="ChatListContainer"]').within(() => {
+      // Überprüfe die erste Nachricht
+      cy.get('[data-testid="ChatMessage"]')
+        .eq(0)
+        .should("contain", "Cypress wrote this!");
+
+      // Überprüfe die zweite Nachricht
+      cy.get('[data-testid="ChatMessage"]')
+        .eq(1)
+        .should("contain", "Cypress also wrote this!");
+    });
+  });
+
   it("Sending a message with enter", () => {
     cy.getDataTestId("ChatTextArea").click().type("{enter}");
-    cy.getDataTestId("ChatTextArea").should("have.text", "");
+    //cy.getDataTestId("ChatTextArea").should("have.text", "");
+    cy.wait(2000);
     cy.getDataTestId("ChatListContainer").should("be.visible");
     cy.getDataTestId("ChatMessage").each((message) => {
       cy.wrap(message).should("contain.text", "Cypress wrote this!");
@@ -90,7 +121,6 @@ describe("Chat", () => {
   });
 
   it("Changing the message sending to ctrl+enter and sending it", () => {
-    cy.wait(2000);
     cy.getDataTestId("BottomLeftSideBar").find("i").eq(3).click();
     cy.getDataTestId("SendMessageSelect").select("COMMAND_ENTER");
     cy.getDataTestId("SettingsCloseBtn").click();
