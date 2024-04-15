@@ -23,14 +23,14 @@ export function MessageHeader() {
 
   return (
     <div className={classnames(styles.header)}>
-      <Button type="icon" icon={columnIcon} onClick={() => setIs({ sidebar: !is.sidebar })} />
+      <Button type="icon" icon={columnIcon} onClick={() => setIs({ sidebar: !is.sidebar })} data-testid="ConversationSideBarBtn"/>
       <div className={styles.header_title} data-testid="HeaderTitle">
         {message?.title}
         <div className={styles.length}>{t('count_messages', { count: messages.length })}</div>
       </div>
       <div className={styles.header_bar}>
         <Icon className={styles.icon} type={options.general.theme} onClick={() => setGeneral({ theme: options.general.theme === 'light' ? 'dark' : 'light' })} dataTestId="TopRightDarkModeBtn"/>
-        <Icon className={styles.icon} type="clear" onClick={clearMessage} />
+        <Icon className={styles.icon} type="clear" onClick={clearMessage} dataTestId="ClearMessageBtn"/>
         <Popover position="bottom" content={<ConfigInfo />}>
           <Icon className={styles.icon} type="more" />
         </Popover>

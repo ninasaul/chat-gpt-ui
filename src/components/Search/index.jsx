@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { t } from 'i18next';
 
 export function Search(props) {
-  const { placeholder, onSearch, className, showButton, extra, ...rest } = props;
+  const { placeholder, onSearch, className, showButton, extra, dataTestId, ...rest } = props;
   const [query, setQuery] = useState('');
   const { t } = useTranslation();
 
@@ -27,7 +27,7 @@ export function Search(props) {
   };
 
   return (
-    <div className={classnames(styles.search, className)}>
+    <div className={classnames(styles.search, className)} data-testid={dataTestId}>
       <div className={styles.inner}>
         <Icon className={styles.searchIcon} type="search" />
         <input
