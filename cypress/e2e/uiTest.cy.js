@@ -13,6 +13,20 @@ describe("User Interface", () => {
       "K!mpuls, der datenschutzfreundliche Chatbot der FH Südwestfalen"
     );
   });
+
+  it("Hide and show the conversation sidebar", () => {
+    cy.getDataTestId("ConversationSideBar").should("exist");
+    cy.getDataTestId("ConversationSideBarBtn").click();
+    cy.getDataTestId("ConversationSideBar").should("not.exist");
+    cy.getDataTestId("ConversationSideBarBtn").click();
+    cy.getDataTestId("ConversationSideBar").should("exist");
+  });
+
+  it("Conversation search bar input works", () => {
+    cy.getDataTestId("ConversationSearchBar").find('input').should('exist').then(($input) => {
+      cy.wrap($input).type("search input works").should("have.value", "search input works");
+    });
+  });
 });
 
 describe("Dark Mode", () => {
@@ -67,8 +81,7 @@ describe("User Information", () => {
 describe("Chat", () => {
   beforeEach(() => {
     cy.visit("http://localhost:5173/");
-    cy.getDataTestId("ChatTextArea").click().type("Cypress wrote this!");
-    cy.getDataTestId("ChatTextArea").should("have.text", "Cypress wrote this!");
+    cy.getDataTestId("ChatTextArea").click().type("Cypress wrote this!").should("have.text", "Cypress wrote this!");
   });
 
   it("Sending a message with the send button", () => {
@@ -97,14 +110,14 @@ describe("Chat", () => {
     cy.getDataTestId("ChatTextArea").should("have.text", "");
     cy.getDataTestId("ChatListContainer").should("be.visible");
 
-    cy.get('[data-testid="ChatListContainer"]').within(() => {
+    cy.getDataTestId("ChatListContainer").within(() => {
       // Überprüfe die erste Nachricht
-      cy.get('[data-testid="ChatMessage"]')
+      cy.getDataTestId("ChatMessage")
         .eq(0)
         .should("contain", "Cypress wrote this!");
 
       // Überprüfe die zweite Nachricht
-      cy.get('[data-testid="ChatMessage"]')
+      cy.getDataTestId("ChatMessage")
         .eq(1)
         .should("contain", "Cypress also wrote this!");
     });
@@ -121,15 +134,37 @@ describe("Chat", () => {
   });
 
   it("Changing the message sending to ctrl+enter and sending it", () => {
+    // Change message sending method to use ctrl+enter
     cy.getDataTestId("BottomLeftSideBar").find("i").eq(3).click();
     cy.getDataTestId("SendMessageSelect").select("COMMAND_ENTER");
     cy.getDataTestId("SettingsCloseBtn").click();
-    cy.getDataTestId("ChatTextArea").click().type("{enter}");
-    cy.getDataTestId("ChatTextArea").should("have.text", "Cypress wrote this!");
-    cy.getDataTestId("ChatTextArea").click().type("{ctrl}{enter}");
-    cy.getDataTestId("ChatTextArea").should("have.text", "");
+
+    // Try sending message using Enter
+    cy.getDataTestId("ChatTextArea").click().type("{enter}").should("have.text", "Cypress wrote this!");
+
+    // Send message using ctrl+Enter
+    cy.getDataTestId("ChatTextArea").click().type("{ctrl}{enter}").should("have.text", "");
+
+    // Check if the message has been sent
     cy.getDataTestId("ChatMessage").each((message) => {
       cy.wrap(message).should("contain.text", "Cypress wrote this!");
     });
   });
+
+  it("Sending a message and clearing the chatlog", () => {
+    // Send message
+    cy.getDataTestId("SendMessageBtn").click();
+    cy.getDataTestId("ChatListContainer").find('[data-testid="ChatMessage"]').should('exist');
+  
+    // Clear chatlog
+    cy.getDataTestId("ClearMessageBtn").click();
+    cy.getDataTestId("ChatListContainer").should('not.exist');
+  
+    // Check if message can be sent again
+    const message = "Cypress wrote this!";
+    cy.getDataTestId("ChatTextArea").type(message).should("have.value", message);
+    cy.getDataTestId("SendMessageBtn").click();
+    cy.getDataTestId("ChatListContainer").should('exist');
+  });
+  
 });
