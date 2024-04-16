@@ -1,7 +1,9 @@
 describe("User Interface", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:5173/");
 
+    cy.intercept('GET', 'https://openai.ki.fh-swf.de/api/user', { fixture: 'testUser.json' }).as('getUser');
+    cy.visit("http://localhost:5173/");
+    cy.wait('@getUser');
     // Check if the page has loaded successfully (Status code 200)
     cy.request("http://localhost:5173/").should((response) => {
       expect(response.status).to.eq(200);
@@ -31,11 +33,12 @@ describe("User Interface", () => {
 
 describe("Dark Mode", () => {
   beforeEach(() => {
+    cy.intercept('GET', 'https://openai.ki.fh-swf.de/api/user', { fixture: 'testUser.json' }).as('getUser');
     cy.visit("http://localhost:5173/");
+    cy.wait('@getUser');
   });
 
   it("Down Left Button", () => {
-    cy.visit("http://localhost:5173/");
     cy.get("html").should("have.attr", "data-theme", "light");
     cy.getDataTestId("BottomLeftSideBar").find("i").eq(2).click();
     cy.get("html").should("have.attr", "data-theme", "dark");
@@ -44,7 +47,6 @@ describe("Dark Mode", () => {
   });
 
   it("Top Right Button", () => {
-    cy.visit("http://localhost:5173/");
     cy.get("html").should("have.attr", "data-theme", "light");
     cy.getDataTestId("TopRightDarkModeBtn").click();
     cy.get("html").should("have.attr", "data-theme", "dark");
@@ -53,7 +55,6 @@ describe("Dark Mode", () => {
   });
 
   it("In Settings", () => {
-    cy.visit("http://localhost:5173/");
     cy.wait(2000);
     cy.getDataTestId("BottomLeftSideBar").find("i").eq(3).click();
     cy.get("html").should("have.attr", "data-theme", "light");
@@ -66,7 +67,9 @@ describe("Dark Mode", () => {
 
 describe("User Information", () => {
   beforeEach(() => {
+    cy.intercept('GET', 'https://openai.ki.fh-swf.de/api/user', { fixture: 'testUser.json' }).as('getUser');
     cy.visit("http://localhost:5173/");
+    cy.wait('@getUser');
   });
 
   it("Open and close user information", () => {
@@ -80,7 +83,9 @@ describe("User Information", () => {
 
 describe("Chat", () => {
   beforeEach(() => {
+    cy.intercept('GET', 'https://openai.ki.fh-swf.de/api/user', { fixture: 'testUser.json' }).as('getUser');
     cy.visit("http://localhost:5173/");
+    cy.wait('@getUser');
     cy.getDataTestId("ChatTextArea").click().type("Cypress wrote this!").should("have.text", "Cypress wrote this!");
   });
 
