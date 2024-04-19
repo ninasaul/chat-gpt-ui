@@ -49,7 +49,7 @@ export function Category(props) {
 export function AppContainer() {
   const { category, dispatch } = useApps()
   return (
-    <div className={styles.apps}>
+    <div className={styles.apps} data-testid="AppsList">
       {category.map((item, index) => <Category index={index} {...item} key={item.id} />)}
     </div>
   )

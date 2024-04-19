@@ -19,6 +19,7 @@ export const Textarea = forwardRef((props, ref) => {
     defaultValue,
     transparent,
     onClear,
+    dataTestId,
     ...rest
   } = props;
   const [content, setContent] = useState(value);
@@ -53,7 +54,7 @@ export const Textarea = forwardRef((props, ref) => {
   }
 
   return (
-    <div className={classnames(styles.textarea_box, className)}>
+    <div className={classnames(styles.textarea_box, className)} data-testid={dataTestId}>
       <div className={styles.inner}>
         <textarea
           ref={ref}
