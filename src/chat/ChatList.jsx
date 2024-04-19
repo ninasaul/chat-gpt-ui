@@ -18,8 +18,8 @@ export function ListEmpty() {
 export function ListTool(props) {
   const { removeChat, setState } = useGlobal()
   return (
-    <div className={styles.tool}>
-      <Icon className={styles.icon} type="editor" onClick={() => setState({ currentEditor: props.index })} />
+    <div className={styles.tool} data-testid="editConversation">
+      <Icon className={styles.icon} type="editor" onClick={() => setState({ currentEditor: props.index })}/>
       <Icon className={styles.icon} type="close" onClick={() => removeChat(props.index)} />
     </div>
   )
@@ -27,7 +27,7 @@ export function ListTool(props) {
 
 export function CreateNew() {
   const { newChat } = useGlobal()
-  return <div className={styles.new} onClick={newChat}><Icon type="add" />{t("New Conversation")}</div>
+  return <div className={styles.new} onClick={newChat} data-testid="ConversationCreateBtn"><Icon type="add" />{t("New Conversation")}</div>
 }
 
 export function ColorIcon({ onChange }) {
@@ -81,10 +81,10 @@ export function EditItem(props) {
     <div className={styles.editor_box}>
       <h2 className={styles.editor_title}>  <ColorIcon onChange={setIcon} />Edit Conversations </h2>
       <div className={classnames(styles.editor)}>
-        <Textarea rows={3} className={styles.editor_text} value={title} onChange={value => setVal(value)} />
+        <Textarea rows={3} className={styles.editor_text} value={title} onChange={value => setVal(value)} dataTestId="editConversationTextArea"/>
       </div>
       <div className={styles.editor_bar}>
-        <Button onClick={() => modifyChat({ title, icon }, props.index)} block={true} type="primary">Save Conversations</Button>
+        <Button onClick={() => modifyChat({ title, icon }, props.index)} block={true} type="primary" dataTestId="editConversationSaveBtn">Save Conversations</Button>
       </div>
     </div>
   )
@@ -97,9 +97,9 @@ export function ChatItem(props) {
   const item = (
     <React.Fragment>
       <TagIco ico={ico} color={color} />
-      <div className={styles.title}>
+      <div className={styles.title} >
         <div className={styles.title_item}>
-          <div className={styles.title_p}>{props.title}</div>
+          <div className={styles.title_p} data-testid="ConversationTitle">{props.title}</div>
         </div>
         <div className={styles.message}>{t("count_messages", { count: props.messages.length })}</div>
       </div>
@@ -108,7 +108,7 @@ export function ChatItem(props) {
   )
 
   return (
-    <div className={classnames(styles.item, currentChat === props.index && styles.current)} onClick={() => setState({ currentChat: props.index })} >
+    <div className={classnames(styles.item, currentChat === props.index && styles.current)} onClick={() => setState({ currentChat: props.index })} data-testid="Conversation">
       {currentEditor === props.index ? <EditItem {...props} /> : item}
     </div>
   )
@@ -117,7 +117,7 @@ export function ChatItem(props) {
 export function ChatList() {
   const { chat } = useGlobal()
   return (
-    <div className={styles.list}>
+    <div className={styles.list} data-testid="ConversationList">
       {chat.length ? chat.map((item, index) => <ChatItem key={index} index={index} {...item} />) : <ListEmpty />}
       <CreateNew />
     </div>

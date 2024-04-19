@@ -107,11 +107,11 @@ export function ChatSideBar() {
             </Panel>
           </Modal>
         }
-        <Option type="help" onClick={() => { setAboutModal(!showAboutModal) }} tooltip={t("about")} />
+        <Option type="help" onClick={() => { setAboutModal(!showAboutModal) }} tooltip={t("about")}/>
         {showAboutModal &&
           <Modal>
 
-            <Panel title="Hinweise" className={styles.user} onClose={() => setAboutModal(false)}>
+            <Panel title="Hinweise" className={styles.user} onClose={() => setAboutModal(false)} dataTestId="InformationWindow">
               <Button type="icon" icon="close" onClick={() => setAboutModal(false)} className={styles.close} />
               <div className={styles.panel}>
                 <Markdown
