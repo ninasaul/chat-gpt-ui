@@ -8,5 +8,5 @@ export const Icon = forwardRef((props, ref) => {
     onClick && onClick();
     event.stopPropagation();
   }
-  return <i ref={ref} {...rest} onClick={handleClick} className={classnames(styles.icon, `ico ico-${type}`, className)} >{children}</i>
+  return <i ref={ref} {...rest} onClick={handleClick} className={classnames(styles.icon, `ico ico-${type}`, className)}>{children}</i>
 })
