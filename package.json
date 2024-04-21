@@ -11,7 +11,7 @@
   "scripts": {
     "start": "vite",
     "build": "vite build",
-    "test:e2e": "cypress run --headless --browser firefox --spec cypress/e2e/uiTest.cy.js"
+    "test:e2e": "cypress run --spec cypress/e2e/uiTest.cy.js"
   },
   "dependencies": {
     "eventsource-parser": "^1.0.0",

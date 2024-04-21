@@ -66,7 +66,7 @@ describe("User Interface", () => {
     cy.getDataTestId("HeaderTitle").contains("edit conversation text");
   });
 
-  it.only("Show infos", () => {
+  it("Show infos", () => {
     cy.getDataTestId("InformationWindow").should("not.exist");
     cy.getDataTestId("LeftSideBar").find("i").eq(0).click(); //Clicks the Info with the ?
     cy.getDataTestId("InformationWindow").should("be.visible");
