@@ -169,4 +169,28 @@ describe("Config Menu", () => {
     cy.getDataTestId('ChangeAIModelSelect').select("gpt-4").should("have.value", "gpt-4");
     cy.getDataTestId('ChangeAIModelSelect').select("gpt-3.5-turbo").should("have.value", "gpt-3.5-turbo");
   });
+
+  it("Set max tokens input", () => {
+    cy.getDataTestId('MaxTokensInput').clear().should("have.value", "0").type("{selectall}1024").should("have.value", "1024");
+  });
+
+  it("Set temperature input", () => {
+    cy.getDataTestId('SetTemperatureInput').clear().should("have.value", "0").type("{selectall}1024").should("have.value", "1024");
+  });
+
+  it("Set top P input", () => {
+    cy.getDataTestId('SetTopPInput').clear().should("have.value", "0").type("{selectall}1024").should("have.value", "1024");
+  });
+
+  it("Set api base url input", () => {
+    cy.getDataTestId('ApiBaseURLInput').clear().should("have.value", "").type("a_cypress_input_test").should("have.value", "a_cypress_input_test");
+  });
+
+  it("Set api key input", () => {
+    cy.getDataTestId('APIKeyInput').clear().should("have.value", "").type("a_cypress_input_test").should("have.value", "a_cypress_input_test");
+  });
+
+  it.only("Set organisation id input", () => {
+    cy.getDataTestId('APIOrganisationIDInput').clear().should("have.value", "").type("a_cypress_id_test").should("have.value", "a_cypress_id_test");
+  });
 });
