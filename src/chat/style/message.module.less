@@ -90,7 +90,7 @@
   }
   &_inner {
     background-color: var(--background-color);
-    border-radius: var(--border-radius);
+    border-radius: 15px;
     font-size: var(--font-size-base);
     padding: var(--spacing);
     min-width: 200px;
@@ -116,6 +116,17 @@
     margin-left: 10px;
     justify-content: flex-end;
     margin-right: 10px;
+    .item_inner {
+      border-radius: 15px 15px 0 15px;
+      background-color: var(--background-color);
+      color: white;
+    }
+  }
+  &_assistant {
+    .item_inner {
+      border-radius: 15px 15px 15px 0;
+      background-color: var(--background-color);
+    }
   }
 }
 .user {
