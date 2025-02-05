@@ -72,14 +72,17 @@
   color: var(--primary);
 }
 .item {
-  margin: var(--spacing) 0;
+  margin: var(--spacing) auto;
   display: flex;
+  max-width: 800px;
+  padding: 0 var(--spacing);
   &_content {
     margin-left: 10px;
-    margin-right: 38px;
+    margin-right: 10px;
     display: flex;
     justify-content: flex-start;
     flex: 1;
+    max-width: calc(100% - 80px);
   }
   &_date {
     color: var(--text-color-gray);
@@ -90,26 +93,29 @@
     border-radius: var(--border-radius);
     font-size: var(--font-size-base);
     padding: var(--spacing);
-    min-width: 300px;
+    min-width: 200px;
+    max-width: 100%;
   }
   &_tool {
     margin-bottom: var(--spacing);
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
   }
   &_bar {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
+    margin-left: auto;
     .icon {
       padding: var(--spacing-min);
       font-size: 16px;
     }
   }
   &_user {
-    margin-left: 38px;
+    margin-left: 10px;
     justify-content: flex-end;
-    margin-right: var(--spacing);
+    margin-right: 10px;
   }
 }
 .user {
@@ -117,12 +123,19 @@
   .z-avatar {
     margin-left: var(--spacing);
   }
+  .item_content {
+    margin-right: 10px;
+    margin-left: 10px;
+  }
 }
 
 .container {
   flex: 1;
   padding: 10px;
   color: var(--text-color);
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
 }
 .bar {
   padding: var(--spacing);
@@ -160,4 +173,31 @@
 .textarea {
   color: var(--text-color);
   background: transparent;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-right: 16px;
+}
+
+.userName {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.adminButton {
+  color: var(--primary-color);
+  font-weight: 500;
+}
+
+.error_message {
+  background-color: var(--error-color, #ff4d4f);
+  color: white;
+  padding: 8px 16px;
+  margin: 8px;
+  border-radius: 4px;
+  font-size: 14px;
+  text-align: center;
 }

@@ -13,11 +13,16 @@
     "build-prod": "webpack --mode production"
   },
   "dependencies": {
+    "antd": "^5.23.3",
+    "cors": "^2.8.5",
     "eventsource-parser": "^1.0.0",
+    "express": "^4.21.2",
+    "firebase": "^11.1.0",
     "i18next": "^22.4.15",
     "i18next-browser-languagedetector": "^7.0.1",
     "i18next-http-backend": "^2.2.0",
     "katex": "^0.16.7",
+    "mongodb": "^6.13.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-i18next": "^12.2.2",
@@ -30,7 +35,8 @@
     "remark-gfm": "^3.0.1",
     "remark-math": "^5.1.1",
     "tailwindcss": "^3.2.7",
-    "webextension-polyfill": "^0.10.0"
+    "webextension-polyfill": "^0.10.0",
+    "dotenv": "^16.3.1"
   },
   "devDependencies": {
     "@babel/core": "^7.21.3",

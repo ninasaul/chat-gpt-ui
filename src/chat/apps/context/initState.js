@@ -1,7 +1,7 @@
 export const initApps = {
   category: [
     {
-      title: "Programming",
+      title: "Programming Persona",
       icon: "programming",
       id: 8,
     },
@@ -11,12 +11,12 @@ export const initApps = {
       id: 1,
     },
     {
-      title: "Productivity",
+      title: "Productivity Persona",
       icon: "productivity",
       id: 2,
     },
     {
-      title: "Educational",
+      title: "Educational Persona",
       icon: "education",
       id: 3,
     },
@@ -26,7 +26,7 @@ export const initApps = {
       id: 4,
     },
     {
-      title: "UX/UI developer",
+      title: "Genz Persona",
       icon: "ui",
       id: 5,
     },

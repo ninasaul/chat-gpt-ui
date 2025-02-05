@@ -1,0 +1,68 @@
+.adminContainer {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 500px;
+}
+
+.section {
+  h3 {
+    margin-bottom: 16px;
+    font-size: 18px;
+    font-weight: 500;
+  }
+}
+
+.inviteForm {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.error {
+  color: var(--error-color, #ff4d4f);
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.success {
+  color: var(--success-color, #52c41a);
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.usersList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.userItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background-color: var(--background-color-gray);
+  border-radius: 6px;
+}
+
+.userInfo {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.userEmail {
+  font-weight: 500;
+}
+
+.userRole {
+  color: var(--text-color-gray);
+  font-size: 14px;
+  text-transform: capitalize;
+}
+
+.removeButton {
+  color: var(--error-color, #ff4d4f);
+} 

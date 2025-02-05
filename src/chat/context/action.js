@@ -1,4 +1,4 @@
-import { fetchStream } from "../service";
+import { sendChatMessage } from "../service/chat";
 
 export default function action(state, dispatch) {
   const setState = (payload = {}) =>
@@ -13,7 +13,7 @@ export default function action(state, dispatch) {
       setState({ typeingMessage: {} });
     },
     async sendMessage() {
-      const { typeingMessage, options, chat, is, currentChat } = state;
+      const { typeingMessage, chat, is, currentChat } = state;
       if (typeingMessage?.content) {
         const newMessage = {
           ...typeingMessage,
@@ -27,16 +27,15 @@ export default function action(state, dispatch) {
           typeingMessage: {},
           chat: newChat,
         });
-        const controller = new AbortController();
+        
         try {
-          const res = await fetchStream({
-            messages: messages.map((item) => {
+          await sendChatMessage(
+            typeingMessage.content,
+            messages.map((item) => {
               const { sentTime, id, ...rest } = item;
-              return { ...rest };
+              return rest;
             }),
-            options: options.openai,
-            signal: controller.signal,
-            onMessage(content) {
+            (content) => {
               newChat.splice(currentChat, 1, {
                 ...chat[currentChat],
                 messages: [
@@ -53,31 +52,23 @@ export default function action(state, dispatch) {
                 is: { ...is, thinking: content.length },
                 chat: newChat,
               });
-            },
-            onStar() {},
-            onEnd() {
-              setState({
-                is: { ...is, thinking: false },
-              });
-            },
-            onError(res) {
-              console.log(res);
-              const { error } = res || {};
-              if (error) {
-                newChat.splice(currentChat, 1, {
-                  ...chat[currentChat],
-                  error,
-                });
-                setState({
-                  chat: newChat,
-                  is: { ...is, thinking: false },
-                });
-              }
-            },
+            }
+          );
+          
+          setState({
+            is: { ...is, thinking: false },
           });
-          console.log(res);
         } catch (error) {
-          console.log(error);
+          console.error('Error in sendMessage:', error);
+          const newChat = [...chat];
+          newChat.splice(currentChat, 1, {
+            ...chat[currentChat],
+            error: error.message,
+          });
+          setState({
+            chat: newChat,
+            is: { ...is, thinking: false },
+          });
         }
       }
     },

@@ -1,0 +1,45 @@
+/* src/components/AuthModal.module.less */
+.authContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.separator {
+    text-align: center;
+    position: relative;
+    margin: 16px 0;
+}
+
+.separator::before,
+.separator::after {
+    content: "";
+    height: 1px;
+    background: #ccc;
+    position: absolute;
+    top: 50%;
+    width: 40%;
+}
+
+.separator::before {
+    left: 0;
+}
+
+.separator::after {
+    right: 0;
+}
+
+.error {
+    color: red;
+    font-size: 14px;
+}
+
+.toggle {
+    text-align: center;
+    font-size: 14px;
+}
+
+.toggle span {
+    color: blue;
+    cursor: pointer;
+}
