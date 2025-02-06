@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Avatar,
   Icon,
@@ -25,7 +25,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "./context/firebase.js";
 import { sendChatMessage } from './service/chat';
 // import { insertToMongoDB } from './service/mongodb';
-
+ 
 export function MessageHeader() {
   const { is, setIs, clearMessage, options } = useGlobal();
   const { message } = useMesssage();
@@ -37,9 +37,36 @@ export function MessageHeader() {
   const [authModalVisible, setAuthModalVisible] = useState(false);
   const [adminPanelVisible, setAdminPanelVisible] = useState(false);
   const [createProfileModalVisible, setCreateProfileModalVisible] = useState(false);
+  const [hasProfile, setHasProfile] = useState(false);
+
+  const checkUserProfile = async () => {
+    if (currentUser) {
+      try {
+        const response = await fetch(`http://localhost:3001/api/profiles/check/${currentUser.uid}`);
+        const data = await response.json();
+        setHasProfile(data.exists);
+      } catch (error) {
+        console.error('Error checking profile:', error);
+        setHasProfile(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    checkUserProfile();
+  }, [currentUser, createProfileModalVisible]); // Add createProfileModalVisible as dependency
 
   const handleLoginClick = () => {
     setAuthModalVisible(true);
+  };
+
+  const handleSignUpSuccess = () => {
+    setCreateProfileModalVisible(true);
+  };
+
+  const handleProfileModalClose = () => {
+    setCreateProfileModalVisible(false);
+    checkUserProfile(); // Check profile status after modal closes
   };
 
   const handleLogout = async () => {
@@ -106,7 +133,7 @@ export function MessageHeader() {
         icon={columnIcon}
         onClick={() => setIs({ sidebar: !is.sidebar })}
       />
-      <Button type="icon" icon={columnIcon} onClick={handleInsert} />
+      {/* <Button type="icon" icon={columnIcon} onClick={handleInsert} /> */}
       <div className={styles.header_title}>
         {message?.title}
         <div className={styles.length}>{messages.length} messages</div>
@@ -120,7 +147,7 @@ export function MessageHeader() {
             onClick={() => setCreateProfileModalVisible(true)}
             className={styles.createProfileButton}
           >
-            Create Profile
+            {hasProfile ? 'Edit Profile' : 'Create Profile'}
           </Button>
           </div>
         )}
@@ -169,6 +196,7 @@ export function MessageHeader() {
       <AuthModal
         visible={authModalVisible}
         onClose={() => setAuthModalVisible(false)}
+        onSignUpSuccess={handleSignUpSuccess}
       />
       <AdminPanel
         visible={adminPanelVisible}
@@ -176,7 +204,7 @@ export function MessageHeader() {
       />
       <CreateProfileModal
         visible={createProfileModalVisible}
-        onClose={() => setCreateProfileModalVisible(false)}
+        onClose={handleProfileModalClose}
       />
     </div>
   );

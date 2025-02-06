@@ -1,128 +1,3 @@
-// // src/components/AuthModal.js
-// import React, { useState } from "react";
-// import { Modal, Button, Input, Icon } from "@/components";
-// import { auth, googleProvider } from "../context/firebase";
-// import {
-//   signInWithPopup,
-//   createUserWithEmailAndPassword,
-//   signInWithEmailAndPassword,
-// } from "firebase/auth";
-// import styles from "./AuthModal.module.less";
-
-// export function AuthModal({ visible, onClose }) {
-//   const [isLogin, setIsLogin] = useState(true);
-//   const [email, setEmail] = useState("");
-//   const [password, setPassword] = useState("");
-//   const [error, setError] = useState("");
-
-// //   const handleGoogleSignIn = async () => {
-// //     try {
-// //       await signInWithPopup(auth, googleProvider);
-// //       onClose();
-// //     } catch (err) {
-// //       setError(err.message);
-// //     }
-// //   };
-
-
-// const handleGoogleSignIn = async () => {
-//   try {
-//     await signInWithPopup(auth, googleProvider);
-//     onClose(); // Close the modal if login is successful
-//   } catch (err) {
-//     if (err.code === "auth/popup-closed-by-user") {
-//       console.warn("User closed the Google sign-in popup.");
-//       // Do nothing to suppress the error
-//     } else {
-//       console.error("Error during Google sign-in:", err.message);
-//     //   setError("Failed to sign in. Please try again."); // Show message for other errors
-//     }
-//   }
-// };
-
-
-//   const handleEmailAuth = async () => {
-//     try {
-//       if (isLogin) {
-//         await signInWithEmailAndPassword(auth, email, password);
-//       } else {
-//         await createUserWithEmailAndPassword(auth, email, password);
-//       }
-//       onClose();
-//     } catch (err) {
-//       setError(err.message);
-//     }
-//   };
-
-//   return (
-//     <Modal
-//       visible={visible}
-//       onClose={onClose}
-//       title={isLogin ? "Login" : "Sign Up"}
-//     >
-//       <div className={styles.authContainer}>
-//         <Button
-//           type="outline"
-//           onClick={handleGoogleSignIn}
-//           icon={<Icon type="google" />}
-//         >
-//           Continue with Google
-//         </Button>
-//         <div className={styles.separator}>OR</div>
-//         <Input
-//           placeholder="Email"
-//           value={email}
-//           onChange={(e) => setEmail(e.target.value)}
-//           type="email"
-//         />
-//         <Input
-//           placeholder="Password"
-//           value={password}
-//           onChange={(e) => setPassword(e.target.value)}
-//           type="password"
-//         />
-//         {error && <div className={styles.error}>{error}</div>}
-//         <Button onClick={handleEmailAuth}>
-//           {isLogin ? "Login" : "Sign Up"}
-//         </Button>
-//         <div className={styles.toggle}>
-//           {isLogin ? (
-//             <>
-//               Don't have an account?{" "}
-//               <span onClick={() => setIsLogin(false)}>Sign Up</span>
-//             </>
-//           ) : (
-//             <>
-//               Already have an account?{" "}
-//               <span onClick={() => setIsLogin(true)}>Login</span>
-//             </>
-//           )}
-//         </div>
-//       </div>
-//     </Modal>
-//   );
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // src/components/AuthModal.js
 import React, { useState } from "react";
 import { Modal, Button, Input, Icon } from "@/components";
@@ -137,15 +12,52 @@ import {
 const googleIconUrl =
   "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/225px-Google_%22G%22_logo.svg.png";
 
-export function AuthModal({ visible, onClose }) {
+export function AuthModal({ visible, onClose, onSignUpSuccess }) {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  const saveUserToMongoDB = async (user) => {
+    try {
+      const userData = {
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName || null,
+        photoURL: user.photoURL || null,
+        emailVerified: user.emailVerified,
+        authProvider: user.providerData[0]?.providerId || 'email'
+      };
+
+      const response = await fetch('http://localhost:3001/api/users/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to save user data');
+      }
+
+      const data = await response.json();
+      console.log('User saved to MongoDB:', data);
+    } catch (error) {
+      console.error('Error saving user to MongoDB:', error);
+      // Don't throw the error as we still want to proceed with the signup flow
+    }
+  };
+
   const handleGoogleSignIn = async () => {
     try {
-      await signInWithPopup(auth, googleProvider);
+      const result = await signInWithPopup(auth, googleProvider);
+      if (!isLogin) {
+        // Save user data to MongoDB for new sign ups
+        await saveUserToMongoDB(result.user);
+        // If it's a sign up flow, trigger the profile creation
+        onSignUpSuccess();
+      }
       onClose();
     } catch (err) {
       if (err.code === "auth/popup-closed-by-user") {
@@ -160,10 +72,15 @@ export function AuthModal({ visible, onClose }) {
     try {
       if (isLogin) {
         await signInWithEmailAndPassword(auth, email, password);
+        onClose();
       } else {
-        await createUserWithEmailAndPassword(auth, email, password);
+        const result = await createUserWithEmailAndPassword(auth, email, password);
+        // Save user data to MongoDB for new sign ups
+        await saveUserToMongoDB(result.user);
+        // After successful sign up, trigger the profile creation
+        onSignUpSuccess();
+        onClose();
       }
-      onClose();
     } catch (err) {
       setError(err.message);
     }

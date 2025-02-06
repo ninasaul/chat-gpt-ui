@@ -38,6 +38,7 @@
 }
 
 .form {
+  width: 100%;
   :global {
     .ant-form-item {
       margin-bottom: 16px;
@@ -140,21 +141,32 @@
 }
 
 .error {
-  color: var(--error-color, #ff4d4f);
-  font-size: 14px;
-  margin-top: 8px;
-  padding: 8px;
-  background-color: rgba(255, 77, 79, 0.1);
-  border: 1px solid var(--error-color, #ff4d4f);
-  border-radius: 4px;
+  color: red;
+  margin-top: 10px;
+  text-align: center;
 }
 
 .success {
-  color: var(--success-color, #52c41a);
-  font-size: 14px;
-  margin-top: 8px;
-  padding: 8px;
-  background-color: rgba(82, 196, 26, 0.1);
-  border: 1px solid var(--success-color, #52c41a);
-  border-radius: 4px;
+  color: green;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.selectInput {
+  :global {
+    .ant-select-selection-placeholder {
+      color: rgba(255, 255, 255, 0.65) !important;
+    }
+    .ant-select-selector {
+      background-color: transparent !important;
+      color: white !important;
+    }
+    .ant-select-selection-item {
+      color: white !important;
+    }
+  }
+}
+
+.createProfileButton {
+  margin-top: 20px;
 } 
