@@ -1,6 +1,6 @@
 export const sendChatMessage = async (question, contextMessages, onChunk) => {
   const maxRetries = 3;
-  const backendUrl = 'http://localhost:8000/generate_chat';  // Updated to match your working URL
+  const backendUrl = 'http://34.68.23.90:8000/generate_chat';
   
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
@@ -13,7 +13,7 @@ export const sendChatMessage = async (question, contextMessages, onChunk) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          'Accept': 'text/event-stream',
         },
         body: JSON.stringify({
           question,
@@ -21,31 +21,56 @@ export const sendChatMessage = async (question, contextMessages, onChunk) => {
         }),
       });
 
-      // Log the raw response for debugging
-      const responseText = await response.text();
-      console.log('Raw response:', responseText);
-
       if (!response.ok) {
-        throw new Error(`Server error: ${response.status} - ${responseText}`);
+        throw new Error(`Server error: ${response.status}`);
       }
 
-      let data;
-      try {
-        data = JSON.parse(responseText);
-      } catch (e) {
-        throw new Error(`Invalid JSON response: ${responseText}`);
-      }
+      // Get the response as a readable stream
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+      let fullResponse = ''; // Track the full response
 
-      if (!data) {
-        throw new Error('Empty response from server');
-      }
+      while (true) {
+        const { done, value } = await reader.read();
+        
+        if (done) {
+          break;
+        }
 
-      // If we have a response, send it
-      if (data.response || data.content) {
-        onChunk(data.response || data.content);
-        return;
-      } else {
-        throw new Error('Response missing expected fields');
+        // Decode the chunk and add it to our buffer
+        buffer += decoder.decode(value, { stream: true });
+        
+        // Process complete lines from the buffer
+        const lines = buffer.split('\n');
+        buffer = lines.pop() || ''; // Keep the last incomplete line in the buffer
+
+        for (const line of lines) {
+          if (line.trim() === '') continue;
+          
+          // Handle SSE format (lines starting with "data: ")
+          if (line.startsWith('data: ')) {
+            const data = line.slice(6); // Remove "data: " prefix
+            
+            if (data === '[DONE]') {
+              return;
+            }
+
+            try {
+              const parsed = JSON.parse(data);
+              
+              if (parsed.response !== undefined) {
+                fullResponse += parsed.response; // Accumulate the full response
+                onChunk(fullResponse); // Send the accumulated response
+              } else if (parsed.suggestions) {
+                // Handle suggestions if needed
+                onChunk(fullResponse, parsed.suggestions); // Pass suggestions as second parameter
+              }
+            } catch (e) {
+              console.warn('Failed to parse SSE data:', e);
+            }
+          }
+        }
       }
       
     } catch (error) {
