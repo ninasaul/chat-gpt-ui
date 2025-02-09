@@ -8,25 +8,31 @@ export const ScrollView = (props) => {
   const scrollRef = useRef(null)
   const { is, chat } = useGlobal()
   const [height, setHeight] = useState(0);
-  const handleScroll = () => {
-    scrollRef.current.scrollIntoView({ behavior: "smooth" });
-  };
 
   const scrollToBottom = () => {
-    const currentHeight = scrollRef.current.scrollHeight
-    if (currentHeight - height > 60) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-      setHeight(currentHeight)
+    if (scrollRef.current) {
+      const scrollElement = scrollRef.current;
+      scrollElement.scrollTop = scrollElement.scrollHeight;
     }
   };
-  useEffect(() => {
-    scrollToBottom()
-  }, [is.thinking]);
 
+  // Scroll on new messages or when thinking state changes
   useEffect(() => {
-    window.requestAnimationFrame(handleScroll);
-    setHeight(scrollRef.current.scrollHeight);
-  }, [scrollRef.current]);
+    scrollToBottom();
+  }, [chat, is.thinking]);
 
-  return <div ref={scrollRef} className={classnames(styles.scroll, className)} {...rest}> {children}</div >
+  // Initial scroll when component mounts
+  useEffect(() => {
+    scrollToBottom();
+  }, []);
+
+  return (
+    <div 
+      ref={scrollRef} 
+      className={classnames(styles.scroll, className)} 
+      {...rest}
+    > 
+      {children}
+    </div>
+  )
 }

@@ -1,8 +1,9 @@
 .z-ui-markdown {
   font-family: Helvetica, arial, sans-serif;
   font-size: var(--font-size-base);
-  line-height: 1.7;
+  line-height: 1.6;
   word-wrap: break-word;
+  word-break: break-word;
   // padding: var(--spacing);
   & > :first-child {
     margin-top: 0 !important;
@@ -433,5 +434,74 @@
     font-weight: bold;
     border-top: 0;
     background: var(--background-color-gray);
+  }
+
+  .markdown-paragraph {
+    margin: 1em 0;
+  }
+
+  .markdown-bold {
+    font-weight: 600;
+    color: var(--primary);
+  }
+
+  .markdown-italic {
+    font-style: italic;
+    color: var(--text-color);
+  }
+
+  .markdown-h1 {
+    font-size: 2em;
+    margin: 0.67em 0;
+    font-weight: 600;
+  }
+
+  .markdown-h2 {
+    font-size: 1.5em;
+    margin: 0.83em 0;
+    font-weight: 600;
+  }
+
+  .markdown-h3 {
+    font-size: 1.17em;
+    margin: 1em 0;
+    font-weight: 600;
+  }
+
+  .markdown-ul, .markdown-ol {
+    padding-left: 2em;
+    margin: 1em 0;
+  }
+
+  .markdown-li {
+    margin: 0.5em 0;
+  }
+
+  .markdown-blockquote {
+    margin: 1em 0;
+    padding-left: 1em;
+    border-left: 4px solid var(--primary);
+    color: var(--text-color-gray);
+  }
+
+  code {
+    font-family: var(--font-family-code);
+    background-color: var(--background-color-light);
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-size: 0.9em;
+  }
+
+  pre {
+    background-color: var(--background-color-light);
+    padding: 1em;
+    border-radius: var(--border-radius);
+    overflow: auto;
+    
+    code {
+      background-color: transparent;
+      padding: 0;
+      border-radius: 0;
+    }
   }
 }

@@ -6,6 +6,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  margin: 0 16px;
   & > div {
     width: 100%;
   }
@@ -119,7 +120,7 @@
     .item_inner {
       border-radius: 15px 15px 0 15px;
       background-color: var(--background-color);
-      color: white;
+      // color: white;
     }
   }
   &_assistant {
@@ -150,8 +151,10 @@
 }
 .bar {
   padding: var(--spacing);
+  margin: 0 16px 0 16px;
   border-top: 1px solid var(--border-color);
   background-color: var(--background-color);
+  border-radius: 8px;
   &_tool {
     padding: var(--spacing) 0;
   }
@@ -165,6 +168,29 @@
   }
   &_type {
     flex: 1;
+    textarea {
+      width: 100%;
+      background-color: var(--background-color-gray) !important;
+      border: none;
+      border-radius: 8px;
+      color: var(--text-color);
+      resize: none;
+      padding: 12px;
+      font-size: 14px;
+      line-height: 1.5;
+      min-height: 24px;
+      max-height: 200px;
+      overflow-y: auto;
+      
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px var(--primary-light);
+      }
+      
+      &::placeholder {
+        color: var(--text-color-gray);
+      }
+    }
   }
   &_loading {
     display: flex;
@@ -178,6 +204,13 @@
       cursor: pointer;
       font-size: 18px;
       color: var(--text-color);
+      opacity: 0.8;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        opacity: 1;
+        color: var(--primary);
+      }
     }
   }
 }

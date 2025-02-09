@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Avatar,
   Icon,
@@ -25,7 +25,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "./context/firebase.js";
 import { sendChatMessage } from './service/chat';
 // import { insertToMongoDB } from './service/mongodb';
-
+ 
 export function MessageHeader() {
   const { is, setIs, clearMessage, options } = useGlobal();
   const { message } = useMesssage();
@@ -37,9 +37,36 @@ export function MessageHeader() {
   const [authModalVisible, setAuthModalVisible] = useState(false);
   const [adminPanelVisible, setAdminPanelVisible] = useState(false);
   const [createProfileModalVisible, setCreateProfileModalVisible] = useState(false);
+  const [hasProfile, setHasProfile] = useState(false);
+
+  const checkUserProfile = async () => {
+    if (currentUser) {
+      try {
+        const response = await fetch(`http://localhost:3001/api/profiles/check/${currentUser.uid}`);
+        const data = await response.json();
+        setHasProfile(data.exists);
+      } catch (error) {
+        console.error('Error checking profile:', error);
+        setHasProfile(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    checkUserProfile();
+  }, [currentUser, createProfileModalVisible]); // Add createProfileModalVisible as dependency
 
   const handleLoginClick = () => {
     setAuthModalVisible(true);
+  };
+
+  const handleSignUpSuccess = () => {
+    setCreateProfileModalVisible(true);
+  };
+
+  const handleProfileModalClose = () => {
+    setCreateProfileModalVisible(false);
+    checkUserProfile(); // Check profile status after modal closes
   };
 
   const handleLogout = async () => {
@@ -56,25 +83,6 @@ export function MessageHeader() {
   const handleAdminPanelClick = () => {
     setAdminPanelVisible(true);
   };
-
-  // In your event handler (e.g., onClick)
-  // const handleInsert = async () => {
-  //   try {
-  //     const response = await fetch("http://localhost:3001/api/insert", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     });
-  //     const data = await response.json();
-  //     if (!data.success) {
-  //       throw new Error(data.error);
-  //     }
-  //     console.log("Successfully inserted document:", data.result);
-  //   } catch (error) {
-  //     console.error("Failed to insert document:", error);
-  //   }
-  // };
 
     const handleInsert = async () => {
       try {
@@ -106,7 +114,7 @@ export function MessageHeader() {
         icon={columnIcon}
         onClick={() => setIs({ sidebar: !is.sidebar })}
       />
-      <Button type="icon" icon={columnIcon} onClick={handleInsert} />
+      {/* <Button type="icon" icon={columnIcon} onClick={handleInsert} /> */}
       <div className={styles.header_title}>
         {message?.title}
         <div className={styles.length}>{messages.length} messages</div>
@@ -120,7 +128,7 @@ export function MessageHeader() {
             onClick={() => setCreateProfileModalVisible(true)}
             className={styles.createProfileButton}
           >
-            Create Profile
+            {hasProfile ? 'Edit Profile' : 'Create Profile'}
           </Button>
           </div>
         )}
@@ -169,6 +177,7 @@ export function MessageHeader() {
       <AuthModal
         visible={authModalVisible}
         onClose={() => setAuthModalVisible(false)}
+        onSignUpSuccess={handleSignUpSuccess}
       />
       <AdminPanel
         visible={adminPanelVisible}
@@ -176,7 +185,7 @@ export function MessageHeader() {
       />
       <CreateProfileModal
         visible={createProfileModalVisible}
-        onClose={() => setCreateProfileModalVisible(false)}
+        onClose={handleProfileModalClose}
       />
     </div>
   );
@@ -242,6 +251,8 @@ export function MessageBar() {
   const { message } = useMesssage();
   const { messages = [] } = message || {};
 
+  const { currentUser } = useAuth();
+
   const handleSendMessage = async () => {
     console.log({typeingMessage});
     if (!typeingMessage?.content) return;
@@ -254,7 +265,10 @@ export function MessageBar() {
         role: 'user',
         content: typeingMessage.content,
         sentTime: new Date().toISOString(),
-        id: Date.now()
+        id: Date.now(),
+        uid: currentUser?.uid || 'anonymous',
+        userEmail: currentUser?.email || 'anonymous',
+        persona: chat[currentChat]?.persona || null // Add persona information
       };
       
       // Create assistant message object
@@ -262,7 +276,10 @@ export function MessageBar() {
         role: 'assistant',
         content: 'Thinking...',
         sentTime: new Date().toISOString(),
-        id: Date.now() + 1
+        id: Date.now() + 1,
+        uid: currentUser?.uid || 'anonymous',
+        userEmail: currentUser?.email || 'anonymous',
+        persona: chat[currentChat]?.persona || null // Add persona information
       };
 
       // Update chat with both messages immediately
@@ -292,13 +309,59 @@ export function MessageBar() {
         await sendChatMessage(
           typeingMessage.content,
           contextMessages,
-          (response) => {
+          async (response) => {
             if (response) {
-              // Update the assistant message with the response
-              const latestMessages = [...messages, userMessage, {
+              // Create final assistant message with the response
+              const finalAssistantMessage = {
                 ...assistantMessage,
                 content: response
-              }];
+              };
+
+              // Store both user and assistant messages after getting the response
+              try {
+                // Store user message first
+                const userResponse = await fetch("http://localhost:3001/api/chats/store", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json"
+                  },
+                  body: JSON.stringify({
+                    ...userMessage,
+                    conversationId: currentChat,
+                    timestamp: new Date().toISOString()
+                  })
+                });
+                
+                if (!userResponse.ok) {
+                  throw new Error('Failed to store user message');
+                }
+                
+                console.log('User message stored successfully');
+
+                // Then store assistant message
+                const assistantResponse = await fetch("http://localhost:3001/api/chats/store", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json"
+                  },
+                  body: JSON.stringify({
+                    ...finalAssistantMessage,
+                    conversationId: currentChat,
+                    timestamp: new Date().toISOString()
+                  })
+                });
+                
+                if (!assistantResponse.ok) {
+                  throw new Error('Failed to store assistant message');
+                }
+                
+                console.log('Assistant message stored successfully');
+              } catch (error) {
+                console.error("Failed to store messages:", error);
+              }
+
+              // Update the assistant message with the response
+              const latestMessages = [...messages, userMessage, finalAssistantMessage];
               
               const newChat = [...chat];
               newChat[currentChat] = {
@@ -308,15 +371,14 @@ export function MessageBar() {
               
               setState({ chat: newChat });
             }
-          }
+          },
+          chat[currentChat]?.persona // Pass the current chat's persona
         );
       } catch (error) {
-        // Just log errors to console, don't show in UI
         console.error('Chat error:', error);
       }
       
     } catch (error) {
-      // Just log errors to console, don't show in UI
       console.error('Failed to send message:', error);
     } finally {
       setIs({ thinking: false });
@@ -354,6 +416,12 @@ export function MessageBar() {
             onBlur={() => setIs({ inputing: false })}
             placeholder="Enter something...."
             onChange={(value) => setMessage(value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault(); // Prevent default to avoid new line
+                handleSendMessage();
+              }
+            }}
           />
         </div>
         <div className={styles.bar_icon}>

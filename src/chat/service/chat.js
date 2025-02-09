@@ -1,4 +1,4 @@
-export const sendChatMessage = async (question, contextMessages, onChunk) => {
+export const sendChatMessage = async (question, contextMessages, onChunk, persona) => {
   const maxRetries = 3;
   const backendUrl = 'http://34.68.23.90:8000/generate_chat';
   
@@ -6,18 +6,20 @@ export const sendChatMessage = async (question, contextMessages, onChunk) => {
     try {
       console.log('Sending request with payload:', {
         question,
-        context_messages: contextMessages
+        context_messages: contextMessages,
+        segment: persona?.title || null
       });
 
       const response = await fetch(backendUrl, {
-        method: 'POST',
+        method: "POST",
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'text/event-stream',
         },
         body: JSON.stringify({
           question,
-          context_messages: contextMessages
+          context_messages: contextMessages,
+          segment: persona?.title || null,
         }),
       });
 
