@@ -1,12 +1,24 @@
 import React from 'react'
 import { AppsProvide, useApps } from './context'
 import { classnames } from '@/components/utils'
+import { useGlobal } from '../context'
 import styles from './apps.module.less'
 import { Search } from '../../components'
 
 export function AppItem(props) {
+  const { newChat } = useGlobal();
+  const handleClick = () => {
+    const persona = {
+      title: props.title,
+      desc: props.desc,
+      role: props.role,
+      id: props.id
+    };
+    newChat(persona);
+  };
+
   return (
-    <div className={styles.app}>
+    <div className={styles.app} onClick={handleClick}>
       {/* <div className={classnames(styles.app_icon, `ico-prompts`)}></div> */}
       <div className={styles.app_content}>
         <div className={styles.app_title}>{props.title}</div>

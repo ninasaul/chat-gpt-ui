@@ -143,13 +143,19 @@ app.post('/api/chats/store', async (req, res) => {
             updatedAt: new Date()
         };
         
-        // Try to find an existing document for this user
-        const existingChat = await collection.findOne({ uid: messageData.uid });
+        // Try to find an existing document for this user and persona
+        const existingChat = await collection.findOne({ 
+            uid: messageData.uid,
+            persona: messageData.persona // Add persona to the query
+        });
         
         if (existingChat) {
             // If document exists, push the new message to the messages array
             const result = await collection.updateOne(
-                { uid: messageData.uid },
+                { 
+                    uid: messageData.uid,
+                    persona: messageData.persona // Add persona to the query
+                },
                 { 
                     $push: { messages: messageData },
                     $set: { updatedAt: new Date() }
@@ -161,6 +167,7 @@ app.post('/api/chats/store', async (req, res) => {
             const result = await collection.insertOne({
                 uid: messageData.uid,
                 userEmail: messageData.userEmail,
+                persona: messageData.persona, // Store persona information
                 messages: [messageData],
                 createdAt: new Date(),
                 updatedAt: new Date()

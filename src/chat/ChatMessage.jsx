@@ -267,7 +267,8 @@ export function MessageBar() {
         sentTime: new Date().toISOString(),
         id: Date.now(),
         uid: currentUser?.uid || 'anonymous',
-        userEmail: currentUser?.email || 'anonymous'
+        userEmail: currentUser?.email || 'anonymous',
+        persona: chat[currentChat]?.persona || null // Add persona information
       };
       
       // Create assistant message object
@@ -277,7 +278,8 @@ export function MessageBar() {
         sentTime: new Date().toISOString(),
         id: Date.now() + 1,
         uid: currentUser?.uid || 'anonymous',
-        userEmail: currentUser?.email || 'anonymous'
+        userEmail: currentUser?.email || 'anonymous',
+        persona: chat[currentChat]?.persona || null // Add persona information
       };
 
       // Update chat with both messages immediately
@@ -325,7 +327,7 @@ export function MessageBar() {
                   },
                   body: JSON.stringify({
                     ...userMessage,
-                    conversationId: currentChat, // Add conversation ID to track different conversations
+                    conversationId: currentChat,
                     timestamp: new Date().toISOString()
                   })
                 });
@@ -344,7 +346,7 @@ export function MessageBar() {
                   },
                   body: JSON.stringify({
                     ...finalAssistantMessage,
-                    conversationId: currentChat, // Add same conversation ID
+                    conversationId: currentChat,
                     timestamp: new Date().toISOString()
                   })
                 });
@@ -369,7 +371,8 @@ export function MessageBar() {
               
               setState({ chat: newChat });
             }
-          }
+          },
+          chat[currentChat]?.persona // Pass the current chat's persona
         );
       } catch (error) {
         console.error('Chat error:', error);
@@ -413,6 +416,12 @@ export function MessageBar() {
             onBlur={() => setIs({ inputing: false })}
             placeholder="Enter something...."
             onChange={(value) => setMessage(value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault(); // Prevent default to avoid new line
+                handleSendMessage();
+              }
+            }}
           />
         </div>
         <div className={styles.bar_icon}>

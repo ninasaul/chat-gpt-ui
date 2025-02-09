@@ -73,16 +73,17 @@ export default function action(state, dispatch) {
       }
     },
 
-    newChat() {
+    newChat(persona) {
       const { chat } = state;
       const chatList = [
         ...chat,
         {
-          title: "This is a New Conversations",
+          title: persona?.title || "This is a New Conversation",
           id: Date.now(),
           messages: [],
           ct: Date.now(),
           icon: [2, "files"],
+          persona: persona || null,
         },
       ];
       setState({ chat: chatList, currentChat: chatList.length - 1 });
