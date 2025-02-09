@@ -127,7 +127,51 @@ app.post('/api/insert', async (req, res) => {
         console.error("Error inserting to MongoDB:", error);
         res.status(500).json({ success: false, error: error.message });
     }
-}); 
+});
+
+// Store chat messages endpoint
+app.post('/api/chats/store', async (req, res) => {
+    try {
+        const { getDB } = require('./config/db');
+        const db = await getDB();
+        const collection = db.collection("chats");
+        
+        const messageData = {
+            ...req.body,
+            timestamp: new Date(),
+            createdAt: new Date(),
+            updatedAt: new Date()
+        };
+        
+        // Try to find an existing document for this user
+        const existingChat = await collection.findOne({ uid: messageData.uid });
+        
+        if (existingChat) {
+            // If document exists, push the new message to the messages array
+            const result = await collection.updateOne(
+                { uid: messageData.uid },
+                { 
+                    $push: { messages: messageData },
+                    $set: { updatedAt: new Date() }
+                }
+            );
+            res.json({ success: true, result });
+        } else {
+            // If no document exists, create a new one with the first message
+            const result = await collection.insertOne({
+                uid: messageData.uid,
+                userEmail: messageData.userEmail,
+                messages: [messageData],
+                createdAt: new Date(),
+                updatedAt: new Date()
+            });
+            res.json({ success: true, result });
+        }
+    } catch (error) {
+        console.error("Error storing chat in MongoDB:", error);
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
 
 // Database connection and server start
 async function startServer() {

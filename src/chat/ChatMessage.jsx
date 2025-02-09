@@ -84,25 +84,6 @@ export function MessageHeader() {
     setAdminPanelVisible(true);
   };
 
-  // In your event handler (e.g., onClick)
-  // const handleInsert = async () => {
-  //   try {
-  //     const response = await fetch("http://localhost:3001/api/insert", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     });
-  //     const data = await response.json();
-  //     if (!data.success) {
-  //       throw new Error(data.error);
-  //     }
-  //     console.log("Successfully inserted document:", data.result);
-  //   } catch (error) {
-  //     console.error("Failed to insert document:", error);
-  //   }
-  // };
-
     const handleInsert = async () => {
       try {
         const response = await fetch("http://localhost:3001/api/insert", {
@@ -270,6 +251,8 @@ export function MessageBar() {
   const { message } = useMesssage();
   const { messages = [] } = message || {};
 
+  const { currentUser } = useAuth();
+
   const handleSendMessage = async () => {
     console.log({typeingMessage});
     if (!typeingMessage?.content) return;
@@ -282,7 +265,9 @@ export function MessageBar() {
         role: 'user',
         content: typeingMessage.content,
         sentTime: new Date().toISOString(),
-        id: Date.now()
+        id: Date.now(),
+        uid: currentUser?.uid || 'anonymous',
+        userEmail: currentUser?.email || 'anonymous'
       };
       
       // Create assistant message object
@@ -290,7 +275,9 @@ export function MessageBar() {
         role: 'assistant',
         content: 'Thinking...',
         sentTime: new Date().toISOString(),
-        id: Date.now() + 1
+        id: Date.now() + 1,
+        uid: currentUser?.uid || 'anonymous',
+        userEmail: currentUser?.email || 'anonymous'
       };
 
       // Update chat with both messages immediately
@@ -320,13 +307,59 @@ export function MessageBar() {
         await sendChatMessage(
           typeingMessage.content,
           contextMessages,
-          (response) => {
+          async (response) => {
             if (response) {
-              // Update the assistant message with the response
-              const latestMessages = [...messages, userMessage, {
+              // Create final assistant message with the response
+              const finalAssistantMessage = {
                 ...assistantMessage,
                 content: response
-              }];
+              };
+
+              // Store both user and assistant messages after getting the response
+              try {
+                // Store user message first
+                const userResponse = await fetch("http://localhost:3001/api/chats/store", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json"
+                  },
+                  body: JSON.stringify({
+                    ...userMessage,
+                    conversationId: currentChat, // Add conversation ID to track different conversations
+                    timestamp: new Date().toISOString()
+                  })
+                });
+                
+                if (!userResponse.ok) {
+                  throw new Error('Failed to store user message');
+                }
+                
+                console.log('User message stored successfully');
+
+                // Then store assistant message
+                const assistantResponse = await fetch("http://localhost:3001/api/chats/store", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json"
+                  },
+                  body: JSON.stringify({
+                    ...finalAssistantMessage,
+                    conversationId: currentChat, // Add same conversation ID
+                    timestamp: new Date().toISOString()
+                  })
+                });
+                
+                if (!assistantResponse.ok) {
+                  throw new Error('Failed to store assistant message');
+                }
+                
+                console.log('Assistant message stored successfully');
+              } catch (error) {
+                console.error("Failed to store messages:", error);
+              }
+
+              // Update the assistant message with the response
+              const latestMessages = [...messages, userMessage, finalAssistantMessage];
               
               const newChat = [...chat];
               newChat[currentChat] = {
@@ -339,12 +372,10 @@ export function MessageBar() {
           }
         );
       } catch (error) {
-        // Just log errors to console, don't show in UI
         console.error('Chat error:', error);
       }
       
     } catch (error) {
-      // Just log errors to console, don't show in UI
       console.error('Failed to send message:', error);
     } finally {
       setIs({ thinking: false });
