@@ -20,9 +20,9 @@ export const fetchBaseUrl = (baseUrl) =>
   baseUrl || "https://api.openai.com/v1/chat/completions";
 
 export const fetchHeaders = (options = {}) => {
-  const { organizationId, apiKey } = options;
+  const { organizationId } = options;
   return {
-    Authorization: "Bearer " + apiKey,
+    Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
     "Content-Type": "application/json",
     ...(organizationId && { "OpenAI-Organization": organizationId }),
   };

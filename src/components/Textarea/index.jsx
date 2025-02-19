@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from 'react'
+import React, { forwardRef, useState, useEffect } from 'react'
 import { classnames } from '../utils';
 import Proptypes from 'prop-types'
 import { Button } from '../Button';
@@ -14,19 +14,18 @@ export const Textarea = forwardRef((props, ref) => {
     children,
     rows,
     maxHeight,
-    value,
+    value = "",
     defaultValue,
     transparent,
     onClear,
     ...rest
   } = props;
-  const [content, setContent] = useState(value);
   const [height, setHeight] = useState('auto')
 
   function handleChange(event) {
+    if (!event || !event.target) return;
     setHeight('auto');
     setHeight(`${event.target.scrollHeight}px`);
-    setContent(event.target.value);
     onChange && onChange(event.target.value);
   }
 
@@ -40,7 +39,6 @@ export const Textarea = forwardRef((props, ref) => {
       event.preventDefault();
     }
     if (event.shiftKey && event.key === "Enter") {
-      setContent(content + "\n");
       event.preventDefault();
     }
   }
@@ -56,7 +54,7 @@ export const Textarea = forwardRef((props, ref) => {
           placeholder={placeholder}
           onKeyDown={handleKeyPress}
           className={classnames(styles.textarea, transparent && styles.transparent)}
-          value={content}
+          value={value}
           {...rest}
         />
       </div>
